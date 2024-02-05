@@ -9,8 +9,8 @@
   </div>
   <div class="ul-group">
     <ul class="ul-menu">
-      <li class="li-items"><Link link={"Accueil"} /></li>
-      <li class="li-items"><Link link={"Se connecter"} /></li>
+      <li class="li-items"><Link href={"/"} text="Accueil" /></li>
+      <li class="li-items"><Link href={"register"} text="Se connecter" /></li>
     </ul>
   </div>
 </header>

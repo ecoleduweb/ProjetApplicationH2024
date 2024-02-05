@@ -1,8 +1,9 @@
 <script>
-  export let link;
+  export let text;
+  export let href = text.toLowerCase();
 </script>
 
-<a href="#{link.toLowerCase()}">{link}</a>
+<a {href}>{text}</a>
 
 <style>
   a {

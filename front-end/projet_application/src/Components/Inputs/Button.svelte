@@ -1,11 +1,13 @@
 <script>
-  export let menuOpen;
+  export let text;
 </script>
+
+<button class="dropbtn">{text}</button>
 
 <style>
   /* Dropdown Button */
   .dropbtn {
-    background-color: darkblue;
+    background-color: #233845;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -16,6 +18,6 @@
   /* Dropdown button on hover & focus */
   .dropbtn:hover,
   .dropbtn:focus {
-    background-color: #3e8e41;
+    background-color: #4b9d93;
   }
 </style>
