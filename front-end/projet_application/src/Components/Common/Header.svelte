@@ -10,7 +10,7 @@
   <div class="ul-group">
     <ul class="ul-menu">
       <li class="li-items"><Link href={"/"} text="Accueil" /></li>
-      <li class="li-items"><Link href={"register"} text="Se connecter" /></li>
+      <li class="li-items"><Link href={"login"} text="Se connecter" /></li>
     </ul>
   </div>
 </header>

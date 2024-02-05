@@ -1,0 +1,59 @@
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the height of the section to 100% of the viewport height */
+    background-color: #f5f5f5; /* Add a light background color */
+    font-family: Manrope-Regular; /* Set the font-family */
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    color: #333; /* Set text color */
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc; /* Add a light border */
+    border-radius: 8px; /* Add border-radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    padding: 20px;
+    background-color: #fff; /* Set background color */
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+label {
+    margin-bottom: 8px; /* Add spacing between labels and input fields */
+}
+
+input,
+button {
+    margin-bottom: 16px; /* Add spacing between input fields and button */
+}
+
+button {
+    background-color: #007bff; /* Set button background color */
+    color: #fff; /* Set button text color */
+    padding: 10px 15px; /* Add padding to the button */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition */
+}
+
+button:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
