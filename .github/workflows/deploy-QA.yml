@@ -16,16 +16,9 @@ jobs:
           key: ${{secrets.QA_SSH_KEY}}
           username: ${{ secrets.SSH_USERNAME}}
 
-<<<<<<< HEAD
           script: |
             rm -r qa_project
             mkdir qa_project
             cd qa_project
             git clone -b QA https://github.com/ecoleduweb/ProjetApplicationH2024.git
-=======
-          script: 
-            mkdir qa_project
-            cd qa_project
-            git clone -b QA git@github.com:ecoleduweb/ProjetApplicationH2024.git
->>>>>>> 9551f57098b858856d2889c50cc3556402c46076
             echo 'Deployment successful to QA server'
