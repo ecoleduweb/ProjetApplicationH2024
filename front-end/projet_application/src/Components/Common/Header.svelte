@@ -1,0 +1,16 @@
+<script lang="ts">
+  import "../../styles/header.css";
+  import Link from "../Inputs/Link.svelte";
+</script>
+
+<header class="">
+  <div class="logo-img">
+    <img src="../../images/" class="image" alt="Logo" />
+  </div>
+  <div class="ul-group">
+    <ul class="ul-menu">
+      <li class="li-items"><Link link={"Accueil"} /></li>
+      <li class="li-items"><Link link={"Se connecter"} /></li>
+    </ul>
+  </div>
+</header>
