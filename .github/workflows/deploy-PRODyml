@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
+<<<<<<< HEAD
 
         with:
           host: ${{secrets.PROD_SSH_HOST}}
@@ -21,4 +22,16 @@ jobs:
             mkdir prod_project
             cd prod_project
             git clone -b PROD https://github.com/ecoleduweb/ProjetApplicationH2024.git
+=======
+        
+        with:
+          host: ${{secrets.QA_SSH_HOST}}
+          key: ${{secrets.QA_SSH_KEY}}
+          username: ${{ secrets.SSH_USERNAME}}
+
+          script: 
+            mkdir prod_project
+            cd prod_project
+            git clone -b PROD git@github.com:ecoleduweb/ProjetApplicationH2024.git
+>>>>>>> 9551f57098b858856d2889c50cc3556402c46076
             echo 'Deployment successful to PROD server'
