@@ -1,5 +1,8 @@
 <script>
+  import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
+  import "../../styles/login.css";
+
   let error = "";
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +24,7 @@
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("token", data.token);
-      location.href = "/dashboard";
+      location.href = "/";
     } else {
       error = await response.json();
       console.log(error);
@@ -29,17 +32,11 @@
   };
 </script>
 
-<svelte:head>
-  <title>Login</title>
-  <meta name="description" content="Login page" />
-  <link rel="stylesheet" href="src/styles/login.css" />
-</svelte:head>
-
 <section>
   <div class="login">
-    <h1>Login</h1>
+    <h1>Authentification</h1>
     <form on:submit={handleSubmit} class="login-form">
-      <label for="username">Username</label>
+      <label for="username">Nom d'utiliasteur</label>
       <input
         type="text"
         class="input-login"
@@ -47,7 +44,7 @@
         name="username"
         required
       />
-      <label for="password">Password</label>
+      <label for="password">Mot de passe</label>
       <input
         type="password"
         class="input-login"
@@ -58,8 +55,11 @@
       {#if error}
         <p>{error}</p>
       {/if}
-      <button type="submit" class="input-login">Se connecter </button>
-      <Link href="register" text="Register" />
+      <Button text="Se connecter" submit={true} />
+      <div class="submit">
+        <Link href="forgot-password" text="Mot de passe oublié ?" />
+      </div>
+      <Link href="register" text="Créer un utilisateur" />
     </form>
   </div>
 </section>

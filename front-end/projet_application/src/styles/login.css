@@ -45,26 +45,10 @@ h1 {
     width: 100%;
     padding: 20px;
 }
-
 label {
     margin-bottom: 8px; /* Add spacing between labels and input fields */
 }
 
-input,
-button {
-    margin-bottom: 16px; /* Add spacing between input fields and button */
-}
-
-button {
-    background-color: #007bff; /* Set button background color */
-    color: #fff; /* Set button text color */
-    padding: 10px 15px; /* Add padding to the button */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Add a smooth transition */
-}
-
-button:hover {
-    background-color: #0056b3; /* Change background color on hover */
+.submit {
+    margin: 10px;
 }

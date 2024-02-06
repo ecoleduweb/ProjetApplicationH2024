@@ -1,18 +1,26 @@
 <script>
   export let text;
+  export let submit = false;
 </script>
 
-<button class="dropbtn">{text}</button>
+{#if submit}
+  <input type="submit" class="dropbtn" value={text} />
+{:else}
+  <button class="dropbtn">{text}</button>
+{/if}
 
 <style>
   /* Dropdown Button */
   .dropbtn {
     background-color: #233845;
     color: white;
-    padding: 16px;
+    padding: 10px 15px;
     font-size: 16px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition */
   }
 
   /* Dropdown button on hover & focus */
