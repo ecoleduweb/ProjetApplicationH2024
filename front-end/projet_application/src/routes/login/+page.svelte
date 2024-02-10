@@ -2,6 +2,7 @@
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
   import "../../styles/login.css";
+  import "../../styles/global.css";
 
   let error = "";
   const handleSubmit = async (e) => {
@@ -57,7 +58,7 @@
       {/if}
       <Button text="Se connecter" submit={true} />
       <div class="submit">
-        <Link href="forgot-password" text="Mot de passe oublié ?" />
+        <Link href="forgotPassword" text="Mot de passe oublié ?" />
       </div>
       <Link href="register" text="Créer un utilisateur" />
     </form>
