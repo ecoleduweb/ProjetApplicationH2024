@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref }}
-      url: ${{secrets.SSH_HOST}}
+      url: ${{ secrets.SSH_HOST }}
 
     steps:
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
 
         with:
-          host: ${{secrets.SSH_HOST}}
-          key: ${{secrets.SSH_KEY}}
-          username: ${{ secrets.SSH_USERNAME}}
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
 
           script: |
             rm -r project
