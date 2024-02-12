@@ -5,7 +5,7 @@ on:
 
 env:
   SSH_HOST: ${{ secrets.secrets.SSH_HOST }}
-  GIT: ${{ env.GH_BRANCH }}
+  GIT: ${{ vars.GH_BRANCH }}
 
 jobs:
   deploy:
