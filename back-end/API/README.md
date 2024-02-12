@@ -22,8 +22,10 @@ CREATE DATABASE todo;
 USE todo;
 CREATE TABLE user (
     id int not null auto_increment,
-    task varchar(255) ,
-    completed boolean ,
+    name varchar(255) ,
+    email varchar(255) ,
+    password varchar(255) ,
+    admin boolean ,
     primary key (id)
 );
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
