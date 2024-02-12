@@ -10,19 +10,15 @@ jobs:
 
     steps:
       - name: Debugtest
-        env: 
-          SSH_HOST: ${{ secrets.secrets.SSH_HOST }}
-          GIT: ${{ vars.GH_BRANCH }}
-
+        env:
+          REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
+          ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
+          OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
         run: |
           echo "repository variable : $REPOSITORY_VAR"
           echo "organization variable : $ORGANIZATION_VAR"
           echo "overridden variable : $OVERRIDE_VAR"
           echo "variable from shell environment : $env_var"
-        env:
-          REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
-          ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
-          OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
