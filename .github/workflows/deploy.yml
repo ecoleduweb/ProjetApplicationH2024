@@ -10,12 +10,19 @@ jobs:
     steps:
       - name: Debug
         env:
-          SSH_HOST: ${{ secrets.secrets.SSH_HOST }}
-          GIT: ${{ vars.GH_BRANCH }}
+          SSH_HOST: ${{ secrets.TEST }}
+          FOO: ${{ vars.TEST }}
 
         run: |
-          echo "SSH_HOST: $SSH_HOST"t
-          echo "GIT: $GIT"
+          echo "1: ${ FOO }"
+          echo "2: ${{ FOO }}"
+          echo "3: $FOO"
+          echo "4: ${ vars.TEST }"
+          echo "5: ${{ vars.TEST }}"
+          echo "6: $vars.TEST"
+          echo "7: ${ TEST }"
+          echo "8: ${{ TEST }}"
+          echo "9: $TEST"
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
