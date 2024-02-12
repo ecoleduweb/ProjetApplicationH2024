@@ -15,7 +15,6 @@ jobs:
 
         run: |
           echo "1: ${ FOO }"
-          echo "2: ${{ FOO }}"
       
       - name: Debug2
         env:
