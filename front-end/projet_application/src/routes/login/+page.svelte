@@ -14,7 +14,7 @@
 
   const handleSubmit = async () => {
     console.log(form);
-    const response = POST("http://localhost:5000/login", form);
+    const response = POST("/auth/login", form);
     console.log(response);
   };
 </script>

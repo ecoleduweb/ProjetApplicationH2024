@@ -1,7 +1,8 @@
+import { env } from '$env/dynamic/public';
 // Function to fetch data from the API
-export async function GET<T>(url: string): Promise<T[]> {
+export async function GET<T>(url: string): Promise<T> {
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${env.PUBLIC_BASE_URL}${url}`);
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
@@ -14,9 +15,9 @@ export async function GET<T>(url: string): Promise<T[]> {
 }
 
 // Function to post data to the API
-export async function POST<T>(url: string, body: T): Promise<T> {
+export async function POST<T, T1>(url: string, body: T): Promise<T1> {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${env.PUBLIC_BASE_URL}${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ export async function POST<T>(url: string, body: T): Promise<T> {
 // Function to post delete to the API
 export async function DELETE(url: string): Promise<void> {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${env.PUBLIC_BASE_URL}${url}`, {
       method: 'DELETE'
     });
     if (!response.ok) {
@@ -51,7 +52,7 @@ export async function DELETE(url: string): Promise<void> {
 // Function to post patch to the API
 export async function PATCH<T>(url: string, body: T): Promise<void> {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${env.PUBLIC_BASE_URL}${url}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
