@@ -1,0 +1,23 @@
+/****************************************************************
+		
+	Fichier : font.css	
+	Description : Feuille de style des fonts-face du site web CSS
+	Auteur : Félix Beaulieu
+	Version (date) :  2024-01-29		
+		
+					
+****************************************************************/
+
+@font-face {
+    font-family: Manrope-Regular ;
+    src: url(../styles/font/Manrope/Manrope-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Raleway-Regular;
+    src: url(../styles/font/Raleway/Raleway-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: Manrope-ExtraLight;
+    src: url(../styles/font/Raleway/Raleway-ExtraLight.ttf);
+}

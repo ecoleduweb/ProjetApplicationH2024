@@ -1,0 +1,12 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+h1,
+h2 {
+  font-family: Manrope-ExtraLight;
+}
+
+p, label, input, button, a, span, li, ul, div, h3, h4, h5, h6{
+    font-family: Manrope-Regular;
+  }
