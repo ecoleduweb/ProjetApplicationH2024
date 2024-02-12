@@ -26,7 +26,6 @@ jobs:
           SSH_HOST: ${{ secrets.TEST }}
           FOO: ${{ vars.TEST }}
         run: |
-          echo "8: ${{ TEST }}"
           echo "9: $TEST"
 
       - name: Deploy NodeJS app
