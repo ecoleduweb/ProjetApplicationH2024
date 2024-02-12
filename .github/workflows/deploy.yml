@@ -14,8 +14,8 @@ jobs:
           GIT: ${{ vars.GH_BRANCH }}
 
         run: |
-          echo "SSH_HOST: ${SSH_HOST}"
-          echo "GIT: ${GIT}"
+          echo "SSH_HOST: $SSH_HOST"t
+          echo "GIT: $GIT"
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
