@@ -1,6 +1,6 @@
-<script>
-  export let text;
-  export let submit = false;
+<script lang="ts">
+  export let text: string;
+  export let submit: boolean = false;
 </script>
 
 {#if submit}

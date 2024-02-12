@@ -5,7 +5,7 @@
 
 <header class="">
   <div class="logo-img">
-    <img src="../../images/" class="image" alt="Logo" />
+    <img src="./src/images/logo.png" class="image" alt="Logo" />
   </div>
   <div class="ul-group">
     <ul class="ul-menu">

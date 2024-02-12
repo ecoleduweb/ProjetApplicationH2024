@@ -1,6 +1,6 @@
-<script>
-  export let text;
-  export let href = text.toLowerCase();
+<script lang="ts">
+  export let text: string;
+  export let href: string = text.toLowerCase();
 </script>
 
 <a {href}>{text}</a>
