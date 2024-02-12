@@ -1,7 +1,8 @@
 name: Build & Deploy
 on:
-  push:
-    branches: [dev, QA, PROD, SD_Build&Deploy]
+  workflow_dispatch:
+env:
+  env_vars: ${{ vars.ENV_CONTEXT_VAR  }}
 
 jobs:
   deploy:
@@ -9,24 +10,15 @@ jobs:
 
     steps:
       - name: Debug
-        env:
-          SSH_HOST: ${{ secrets.TEST }}
-          FOO: ${{ vars.TEST }}
-
         run: |
-          # echo "1: ${ FOO }"
-          echo "3: $FOO"
-          # echo "4: ${ vars.TEST }"
-          echo "5: ${{ vars.TEST }}"
-          echo "6: $vars.TEST"
-          # echo "7: ${ TEST }"
-      
-      - name: Debug2
+          echo "repository variable : $REPOSITORY_VAR"
+          echo "organization variable : $ORGANIZATION_VAR"
+          echo "overridden variable : $OVERRIDE_VAR"
+          echo "variable from shell environment : $env_var"
         env:
-          SSH_HOST: ${{ secrets.TEST }}
-          FOO: ${{ vars.TEST }}
-        run: |
-          echo "9: $TEST"
+          REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
+          ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
+          OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
