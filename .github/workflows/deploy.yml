@@ -3,6 +3,9 @@ on:
   push:
     branches: [dev, QA, PROD, SD_Build&Deploy]
 
+  env:
+  SSH_HOST: ${{ secrets.secrets.SSH_HOST }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -10,9 +13,9 @@ jobs:
     steps:
       - name: Debug
         run: |
-          echo "SSH_HOST: ${{env.GH_BRANCH}}"
-          echo "SSH_HOST: ${{secrets.SSH_HOST}}"
-          echo "SSH_HOST: ${{secrets.SSH_HOST == ''}}"
+          echo "SSH_HOST: $SSH_HOST"
+          echo "SSH_HOST: $SSH_HOST"
+          echo "SSH_HOST: $SSH_HOST == ''"
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
