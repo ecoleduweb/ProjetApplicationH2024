@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug
-        env:
+      - name: Debugtest
+        env: 
           SSH_HOST: ${{ secrets.secrets.SSH_HOST }}
           GIT: ${{ vars.GH_BRANCH }}
 
