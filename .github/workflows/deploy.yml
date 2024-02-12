@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Debug
         run: |
-          echo "Branch: $GIT"
+          echo "Branch: $GIT == 'SD_Build&Deploy'"
           echo "SSH_HOST: $SSH_HOST"
           echo "SSH_KEY: $SSH_KEY"
           echo "SSH_USERNAME: $SSH_USERNAME"
