@@ -1,7 +1,7 @@
 name: Build & Deploy
 on:
   push:
-    branches: [dev, QA, PROD]
+    branches: [dev, QA, PROD, SD_Build&Deploy]
 
 jobs:
   deploy:
