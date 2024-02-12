@@ -16,7 +16,7 @@ jobs:
         run: |
           # echo "1: ${ FOO }"
           echo "3: $FOO"
-          echo "4: ${ vars.TEST }"
+          # echo "4: ${ vars.TEST }"
           echo "5: ${{ vars.TEST }}"
           echo "6: $vars.TEST"
           echo "7: ${ TEST }"
