@@ -3,7 +3,7 @@ on:
   push:
     branches: [dev, QA, PROD, SD_Build&Deploy]
 
-  env:
+env:
   SSH_HOST: ${{ secrets.secrets.SSH_HOST }}
 
 jobs:
