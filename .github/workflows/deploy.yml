@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Debug
         run: |
-          echo "SSH_HOST: $GH_BRANCH"
+          echo "SSH_HOST: ${{env.GH_BRANCH}}"
           echo "SSH_HOST: ${{secrets.SSH_HOST}}"
           echo "SSH_HOST: ${{secrets.SSH_HOST == ''}}"
 
