@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Debug
         run: |
-        echo "Is $GIT empty? $(if [ -z "$GIT" ]; then echo "true"; else echo "false"; fi)"
+          echo "Branch: $GIT == ''"
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
