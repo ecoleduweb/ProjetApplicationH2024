@@ -1,6 +1,6 @@
 name: Build & Deploy
 on:
-  workflow_dispatch:
+   push
 env:
   env_vars: ${{ vars.ENV_CONTEXT_VAR  }}
 
