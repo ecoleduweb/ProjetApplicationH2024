@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug
+        run: |
+          echo "SSH_HOST: $GH_BRANCH"
+          echo "SSH_HOST: ${{ secrets.SSH_HOST }}"
+
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
 
