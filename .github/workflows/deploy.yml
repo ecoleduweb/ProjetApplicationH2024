@@ -11,9 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref }}
-      url: ${{ secrets.SSH_HOST }}
+      url: ${{secrets.SSH_HOST}}
 
     steps:
+      - name: Debug
+        run: |
+          echo "SSH_HOST: $GH_BRANCH"
+          echo "SSH_HOST: ${{ secrets.SSH_HOST }}"
+          
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
 
