@@ -19,13 +19,13 @@ jobs:
           echo "4: ${ vars.TEST }"
           echo "5: ${{ vars.TEST }}"
           echo "6: $vars.TEST"
+          echo "7: ${ TEST }"
       
       - name: Debug2
         env:
           SSH_HOST: ${{ secrets.TEST }}
           FOO: ${{ vars.TEST }}
         run: |
-          echo "7: ${ TEST }"
           echo "8: ${{ TEST }}"
           echo "9: $TEST"
 
