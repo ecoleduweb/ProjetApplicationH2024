@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "SSH_HOST: $GH_BRANCH"
           echo "SSH_HOST: ${{secrets.SSH_HOST}}"
-          echo "SSH_HOST: ${{secrets.SSH_HOST == '134.122.45.61'}}"
+          echo "SSH_HOST: ${{secrets.SSH_HOST == ''}}"
 
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
