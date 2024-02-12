@@ -1,11 +1,17 @@
 name: Build & Deploy
 on:
   push:
-    branches: [dev, QA, PROD]
+    branches: [dev, QA, PROD, SD_Build&Deploy]
+
+env:
+  GH_BRANCH: ${{ github.ref }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref }}
+      url: ${{secrets.SSH_HOST}}
 
     steps:
       - name: Deploy NodeJS app
