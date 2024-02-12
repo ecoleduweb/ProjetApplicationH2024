@@ -2,7 +2,7 @@ name: Build & Deploy
 on:
    push
 env:
-  env_vars: ${{ vars.ENV_CONTEXT_VAR  }}
+  env_vars: ${{ vars.TEST  }}
 
 jobs:
   deploy:
