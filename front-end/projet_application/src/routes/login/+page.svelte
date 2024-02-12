@@ -3,36 +3,19 @@
   import Link from "../../Components/Inputs/Link.svelte";
   import "../../styles/login.css";
   import "../../styles/global.css";
-
-  interface Login {
-    username: string;
-    password: string;
-  }
+  import type { Login } from "../../Models/Login";
+  import { POST } from "../../ts/server";
 
   let error = "";
   let form: Login = {
-    username: "",
+    email: "",
     password: "",
   };
+
   const handleSubmit = async () => {
     console.log(form);
-
-    const response = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      location.href = "/";
-    } else {
-      error = await response.json();
-      console.log(error);
-    }
+    const response = POST("http://localhost:5000/login", form);
+    console.log(response);
   };
 </script>
 
@@ -40,14 +23,14 @@
   <div class="login">
     <h1>Authentification</h1>
     <form on:submit|preventDefault={handleSubmit} class="login-form">
-      <label for="username">Nom d'utiliasteur</label>
+      <label for="email">Nom d'utiliasteur</label>
       <input
         type="text"
         class="input-login"
-        id="username"
-        name="username"
+        id="email"
+        name="email"
         required
-        bind:value={form.username}
+        bind:value={form.email}
       />
       <label for="password">Mot de passe</label>
       <input
