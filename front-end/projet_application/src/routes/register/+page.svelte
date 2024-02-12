@@ -103,7 +103,7 @@
     </div>
     <div class="form-inputs form-submit">
       <div class="form-buttons">
-        <Link text="Retour" href="/" />
+        <Link text="Retour" href="/login" />
       </div>
       <div class="form-buttons">
         <Button submit={true} text="Créer" />

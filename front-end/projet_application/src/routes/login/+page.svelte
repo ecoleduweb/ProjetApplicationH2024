@@ -1,25 +1,28 @@
-<script>
+<script lang="ts">
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
   import "../../styles/login.css";
   import "../../styles/global.css";
 
-  let error = "";
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const username = formData.get("username");
-    const password = formData.get("password");
+  interface Login {
+    username: string;
+    password: string;
+  }
 
-    console.log(username, password);
+  let error = "";
+  let form: Login = {
+    username: "",
+    password: "",
+  };
+  const handleSubmit = async () => {
+    console.log(form);
 
     const response = await fetch("http://localhost:5000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify(form),
     });
 
     if (response.ok) {
@@ -36,7 +39,7 @@
 <section>
   <div class="login">
     <h1>Authentification</h1>
-    <form on:submit={handleSubmit} class="login-form">
+    <form on:submit|preventDefault={handleSubmit} class="login-form">
       <label for="username">Nom d'utiliasteur</label>
       <input
         type="text"
@@ -44,6 +47,7 @@
         id="username"
         name="username"
         required
+        bind:value={form.username}
       />
       <label for="password">Mot de passe</label>
       <input
@@ -52,6 +56,7 @@
         id="password"
         name="password"
         required
+        bind:value={form.password}
       />
       {#if error}
         <p>{error}</p>

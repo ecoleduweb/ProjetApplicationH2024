@@ -1,10 +1,11 @@
 <script>
   import Button from "../../Components/Inputs/Button.svelte";
-  import Link from "../../Components/Inputs/Link.svelte";
   import "../../styles/resetPassword.css";
   import "../../styles/global.css";
 
   let error = "";
+  let password = "";
+  let confirmPassword = "";
 </script>
 
 <section>
@@ -18,6 +19,7 @@
         id="password"
         name="password"
         required
+        bind:value={password}
       />
       <p class="text-title">Votre mot de passe doit contenir au minimum :</p>
       <ul class="list-requirements">
@@ -33,6 +35,7 @@
         id="confirmPassword"
         name="confirmPassword"
         required
+        bind:value={confirmPassword}
       />
       {#if error}
         <p>{error}</p>

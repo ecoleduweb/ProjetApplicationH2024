@@ -5,6 +5,7 @@
   import "../../styles/global.css";
 
   let error = "";
+  let username = "";
 </script>
 
 <section>
@@ -18,6 +19,7 @@
         id="username"
         name="username"
         required
+        bind:value={username}
       />
       <p class="text-password">
         Un courriel vous sera envoyé pour réinitialiser votre mot de passe
