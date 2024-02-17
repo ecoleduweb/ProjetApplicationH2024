@@ -4,19 +4,49 @@
   import "../../styles/login.css";
   import "../../styles/global.css";
   import type { Login } from "../../Models/Login";
+  import type { ErrorResponse } from "../../Models/ErrorResponse";
   import { POST } from "../../ts/server";
+  import * as yup from "yup";
 
-  let error = "";
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .required("Entrer un courriel")
+      .email("Le courriel n'est pas valide"),
+    password: yup.string().required("Le mot de passe est requis"),
+  });
+
+  let errors: Login = {
+    email: "",
+    password: "",
+  };
+
   let form: Login = {
     email: "",
     password: "",
   };
 
   const handleSubmit = async () => {
-    console.log(form);
-    const response = POST("/auth/login", form);
-    console.log(response);
+    try {
+      // `abortEarly: false` to get all the errors
+      await schema.validate(form, { abortEarly: false });
+      errors = {
+        email: "",
+        password: "",
+      };
+
+      console.log(form);
+      const response = POST("/auth/login", form);
+      console.log(response);
+    } catch (err) {
+      errors = extractErrors(err);
+    }
   };
+  function extractErrors(err: ErrorResponse | any) {
+    return err.inner.reduce((acc: string[], err: ErrorResponse) => {
+      return { ...acc, [err.path]: err.message };
+    }, {});
+  }
 </script>
 
 <section>
@@ -29,21 +59,22 @@
         class="input-login"
         id="email"
         name="email"
-        required
         bind:value={form.email}
       />
+      <p class="errors-input">
+        {#if errors.email}{errors.email}{/if}
+      </p>
       <label for="password">Mot de passe</label>
       <input
         type="password"
         class="input-login"
         id="password"
         name="password"
-        required
         bind:value={form.password}
       />
-      {#if error}
-        <p>{error}</p>
-      {/if}
+      <p class="errors-input">
+        {#if errors.password}{errors.password}{/if}
+      </p>
       <Button text="Se connecter" submit={true} />
       <div class="submit">
         <Link href="forgotPassword" text="Mot de passe oublié ?" />
