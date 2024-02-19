@@ -1,3 +1,4 @@
+
 .container{
     display: flex;
     flex-direction: column;
@@ -18,7 +19,7 @@ label {
     background-color: #ffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
     border-radius: 15px;
-    width: 60%;
+    width: 70%;
     padding: 0 10px;
 }
 .form-inputs {
@@ -71,7 +72,7 @@ label {
 
 .form-group-horizontal {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     width: 50%;
     margin: 10px 0;
@@ -81,3 +82,4 @@ label {
     display: flex;
     flex-direction: row;
 }
+

@@ -3,26 +3,20 @@
     import "../../styles/offre.css";
   
     import Button from "../../Components/Inputs/Button.svelte";
-    import Link from "../../Components/Inputs/Link.svelte";
+    // import { MultiSelect } from "carbon-components-svelte"; -----------------
+    import MultiSelect from 'svelte-multiselect';
     import type { Offre } from "../../Models/Offre";
   
     let offre: Offre = {
     titre: "",
-    employeur: "",
-    periodeJour: false,
-    periodeSoir: false,
-    periodeNuit: false,
-    periodeFinDeSemaine: false,
-    saisonHiver: false,
-    saisonEte: false,
-    saisonAutomne: false,
-    saisonPrintemps: false,
+    lieu: "",
+    dateEntreeFontion: new Date(),
     heure : "",
     salaire: "",
     stage: true,
     duree: "",
     programme: "",
-    conciliation: "", 
+    conciliation: false, 
     urgente: false,
     lien: "",
     description: "",
@@ -31,73 +25,92 @@
     personneContact: "",
     courrielContact: "",
     telephoneContact: "",
+    active: true,
     };
-  
+
+    let programmeSelected: { label: string; value: number }[] = [];
+    let programmes = [
+    { label: "Design d'intérieur", value: 1 },
+    { label: "Éducation à l'enfance", value: 2 },
+    { label: "Gestion et intervention en loisir", value: 3 },
+    { label: "Graphisme", value: 4 },
+    { label: "Informatique", value: 5 },
+    { label: "Inhalothérapie", value: 6 },
+    { label: "Pharmacie", value: 7 }
+];
+  let typeEmploisSelected: { label: string; value: number }[] = [];
+      let typeEmplois = [
+      { label: "Temps plein", value: 1 },
+      { label: "Emploi d'été", value: 2 },
+      { label: "Temps partiel", value: 3 },
+      { label: "Stage", value: 4 },
+  ];
+
+
     function handleSubmit() {
       // Here you can handle form submission, for now, just logging the values
+      console.log(programmeSelected);
       console.log(offre);
     }
   </script>
   
   <div class="container">
-    <h1>Créer un offre d'emplois</h1>
-  
     <form on:submit|preventDefault={handleSubmit} class="form-offre">
+      <h1>Créer une nouvelle offre d'emploi</h1>
       <div class="form-group-horizontal">
-        <label for="titre">Titre</label>
+        <label for="titre">Titre du poste*</label>
         <input type="text" bind:value={offre.titre} class="form-control" id="titre" />
       </div>
       <div class="form-group-horizontal">
-        <label for="employeur">Employeur</label>
-        <input type="text" bind:value={offre.employeur} class="form-control" id="employeur" />
+        <label for="typeEmplois">Type d'emplois*</label>
+        <MultiSelect
+          id="periode"
+          options={typeEmplois}
+          placeholder="Choisir période(s)..."
+          bind:value={typeEmploisSelected}
+        />
       </div>
       <div class="form-group-horizontal">
-        <label for="periode">Période</label>
-        <div class="list-check">
-          <label for="periode">Jour</label>
-          <input type="checkbox" bind:checked={offre.periodeJour} class="form-control" id="periodeJour" />
-        </div>
-        <div class="list-check">
-          <label for="periode">Soir</label>
-          <input type="checkbox" bind:checked={offre.periodeSoir} class="form-control" id="periodeSoir" />
-        </div>
-        <div class="list-check">
-          <label for="periode">Nuit</label>
-          <input type="checkbox" bind:checked={offre.periodeNuit} class="form-control" id="periodeNuit" />
-        </div>
-        <div class="list-check">
-          <label for="periode">Fin de Semaine</label>
-          <input type="checkbox" bind:checked={offre.periodeFinDeSemaine} class="form-control" id="periodeFinDeSemaine" />
-        </div>
+        <label for="lieu">Lieu de travail*</label>
+        <input type="text" bind:value={offre.lieu} class="form-control" id="salaire" />
       </div>
       <div class="form-group-horizontal">
-        <label for="salaire">Salaire</label>
-        <input type="text" bind:value={offre.salaire} class="form-control" id="salaire" />
+        <label for="description">Description du poste*</label>
+        <input type="text" bind:value={offre.description} class="form-control" id="salaire" />
       </div>
       <div class="form-group-horizontal">
-        <label for="heure">Heure</label>
-        <input type="text" bind:value={offre.heure} class="form-control" id="heure" />
+        <label for="dateEntree">Date d'entrée en fonction</label>
+        <input type="date" bind:value={offre.dateEntreeFontion} class="form-control" id="dateEntree" />
       </div>
       <div class="form-group-horizontal">
-        <label for="stage">Stage</label>
-        <input type="checkbox" bind:checked={offre.stage} class="form-control" id="stage" />
+        <label for="dateLimite">Date limite pour postuler</label>
+        <input type="date" bind:value={offre.dateLimitePostuler} class="form-control" id="dateLimite" />
       </div>
       <div class="form-group-horizontal">
         <label for="duree">Durée</label>
         <input type="text" bind:value={offre.duree} class="form-control" id="duree" />
       </div>
       <div class="form-group-horizontal">
-        <label for="programme">Programme</label>
-        <input type="text" bind:value={offre.programme} class="form-control" id="programme" />
-      </div>
+        <label for="duree">Programme visée</label>
+        <MultiSelect
+          id="programme"
+          options={programmes}
+          placeholder="Choisir programme(s)..."
+          bind:value={programmeSelected}
+        >
+        </MultiSelect>
+      </div>      
       <div class="form-group-horizontal">
         <label for="conciliation">Conciliation</label>
-        <input type="text" bind:value={offre.conciliation} class="form-control" id="conciliation" />
+        <input type="checkbox" bind:checked={offre.conciliation} class="form-control" id="conciliation" />
       </div>
       <div class="form-group-horizontal">
         <label for="urgente">Urgente</label>
         <input type="checkbox" bind:checked={offre.urgente} class="form-control" id="urgente" />
       </div>
+      <div class="form-group-horizontal">
+        <label for="lien">Lien</label>
+      <Button text="Enregistrer" on:click={() => handleSubmit()} />
     </form>
     
   </div>
