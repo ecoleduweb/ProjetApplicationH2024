@@ -2,6 +2,7 @@ header {
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 6.25vw;
     background-color: #1E2634;
     border-bottom: 1px solid #00AD9A;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -48,7 +49,7 @@ header {
     display: flex;
 }
 
-.button {
+button {
     background-color: #1E2634;
     color: white;
     text-decoration: none;
@@ -57,21 +58,68 @@ header {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 33%;
+    width: 100%;
     height: 100%;
-    font-size: 30px;
     padding: 10px 0px 10px 0px;
 }
 
-.button:hover {
+.option {
+    width: 33%;
+}
+
+button:hover {
     background-color: #555b66;
 }
 
-p {
+p,
+a {
     color: white;
-    font-size: 30px;
     margin: 0;
     padding: 0;
     text-align: center;
     width: 100%;
+    font-size: 1.3vw;
+}
+
+/* Existing CSS styles */
+
+/* Dropdown Button */
+.dropbtn {
+    position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    background-color: #1E2634;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5.25vw;
+    transition: 0.5s;
+    background: linear-gradient(90deg,
+            var(--c1, #268794),
+            var(--c2, #2EBAA1) 55%,
+            var(--c3, #30A29E) 70%,
+            var(--c4, #318E9B) 90%) var(--x, 0) / 200%;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    --x: 100%;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
 }

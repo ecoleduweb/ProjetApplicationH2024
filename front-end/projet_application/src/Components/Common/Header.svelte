@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../../styles/header.css";
-  import Link from "../Inputs/Link.svelte";
 </script>
 
 <header class="">
@@ -9,12 +8,20 @@
   </div>
   <div class="ul-group">
     <ul class="ul-menu">
-      <button class="button">
-        <p>Offrir un emploi</p>
-      </button>
-      <button class="button">
-        <p>Trouver un emploi</p>
-      </button>
+      <div class="option dropdown">
+        <button class="button dropbtn">
+          <p>Offrir un emploi</p>
+        </button>
+        <div class="dropdown-content">
+          <a href="/login">Connexion entreprise</a>
+          <a href="/register">Créer un compte entreprise</a>
+        </div>
+      </div>
+      <div class="option">
+        <button class="button">
+          <p>Trouver un emploi</p>
+        </button>
+      </div>
     </ul>
   </div>
 </header>
