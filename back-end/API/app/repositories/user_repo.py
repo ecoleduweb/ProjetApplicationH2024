@@ -1,10 +1,11 @@
-from app import db, app
+from app import db
 from app.models.user_model import User
 from flask import Flask, jsonify, request
 from functools import wraps
 from argon2 import PasswordHasher
 import datetime
 from jwt import encode
+import os
 
 hasher = PasswordHasher()
 
@@ -16,7 +17,7 @@ class UserRepo:
         if not user:
             return jsonify({'message': 'user not found'})
         elif isvalid:
-            token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+            token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get('SECRET_KEY'))
             return jsonify({'token' : token})
         return jsonify({'message': 'could not verify'})
 

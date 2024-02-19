@@ -1,44 +1,35 @@
 import os
-import unittest
-from flask_testing import TestCase
-from pathlib import Path
-import sys
+import pytest
 from dotenv import load_dotenv
+from app import create_app
 
 load_dotenv()
 
-current_file = Path(__file__).resolve()
-parent_directory = current_file.parent
-project_directory = parent_directory.parent
+@pytest.fixture(scope='module')
+def app():
+    app = create_app()
+    app.config['TESTING'] = True  # Activer le mode test
+    yield app
 
-sys.path.append(str(project_directory))
+@pytest.fixture(scope='module')
+def client(app):
+    return app.test_client()
 
-from app import app, db
-from app.repositories.user_repo import UserRepo
-user_repo = UserRepo()
-from app.models.user_model import User
+def test_createUser(client):
+    data = {
+        "name": "Phil",
+        "email": "phil@gmail.com",
+        "password": "phil123",
+        "admin": False 
+    }
+    response = client.post('/createUser', json=data)
+    assert response.status_code == 200
 
-class BaseTestCase(TestCase):
-    def create_app(self):
-        app.config['TEST'] = "true"
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_TEST_URL")
-        return app
-
-    def setUp(self):
-        db.create_all()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-
-
-# class TestUserRepo(BaseTestCase):
-#     def test_createUser(self):
-#         with self.app.app_context():
-#             user = user_repo.createUser({"name": "test", "email": "test@gmail.com", "password": "test"})
-#             self.assertEqual(user.name, "test")
-
-
-
-if __name__ == '__main__':
-    unittest.main()
+def test_login(client):
+    data = {
+        "email": "philsaucier@gmail.com",
+        "password": "phil123"
+    }
+    response = client.post('/login', json=data)
+    assert response.status_code == 200
+    assert 'token' in response.json

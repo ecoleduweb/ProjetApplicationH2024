@@ -6,21 +6,29 @@ import os
 import pytest
 import pymysql
 
+db = SQLAlchemy()
+
 pymysql.install_as_MySQLdb()
 load_dotenv()
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
 
-if any("pytest" in arg for arg in sys.argv):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_TEST_URL')
-    print("Running in test mode.")
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_DEV_URL')
-    print("Running in development mode.")
+    if any("pytest" in arg for arg in sys.argv):
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_TEST_URL')
 
-db = SQLAlchemy(app)
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_DEV_URL')
+        print("Running in development mode.")
 
-from app.controllers.user_controller import *
+    db.init_app(app)
 
-if any("pytest" in arg for arg in sys.argv):
-    pytest.main(['tests/'])
+    from app.controllers.user_controller import app_blueprint
+    app.register_blueprint(app_blueprint)
+
+    if any("pytest" in arg for arg in sys.argv):
+        pytest.main(['tests/'])
+
+    return app
+
+# from app.controllers.user_controller import *
