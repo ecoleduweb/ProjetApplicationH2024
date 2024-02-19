@@ -25,7 +25,7 @@ jobs:
             echo 'Creating database'
             echo '. . .'
             echo 'Installing packages'
-            cd /root/dev_project/ProjetApplicationH2024/front-end/projet_application
+            cd /%username%/dev_project/ProjetApplicationH2024/front-end/projet_application
             npm i
             echo 'Starting services'
             cd /%username%/dev_project/ProjetApplicationH2024/front-end/projet_application
