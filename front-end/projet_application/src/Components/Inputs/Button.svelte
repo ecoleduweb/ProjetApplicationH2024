@@ -23,9 +23,8 @@
     transition: background-color 0.3s ease; /* Add a smooth transition */
   }
 
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover,
-  .dropbtn:focus {
+  /* Dropdown button on hover */
+  .dropbtn:hover {
     background-color: #4b9d93;
   }
 </style>
