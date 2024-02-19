@@ -1,0 +1,9 @@
+flask
+Flask-SQLAlchemy
+mariadb
+pymysql
+flask-cors
+python-dotenv
+jwt
+virtualenv
+argon2-cffi
