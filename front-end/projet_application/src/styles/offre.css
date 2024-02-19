@@ -72,6 +72,14 @@ label {
 
 .form-group-horizontal {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    margin: 10px 0;
+}
+
+.form-group-vertical {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 50%;
