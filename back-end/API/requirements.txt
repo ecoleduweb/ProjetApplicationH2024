@@ -1,2 +1,9 @@
-Flask==3.0.2
-PyJWT==2.8.0
+flask
+Flask-SQLAlchemy
+mariadb
+pymysql
+flask-cors
+python-dotenv
+jwt
+virtualenv
+argon2-cffi

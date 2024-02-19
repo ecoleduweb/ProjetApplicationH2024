@@ -1,68 +1,57 @@
 from app import db, app
 from app.models.user_model import User
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request
 from functools import wraps
-import os
-from werkzeug.security import generate_password_hash, check_password_hash
-
+from argon2 import PasswordHasher
 import datetime
+from jwt import encode
 
-import uuid
-
-# import jwt
-
-
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+hasher = PasswordHasher()
 
 class UserRepo:
 
-    # def token_required(f):
-    #     @wraps(f)
-    #     def decorated(*args, **kwargs):
-    #         token = request.headers.get('Authorization')
-    #         if 'Authorization' in request.headers:
-    #             token = request.headers['Authorization']
-    #         if not token:
-    #             return jsonify({'message': 'a valid token is missing'})
-
-    #         try:
-    #             data = decode(token, app.config['SECRET_KEY'])
-    #             current_user = User.query.filter_by(public_id=data['public_id']).first()
-    #         except:
-    #             return jsonify({'message': 'token is invalid'})
-
-    #         return f(current_user, *args, **kwargs)
-    #     return decorated
-
-
-    def getAllUsers(self):
-        return User.query.all()
-
     def login(self, data):
-
-        # if auth and auth.password == 'password':
-        #     token = jwt.encode({'user': auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-        #     token = "token"
-        #     return jsonify({'token' : token})
-
         user = User.query.filter_by(email=data['email']).first()
-
+        isvalid = hasher.verify(user.password, data['password'])
         if not user:
             return jsonify({'message': 'user not found'})
-        
-        elif user.password == data['password']:
-            # token = jwt.encode({'user': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-            token = "token"
+        elif isvalid:
+            token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
             return jsonify({'token' : token})
-
         return jsonify({'message': 'could not verify'})
 
-    # @token_required
     def createUser(self, data):
-        # hashed_password = generate_password_hash(data['password'], method='sha256')
-        new_user = User(name=data['name'], email=data['email'], password=data['password'], admin=False)
+        hashed_password = hasher.hash(data['password'])
+        new_user = User(name=data['name'], email=data['email'], password=hashed_password, admin=False)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'message': 'new user created'})
 
-    
+    def updatePassword(self, data):
+        user = User.query.filter_by(email=data["email"]).first()
+        if not user:
+            return jsonify({'message': 'no user found'})
+        user.password = hasher.hash(data['password'])
+        db.session.commit()
+        return jsonify({'message': 'password updated'})
+
+    def getUser(self, current_user):
+        print(current_user)
+        email = request.args.get('email')
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return jsonify({'message': 'no user found'})
+        return jsonify({'name': user.name, 'email': user.email, 'admin': user.admin})
+
+    def getAllUsers(self):
+        users = User.query.all()
+        output = []
+        for user in users:
+            user_data = {}
+            user_data['id'] = user.id
+            user_data['name'] = user.name
+            user_data['email'] = user.email
+            user_data['password'] = user.password
+            user_data['admin'] = user.admin
+            output.append(user_data)
+        return jsonify({'users': output})

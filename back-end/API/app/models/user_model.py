@@ -5,8 +5,7 @@ class User(db.Model):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), default=False)
-    active = db.Column(db.Boolean, default=True)
-    isModerator = db.Column(db.Boolean, default=False)
+    admin = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return f"User('{self.task}')"
+        return f"User('{self.name}', '{self.email}', '{self.admin}')"

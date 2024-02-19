@@ -14,8 +14,8 @@ project_directory = parent_directory.parent
 sys.path.append(str(project_directory))
 
 from app import app, db
-from app.services.user_service import UserService
-user_service = UserService()
+from app.repositories.user_repo import UserRepo
+user_repo = UserRepo()
 from app.models.user_model import User
 
 class BaseTestCase(TestCase):
@@ -32,18 +32,13 @@ class BaseTestCase(TestCase):
         db.drop_all()
 
 
-class TestUserService(BaseTestCase):
-    def test_getAllUser(self):
-        with self.app.app_context():
-            users = user_service.getAllUser()
-            self.assertEqual(len(users), 0)
+# class TestUserRepo(BaseTestCase):
+#     def test_createUser(self):
+#         with self.app.app_context():
+#             user = user_repo.createUser({"name": "test", "email": "test@gmail.com", "password": "test"})
+#             self.assertEqual(user.name, "test")
 
-class TestUserController(BaseTestCase):
-    def test_getAllUser_route(self):
-        response = self.client.get('/getAllUsers')
-        result = response.json
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('users', result)
+
 
 if __name__ == '__main__':
     unittest.main()

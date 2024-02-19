@@ -5,14 +5,7 @@
 ### Prerequisites
 Se mettre dans le répertoire /API
 ```bash
-pip install flask
-pip install Flask-SQLAlchemy
-pip install mariadb
-pip install pymysql
-pip install flask cors
-pip install python-dotenv
-pip install PyJWT
-pip install virtualenv
+pip install -r requirements.txt
 ```
 
 ### Setting up the database
@@ -53,10 +46,12 @@ Créer la base de données de test avec ce script:
 ```sql
 CREATE DATABASE H2024test;
 USE H2024test;
-CREATE TABLE todo (
+CREATE TABLE user (
     id int not null auto_increment,
-    task varchar(255) ,
-    completed boolean ,
+    name varchar(255) ,
+    email varchar(255) ,
+    password varchar(255) ,
+    admin boolean ,
     primary key (id)
 );
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';

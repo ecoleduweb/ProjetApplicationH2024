@@ -9,3 +9,12 @@ class UserService:
     
     def createUser(self, data):
         return user_repo.createUser(data)
+
+    def getAllUsers(self):
+        return user_repo.getAllUsers()
+    
+    def getUser(self, email):
+        return user_repo.getUser(email)
+    
+    def updatePassword(self, data):
+        return user_repo.updatePassword(data)
