@@ -1,7 +1,7 @@
 name: DEV - Build & Deploy
 on:
   push:
-    branches: [devy]
+    branches: [dev, SD_Build&Deploy]
 
 jobs:
   deploy:
@@ -28,6 +28,9 @@ jobs:
             echo 'Installing packages'
             cd /${{ secrets.SSH_USERNAME}}/dev_project/ProjetApplicationH2024/front-end/projet_application
             npm i
+            touch .env
+            echo ${{ env.FRONT_PUBLIC_BASE_URL }} >> .env
+            echo ${{ env.FRONT_HOST }} >> .env
             echo 'Starting services'
             sudo systemctl enable front-end
             sudo systemctl start front-end
