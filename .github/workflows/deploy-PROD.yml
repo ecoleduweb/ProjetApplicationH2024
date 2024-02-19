@@ -17,8 +17,17 @@ jobs:
           username: ${{ secrets.SSH_USERNAME}}
 
           script: |
+            sudo systemctl stop front-end
             rm -r prod_project
             mkdir prod_project
-            cd prod_project
+            cd dev_project
             git clone -b PROD https://github.com/ecoleduweb/ProjetApplicationH2024.git
             echo 'Deployment successful to PROD server'
+            echo 'Creating database'
+            echo '. . .'
+            echo 'Installing packages'
+            cd /${{ secrets.SSH_USERNAME}}/prod_project/ProjetApplicationH2024/front-end/projet_application
+            npm i
+            echo 'Starting services'
+            sudo systemctl enable front-end
+            sudo systemctl start front-end
