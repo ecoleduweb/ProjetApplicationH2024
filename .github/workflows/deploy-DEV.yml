@@ -19,6 +19,14 @@ jobs:
           script: |
             rm -r dev_project
             mkdir dev_project
-            cd test_dev_project
+            cd dev_project
             git clone -b dev https://github.com/ecoleduweb/ProjetApplicationH2024.git
             echo 'Deployment successful to DEV server'
+            echo 'Creating database'
+            echo '. . .'
+            echo 'Installing packages'
+            cd /home/ProjetApplicationH2024/front-end/projet_application
+            npm i
+            echo 'Starting services'
+            cd /root/dev_project/ProjetApplicationH2024/front-end/projet_application
+            npm run dev
