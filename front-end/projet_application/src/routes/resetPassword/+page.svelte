@@ -2,13 +2,26 @@
   import Button from "../../Components/Inputs/Button.svelte";
   import "../../styles/resetPassword.css";
   import "../../styles/global.css";
-  import type { ResetPassword } from "../../Models/ResetPassword.ts";
-  import type { ErrorResponse } from "../../Models/ErrorResponse.ts";
+  import type { ResetPassword } from "../../Models/ResetPassword";
   import * as yup from "yup";
+  import { extractErrors } from "../../ts/utils";
+  import { POST } from "../../ts/server";
 
-  const schema = yup.object().shape({
-    password: yup.string().required("Entrer un mot de passe"),
-    confirmPassword: yup.string().required("Saisir le mot de passe à nouveau"),
+  const schema = yup.object({
+    password: yup
+      .string()
+      .required("Mot de passe requis")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{12,})/,
+        "Ne correspond pas aux critères de sécurité",
+      ),
+    confirmPassword: yup
+      .string()
+      .required("Confirmer le mot de passe")
+      .oneOf(
+        [yup.ref("password"), null],
+        "Les mots de passes ne correspondent pas",
+      ),
   });
 
   let errors: ResetPassword = {
@@ -31,15 +44,12 @@
       };
 
       console.log(resetPassword);
+      const response = POST("/auth/resetPassword", resetPassword);
+      console.log(response);
     } catch (err) {
       errors = extractErrors(err);
     }
   };
-  function extractErrors(err: ErrorResponse | any) {
-    return err.inner.reduce((acc: string[], err: ErrorResponse) => {
-      return { ...acc, [err.path]: err.message };
-    }, {});
-  }
 </script>
 
 <section>

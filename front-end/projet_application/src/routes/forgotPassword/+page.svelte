@@ -4,9 +4,9 @@
   import "../../styles/forgotPassword.css";
   import "../../styles/global.css";
   import type { Login } from "../../Models/Login";
-  import type { ErrorResponse } from "../../Models/ErrorResponse";
   import * as yup from "yup";
-
+  import { extractErrors } from "../../ts/utils";
+  import type { ForgotPassword } from "../../Models/ForgotPassword.ts";
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -14,14 +14,12 @@
       .email("Le courriel n'est pas valide"),
   });
 
-  let errors: Login = {
+  let errors: ForgotPassword = {
     email: "",
-    password: "",
   };
 
-  let login: Login = {
+  let login: ForgotPassword = {
     email: "",
-    password: "",
   };
 
   const handleSubmit = async () => {
@@ -30,7 +28,6 @@
       await schema.validate(login, { abortEarly: false });
       errors = {
         email: "",
-        password: "",
       };
 
       console.log(login);
@@ -38,11 +35,6 @@
       errors = extractErrors(err);
     }
   };
-  function extractErrors(err: ErrorResponse | any) {
-    return err.inner.reduce((acc: string[], err: ErrorResponse) => {
-      return { ...acc, [err.path]: err.message };
-    }, {});
-  }
 </script>
 
 <section>

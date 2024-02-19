@@ -4,9 +4,9 @@
   import "../../styles/login.css";
   import "../../styles/global.css";
   import type { Login } from "../../Models/Login";
-  import type { ErrorResponse } from "../../Models/ErrorResponse";
   import { POST } from "../../ts/server";
   import * as yup from "yup";
+  import { extractErrors } from "../../ts/utils";
 
   const schema = yup.object().shape({
     email: yup
@@ -42,11 +42,6 @@
       errors = extractErrors(err);
     }
   };
-  function extractErrors(err: ErrorResponse | any) {
-    return err.inner.reduce((acc: string[], err: ErrorResponse) => {
-      return { ...acc, [err.path]: err.message };
-    }, {});
-  }
 </script>
 
 <section>
