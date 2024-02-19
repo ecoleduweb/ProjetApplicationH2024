@@ -5,12 +5,16 @@
 
 <header class="">
   <div class="logo-img">
-    <img src="./src/images/logo.png" class="image" alt="Logo" />
+    <a href="/" class="image"><img src="./src/images/logo.png" alt="Logo" /></a>
   </div>
   <div class="ul-group">
     <ul class="ul-menu">
-      <li class="li-items"><Link href={"/"} text="Accueil" /></li>
-      <li class="li-items"><Link href={"/login"} text="Se connecter" /></li>
+      <button class="button">
+        <p>Offrir un emploi</p>
+      </button>
+      <button class="button">
+        <p>Trouver un emploi</p>
+      </button>
     </ul>
   </div>
 </header>

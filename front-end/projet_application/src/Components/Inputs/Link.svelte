@@ -18,6 +18,6 @@
   }
 
   a:hover {
-    background-color: #ddd;
+    background-color: #b3b3b3;
   }
 </style>
