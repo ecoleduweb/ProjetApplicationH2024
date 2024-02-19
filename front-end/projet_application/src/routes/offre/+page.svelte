@@ -12,20 +12,25 @@
     titre: yup.string().required("Le titre du poste est requis"),
     lieu: yup.string().required("Le lieu de travail est requis"),
     description: yup.string().required("La description de l'offre est requise"),
-    dateEntreeFontion: yup.date().required("La date d'entrée en fonction est requise").max(new Date(), "La date d'entrée doit être valide"),
-    dateLimitePostuler: yup.date().required("La date limite pour postuler est requise")
-    .min(new Date(), "La date d'entrée doit être valide et dans le futur"),
-    salaire: yup.number().required("Le salaire est requis").min(0, "Le salaire doit être positif"),
-    typeEmplois: yup.array().of(yup.number()).required("Le type d'emplois est requis"),
+    dateEntreeFonction: yup.string().required("La date d'entrée en fonction est requise").test('is-date', "Veuillez choisir une date valide !", value => {
+    return !isNaN(Date.parse(value));
+    }),
+    dateLimitePostuler: yup.string().required("La date d'entrée en fonction est requise").test('is-date', "Veuillez choisir une date valide !", value => {
+    return !isNaN(Date.parse(value));
+    }),
+    salaire: yup.string().required("Le salaire est requis").matches(/^\d*(\.\d+)?$/,
+     "Le salaire doit être un nombre ou un nombre à unité (20.50)").min(0, "Le salaire doit être positif"),
     courrielContact: yup.string().email("Le courriel de contact n'est pas valide").required("Le courriel de contact est requis"),
+    typeEmplois: yup.string().required("Le type d'emplois est requis"),
+    programme: yup.string().required("Le programme visé est requis"),
     
   });
 
     let offre: Offre = {
     titre: "",
     lieu: "",
-    dateEntreeFontion: new Date(),
-    dateLimitePostuler: new Date(),
+    dateEntreeFonction: "",
+    dateLimitePostuler: "",
     salaire: 0,
     typeEmplois: "",
     heures: 0,
@@ -41,8 +46,8 @@
     let errors: Offre = {
     titre: "",
     lieu: "",
-    dateEntreeFontion: new Date(),
-    dateLimitePostuler: new Date(),
+    dateEntreeFonction: "",
+    dateLimitePostuler: "",
     salaire: 0,
     typeEmplois: "",
     heures: 0,
@@ -78,14 +83,19 @@
 
 
   const handleSubmit = async () => {
+    console.log(offre);
+    console.log(programmeSelected);
+    console.log(typeEmploisSelected);
+    // take all content from programSelected and put it in offre.programme
+    offre.typeEmplois = typeEmploisSelected.map((typeEmploi) => typeEmploi.label).join(", ");
     try {
       // `abortEarly: false` to get all the errors
       await schema.validate(offre, { abortEarly: false });
       errors = {
         titre: "",
         lieu: "",
-        dateEntreeFontion: new Date(),
-        dateLimitePostuler: new Date(),
+        dateEntreeFonction: "",
+        dateLimitePostuler: "",
         salaire: 0,
         typeEmplois: "",
         heures: 0,
@@ -115,6 +125,9 @@
         <label for="titre">Titre du poste*</label>
         <input type="text" bind:value={offre.titre} class="form-control" id="titre" />
       </div>
+      <p class="errors-input">
+        {#if errors.titre}{errors.titre}{/if}
+      </p>
       <div class="form-group-vertical">
         <label for="typeEmplois">Type d'emplois*</label>
         <MultiSelect
@@ -124,18 +137,30 @@
           bind:value={typeEmploisSelected}
         />
       </div>
+      <p class="errors-input">
+        {#if errors.typeEmplois}{errors.typeEmplois}{/if}
+      </p>
       <div class="form-group-vertical">
         <label for="lieu">Lieu de travail*</label>
         <input type="text" bind:value={offre.lieu} class="form-control" id="salaire" />
       </div>
+      <p class="errors-input">
+        {#if errors.lieu}{errors.lieu}{/if}
+      </p>
       <div class="form-group-vertical">
         <label for="dateEntree">Date d'entrée en fonction</label>
-        <input type="date" bind:value={offre.dateEntreeFontion} class="form-control" id="dateEntree" />
+        <input type="date" bind:value={offre.dateEntreeFonction} class="form-control" id="dateEntree" />
       </div>
+      <p class="errors-input">
+        {#if errors.dateEntreeFonction}{errors.dateEntreeFonction}{/if}
+      </p>
       <div class="form-group-vertical">
         <label for="dateLimite">Date limite pour postuler</label>
         <input type="date" bind:value={offre.dateLimitePostuler} class="form-control" id="dateLimite" />
       </div>
+      <p class="errors-input">
+        {#if errors.dateLimitePostuler}{errors.dateLimitePostuler}{/if}
+      </p>
       <div class="form-group-vertical">
         <label for="duree">Programme visée</label>
         <MultiSelect
@@ -145,7 +170,24 @@
           bind:value={programmeSelected}
         >
         </MultiSelect>
-      </div>      
+      </div> 
+      <p class="errors-input">
+        {#if errors.programme}{errors.programme}{/if}
+      </p>
+      <div class="form-group-vertical">
+        <label for="salaire">Salaire (Heure)*</label>
+        <input type="text" bind:value={offre.salaire} class="form-control" id="salaire" />
+      </div>
+      <p class="errors-input">
+          {#if errors.salaire}{errors.salaire}{/if}
+      </p>
+      <div class="form-group-vertical">
+        <label for="heure">Heure (Semaine)*</label>
+        <input type="text" bind:value={offre.heures} class="form-control" id="heure" />
+      </div>
+      <p class="errors-input">
+          {#if errors.salaire}{errors.salaire}{/if}
+      </p>
       <div class="form-group-horizontal">
         <label for="conciliation">Conciliation</label>
         <input type="checkbox" bind:checked={offre.conciliation} class="form-control" id="conciliation" />
@@ -166,6 +208,6 @@
         <label for="description">Description du poste*</label>
         <textarea rows="15" cols="50" bind:value={offre.description} class="form-control" id="description" />
       </div>
-      <Button text="Enregistrer" on:click={() => handleSubmit()} />
+      <Button submit={true} text="Enregistrer" on:click={() => handleSubmit()} />
     </form>
   </div>

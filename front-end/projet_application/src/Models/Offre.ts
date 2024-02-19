@@ -3,8 +3,8 @@
 export interface Offre { 
     titre: string; // titre de l'offre
     lieu: string; // lieu de travail
-    dateEntreeFontion: Date // date d'entrée en fonction
-    dateLimitePostuler: Date // date limite pour postuler
+    dateEntreeFonction: string // date d'entrée en fonction
+    dateLimitePostuler: string // date limite pour postuler
     salaire: number; // salaire de lheure 
     typeEmplois: string; // si stage vrai sinon faux
     heures: number; // nombre d'heures par semaine  
