@@ -25,6 +25,8 @@ jobs:
             echo 'Creating database'
             echo '. . .'
             echo 'Installing packages'
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd /${{ secrets.SSH_USERNAME}}/dev_project/ProjetApplicationH2024/front-end/projet_application
             npm i
             echo 'Starting services'
