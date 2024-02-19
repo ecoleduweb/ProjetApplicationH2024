@@ -1,7 +1,7 @@
 name: DEV - Build & Deploy
 on:
   push:
-    branches: [dev, SD_Buil&Deploy]
+    branches: [dev, SD_Build&Deploy]
 
 jobs:
   deploy:
