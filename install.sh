@@ -20,7 +20,7 @@ nvm install v20.11.0
 # Install Python 3.12
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update
-sudo apt install -y python3.12
+sudo apt install -y python3.12 python3-pip
 
 # Install MariaDB
 sudo apt install mariadb-server -y
