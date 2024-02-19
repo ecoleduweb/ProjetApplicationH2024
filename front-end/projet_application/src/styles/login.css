@@ -54,6 +54,10 @@ h1 {
     padding: 20px;
 }
 
+.login-form label {
+    color: black;
+}
+
 label {
     margin-bottom: 8px;
     /* Add spacing between labels and input fields */
