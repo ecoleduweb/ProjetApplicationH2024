@@ -1,4 +1,4 @@
-name: Build & Deploy
+name: PROD - Build & Deploy
 on:
   push:
     branches: [PROD]
