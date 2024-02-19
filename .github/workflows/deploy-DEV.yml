@@ -29,8 +29,8 @@ jobs:
             cd /${{ secrets.SSH_USERNAME}}/dev_project/ProjetApplicationH2024/front-end/projet_application
             npm i
             touch .env
-            echo PUBLIC_BASE_UR = ${{ env.FRONT_PUBLIC_BASE_URL }} >> .env
-            echo HOST = ${{ env.FRONT_HOST }} >> .env
+            echo PUBLIC_BASE_URL = ${{ secrets.FRONT_PUBLIC_BASE_URL }} >> .env
+            echo HOST = ${{ secrets.FRONT_HOST }} >> .env
             echo 'Starting services'
             sudo systemctl enable front-end
             sudo systemctl start front-end
