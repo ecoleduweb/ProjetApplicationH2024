@@ -33,7 +33,7 @@
 
   <form on:submit|preventDefault={handleSubmit} class="form-register">
     <div class="info-block">
-      <h2>Information personnelle</h2>
+      <h2>Informations personnelles</h2>
       <div class="form-fields">
         <div class="form-inputs">
           <label for="firstName">Prénom</label>
@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="info-block">
-      <h2>Information de l'entreprise</h2>
+      <h2>Informations de l'entreprise</h2>
       <div class="form-fields">
         <div class="form-inputs">
           <label for="entreprise">Nom Entreprise</label>
@@ -101,7 +101,7 @@
       </div>
     </div>
     <div class="info-block">
-      <h2>Information de connexion</h2>
+      <h2>Informations de l'utilisateur</h2>
       <div class="form-connexion">
         <div class="form-inputs">
           <label for="email">Courriel</label>
