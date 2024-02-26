@@ -20,7 +20,7 @@ jobs:
       run: npx playwright install --with-deps
       working-directory: qa-test
     - name: Run Playwright tests
-      run: npx playwright test tests/
+      run: npx playwright test
       working-directory: qa-test
     - uses: actions/upload-artifact@v3
       if: always()
