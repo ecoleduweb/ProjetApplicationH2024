@@ -1,5 +1,4 @@
-from flask import jsonify, request
-from app import app
+from flask import jsonify, request, Blueprint
 from app.models.user_model import User
 import os
 from jwt import encode, decode
@@ -8,7 +7,7 @@ from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app_blueprint = Blueprint('app', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
 def token_required(f):
         @wraps(f)
@@ -29,27 +28,23 @@ def token_required(f):
             return f(current_user)
         return decorated
 
-@app.route('/login', methods=['POST'])
+@app_blueprint.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     return user_service.login(data)
 
-@app.route('/createUser', methods=['POST'])
+@app_blueprint.route('/createUser', methods=['POST'])
 def createUser():
     data = request.get_json()
-    if not isinstance(data, dict):
-        return jsonify({'message': 'Invalid JSON data format'}), 400
-    
-    name = data.get('name')
-    email = data.get('email')
-    password = data.get('password')
-    
-    if not all([name, email, password]):
+    if not all([data.get('name'), data.get('email'), data.get('password')]):
         return jsonify({'message': 'Missing required fields'}), 400
     
+    if not isinstance(data, dict):
+        return jsonify({'message': 'Invalid JSON data format'}), 400
+
     return user_service.createUser(data)
 
-@app.route('/updatePassword', methods=['PUT'])
+@app_blueprint.route('/updatePassword', methods=['PUT'])
 @token_required
 def updatePassword(current_user):
     data = request.get_json()
@@ -62,12 +57,12 @@ def updatePassword(current_user):
         return jsonify({'message': 'Missing required fields'}), 400
     return user_service.updatePassword(data)
 
-@app.route('/getAllUsers', methods=['GET'])
+@app_blueprint.route('/getAllUsers', methods=['GET'])
 @token_required
 def getAllUsers(current_user):
     return user_service.getAllUsers()
 
-@app.route('/getUser', methods=['GET'])
+@app_blueprint.route('/getUser', methods=['GET'])
 @token_required
 def getUser(current_user):
     email = request.args.get('email')
