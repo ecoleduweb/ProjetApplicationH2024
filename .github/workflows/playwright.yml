@@ -15,13 +15,13 @@ jobs:
         node-version: 20
     - name: Install dependencies
       run: npm i
-      working-directory: qa-tests
+      working-directory: qa-test
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-      working-directory: qa-tests
+      working-directory: qa-test
     - name: Run Playwright tests
       run: npx playwright test
-      working-directory: qa-tests
+      working-directory: qa-test
     - uses: actions/upload-artifact@v3
       if: always()
       with:
