@@ -6,6 +6,7 @@
   import { POST } from "../../ts/server";
   import * as yup from "yup";
   import { extractErrors } from "../../ts/utils";
+  import { goto } from "$app/navigation";
 
   const schema = yup.object().shape({
     email: yup
@@ -33,11 +34,21 @@
         email: "",
         password: "",
       };
-
-      console.log(form);
-      const response = POST("/auth/login", form);
-      console.log(response);
+      try {
+        console.log(form);
+        const response = await POST<Login, any>("/login", form);
+        console.log(response);
+        if (response.token != "") {
+          goto("/");
+        }
+      } catch (error) {
+        errors = {
+          email: "",
+          password: "Courriel ou mot de passe invalide",
+        };
+      }
     } catch (err) {
+      console.log("allo");
       errors = extractErrors(err);
     }
   };
