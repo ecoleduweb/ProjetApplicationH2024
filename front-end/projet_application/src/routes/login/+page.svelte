@@ -1,8 +1,6 @@
 <script lang="ts">
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
-  import "../../styles/login.css";
-  import "../../styles/global.css";
   import type { Login } from "../../Models/Login";
   import { POST } from "../../ts/server";
   import * as yup from "yup";
@@ -78,3 +76,8 @@
     </form>
   </div>
 </section>
+
+<style scoped>
+  @import "../../styles/global.css";
+  @import "../../styles/login.css";
+</style>

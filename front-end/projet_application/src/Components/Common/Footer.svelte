@@ -1,7 +1,3 @@
-<script lang="ts">
-  import "../../styles/footer.css";
-</script>
-
 <footer class="">
   <svg
     class="svg-footer"
@@ -64,3 +60,7 @@
     </g>
   </svg>
 </footer>
+
+<style scoped>
+  @import "../../styles/footer.css";
+</style>

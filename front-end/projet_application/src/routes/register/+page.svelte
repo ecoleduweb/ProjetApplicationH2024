@@ -1,7 +1,4 @@
 <script lang="ts">
-  import "../../styles/global.css";
-  import "../../styles/register.css";
-
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
   import type { Register } from "../../Models/Register.ts";
@@ -136,7 +133,7 @@
     </div>
     <div class="form-inputs form-submit">
       <div class="form-buttons">
-        <Link text="Retour" href="/login" />
+        <Link text="Retour" href="/" />
       </div>
       <div class="form-buttons">
         <Button submit={true} text="Créer" />
@@ -144,3 +141,8 @@
     </div>
   </form>
 </div>
+
+<style scoped>
+  @import "../../styles/global.css";
+  @import "../../styles/register.css";
+</style>

@@ -1,7 +1,3 @@
-<script lang="ts">
-  import "../../styles/header.css";
-</script>
-
 <header class="">
   <div class="logo-img">
     <a href="/" class="image"><img src="./src/images/logo.png" alt="Logo" /></a>
@@ -25,3 +21,7 @@
     </ul>
   </div>
 </header>
+
+<style scoped>
+  @import "../../styles/header.css";
+</style>
