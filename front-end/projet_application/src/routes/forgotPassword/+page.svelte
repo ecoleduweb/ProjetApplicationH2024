@@ -1,9 +1,7 @@
 <script lang="ts">
+  import "../../styles/global.css";
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
-  import "../../styles/forgotPassword.css";
-  import "../../styles/global.css";
-  import type { Login } from "../../Models/Login";
   import * as yup from "yup";
   import { extractErrors } from "../../ts/utils";
   import type { ForgotPassword } from "../../Models/ForgotPassword.ts";
@@ -67,3 +65,7 @@
     </form>
   </div>
 </section>
+
+<style scoped>
+  @import "../../styles/forgotPassword.css";
+</style>

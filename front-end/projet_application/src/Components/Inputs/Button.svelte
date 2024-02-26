@@ -9,7 +9,7 @@
   <button class="button">{text}</button>
 {/if}
 
-<style>
+<style scoped>
   /* Dropdown Button */
   .button {
     color: white;
