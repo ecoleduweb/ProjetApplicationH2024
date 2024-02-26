@@ -33,4 +33,5 @@ def create_app():
     # if any("pytest" in arg for arg in sys.argv):
     #     pytest.main(['tests/'])
 
+
     return app
