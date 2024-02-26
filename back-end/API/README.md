@@ -40,6 +40,11 @@ SECRET_KEY=secret
 flask run
 ```
 
+#### Starting the server on all the network
+```bash
+flask run --host=0.0.0.0
+```
+
 ### Running the tests
 
 Créer la base de données de test avec ce script:

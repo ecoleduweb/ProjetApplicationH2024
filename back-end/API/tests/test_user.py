@@ -16,6 +16,7 @@ def app():
         db.session.add(user)
         db.session.commit()
         yield app
+        ## Drop la db après les tests
         db.session.remove()
         db.drop_all()
 

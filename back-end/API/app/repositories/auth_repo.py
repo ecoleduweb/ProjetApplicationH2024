@@ -37,10 +37,14 @@ class AuthRepo:
         return jsonify({'message': 'password updated'})
 
     def getUser(self, email):
-        user = User.query.filter_by(email=email).first()
-        if not user:
-            return jsonify({'message': 'no user found'})
-        return user
+        try:
+            user = User.query.filter_by(email=email).first()
+            if user:
+                return user
+            else:
+                return jsonify({'message': 'user not found'})
+        except:
+            return jsonify({'message': 'error occurred'})
 
     def getAllUsers(self):
         users = User.query.all()
