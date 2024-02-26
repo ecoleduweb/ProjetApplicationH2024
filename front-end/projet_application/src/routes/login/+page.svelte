@@ -35,9 +35,7 @@
         password: "",
       };
       try {
-        console.log(form);
         const response = await POST<Login, any>("/login", form);
-        console.log(response);
         if (response.token != "") {
           goto("/");
         }
@@ -48,7 +46,6 @@
         };
       }
     } catch (err) {
-      console.log("allo");
       errors = extractErrors(err);
     }
   };
