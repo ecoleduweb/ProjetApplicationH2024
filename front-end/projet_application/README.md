@@ -1,4 +1,4 @@
-# Web application (Svelte)
+# Web application
 
 ## Environnement
 
