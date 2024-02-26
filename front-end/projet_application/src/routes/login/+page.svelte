@@ -55,7 +55,7 @@
   <div class="login">
     <h1>Authentification</h1>
     <form on:submit|preventDefault={handleSubmit} class="login-form">
-      <label for="email">Nom d'utiliasteur</label>
+      <label for="email">Nom d'utilisateur</label>
       <input
         type="text"
         class="input-login"
