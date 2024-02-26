@@ -6,7 +6,7 @@ click==8.1.7
 colorama==0.4.6
 cryptography==42.0.3
 distlib==0.3.8
-dotenv==1.0.1
+dotenv
 filelock==3.13.1
 Flask==3.0.1
 Flask-SQLAlchemy==3.1.1
@@ -31,3 +31,4 @@ SQLAlchemy==2.0.25
 typing_extensions==4.9.0
 virtualenv==20.25.0
 Werkzeug==3.0.1
+jsonpickle==3.0.3

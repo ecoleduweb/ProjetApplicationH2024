@@ -3,8 +3,8 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
-import pytest
 import pymysql
+from flask_cors import CORS
 
 db = SQLAlchemy()
 
@@ -13,6 +13,10 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
+
+    CORS(app, origins='http://10.172.80.144, http://localhost')
+
 
     try:
         if any("pytest" in arg for arg in sys.argv):
@@ -29,8 +33,5 @@ def create_app():
 
     from app.controllers.user_controller import app_blueprint
     app.register_blueprint(app_blueprint)
-
-    # if any("pytest" in arg for arg in sys.argv):
-    #     pytest.main(['tests/'])
 
     return app
