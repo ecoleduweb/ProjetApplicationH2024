@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../../styles/global.css";
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
   import type { Register } from "../../Models/Register.ts";
@@ -143,6 +144,5 @@
 </div>
 
 <style scoped>
-  @import "../../styles/global.css";
   @import "../../styles/register.css";
 </style>

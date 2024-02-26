@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../../styles/global.css";
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
   import type { Login } from "../../Models/Login";
@@ -78,6 +79,5 @@
 </section>
 
 <style scoped>
-  @import "../../styles/global.css";
   @import "../../styles/login.css";
 </style>

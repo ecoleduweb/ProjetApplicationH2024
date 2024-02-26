@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../../styles/global.css";
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
   import * as yup from "yup";
@@ -66,6 +67,5 @@
 </section>
 
 <style scoped>
-  @import "../../styles/global.css";
   @import "../../styles/forgotPassword.css";
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../../styles/global.css";
   import Button from "../../Components/Inputs/Button.svelte";
   import type { ResetPassword } from "../../Models/ResetPassword";
   import * as yup from "yup";
@@ -93,6 +94,5 @@
 </section>
 
 <style scoped>
-  @import "../../styles/global.css";
   @import "../../styles/resetPassword.css";
 </style>
