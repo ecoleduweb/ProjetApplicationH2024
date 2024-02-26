@@ -3,18 +3,16 @@ from app import db
 from app.repositories.jobOffer_repo import JobOfferRepo
 jobOffer_repo = JobOfferRepo()
 
-class UserService:
-    def login(self, data):
-        return jobOffer_repo.login(data)
-    
-    def createJobOffer(self, data):
-        return jobOffer_repo.createUser(data)
+class JobOfferService:
 
-    def getAllJobOffer(self):
-        return jobOffer_repo.getAllUsers()
+    def createJobOffer(self, data):
+        return jobOffer_repo.createJobOffer(data)
+
+    def getAllJobOffers(self):
+        return jobOffer_repo.getAllJobOffers()
     
     def getJobOffer(self, title):
-        return jobOffer_repo.getUser(title)
+        return jobOffer_repo.createJobOffer(title)
     
     def updateJobOffer(self, data):
         return jobOffer_repo.updateJobOffer(data)

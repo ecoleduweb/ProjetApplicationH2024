@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class jobOffer(db.Model):
+class JobOffer(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
@@ -20,8 +20,8 @@ class jobOffer(db.Model):
     offerLink = db.Column(db.String(255), nullable=False)
     urgent = db.Column(db.Boolean, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    EmployerId = db.Column(db.integer, nullable=False)
-    ScheduleId = db.Column(db.integer, nullable=False)
+    EmployerId = db.Column(db.Integer, nullable=False)
+    ScheduleId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"jobOffer('{self.task}', '{self.title}')"
+        return f"JobOffer('{self.task}', '{self.title}')"

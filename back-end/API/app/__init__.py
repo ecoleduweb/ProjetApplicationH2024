@@ -1,12 +1,11 @@
 import sys
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
 import pytest
 import pymysql
-from app import db
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 
@@ -31,6 +30,7 @@ def create_app():
     migrate = Migrate(app, db)
 
     from app.controllers.user_controller import app_blueprint
+    from app.controllers.jobOffer_controller import app_blueprint
     app.register_blueprint(app_blueprint)
 
     # if any("pytest" in arg for arg in sys.argv):
