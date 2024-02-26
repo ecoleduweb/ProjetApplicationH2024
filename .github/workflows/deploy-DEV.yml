@@ -1,7 +1,7 @@
 name: DEV - Build & Deploy
 on:
   push:
-    branches: [dev]
+    branches: [dev, SD_Build&Deploy]
 
 jobs:
   deploy:
@@ -23,8 +23,16 @@ jobs:
             cd dev_project
             git clone -b dev https://github.com/ecoleduweb/ProjetApplicationH2024.git
             echo 'Deployment successful to DEV server'
-            echo 'Creating database'
-            echo '. . .'
+            echo 'Installing backend packages'
+            sudo apt-get update -y
+            sudo apt-get install -y libmariadb-dev
+            python -m pip install --upgrade pip
+            cd /${{ secrets.SSH_USERNAME}}/dev_project/ProjetApplicationH2024/back-end/API
+            pip install -r requirements.txt
+            touch .env
+            echo DATABASE_TEST_URL=${{ secrets.DATABASE_TEST_URL }} >> .env
+            echo DATABASE_DEV_URL=${{ secrets.DATABASE_DEV_URL }} >> .env
+            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
             echo 'Installing packages'
             cd /${{ secrets.SSH_USERNAME}}/dev_project/ProjetApplicationH2024/front-end/projet_application
             npm i
