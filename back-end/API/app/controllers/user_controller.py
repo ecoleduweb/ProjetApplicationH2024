@@ -7,7 +7,7 @@ from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()
 
-app_blueprint = Blueprint('app', __name__)
+app_blueprint = Blueprint('app', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
 def token_required(f):
         @wraps(f)
@@ -36,16 +36,12 @@ def login():
 @app_blueprint.route('/createUser', methods=['POST'])
 def createUser():
     data = request.get_json()
-    if not isinstance(data, dict):
-        return jsonify({'message': 'Invalid JSON data format'}), 400
-    
-    name = data.get('name')
-    email = data.get('email')
-    password = data.get('password')
-    
-    if not all([name, email, password]):
+    if not all([data.get('name'), data.get('email'), data.get('password')]):
         return jsonify({'message': 'Missing required fields'}), 400
     
+    if not isinstance(data, dict):
+        return jsonify({'message': 'Invalid JSON data format'}), 400
+
     return user_service.createUser(data)
 
 @app_blueprint.route('/updatePassword', methods=['PUT'])

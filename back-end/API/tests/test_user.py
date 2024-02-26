@@ -1,15 +1,23 @@
 import os
 import pytest
-from dotenv import load_dotenv
+from argon2 import PasswordHasher
 from app import create_app
+from app.models.user_model import db, User
 
-load_dotenv()
+hasher = PasswordHasher()
 
 @pytest.fixture(scope='module')
 def app():
     app = create_app()
-    app.config['TESTING'] = True  # Activer le mode test
-    yield app
+    with app.app_context():
+        db.create_all()
+        hashed_password = hasher.hash("phil123")
+        user = User(name="Phil", email="philsaucier@gmail.com", password=hashed_password, admin=False)
+        db.session.add(user)
+        db.session.commit()
+        yield app
+        db.session.remove()
+        db.drop_all()
 
 @pytest.fixture(scope='module')
 def client(app):
