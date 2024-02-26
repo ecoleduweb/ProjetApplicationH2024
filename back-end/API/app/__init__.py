@@ -21,6 +21,7 @@ else:
 db = SQLAlchemy(app)
 
 from app.controllers.user_controller import *
+from app.controllers.jobOffer_controller import *
 
 if any("pytest" in arg for arg in sys.argv):
     pytest.main(['tests/'])
