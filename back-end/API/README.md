@@ -22,7 +22,7 @@ CREATE TABLE user (
     primary key (id)
 );
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL PRIVILEGES ON H2024.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON H2024.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
@@ -55,7 +55,7 @@ CREATE TABLE user (
     primary key (id)
 );
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL PRIVILEGES ON H2024test.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON H2024test.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
