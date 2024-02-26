@@ -1,4 +1,8 @@
 from app import db
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class jobOffer(db.Model):
     
