@@ -12,10 +12,31 @@ class JobOfferRepo:
         return jsonify({'message': 'new job offer created'})
 
     def getAllJobOffers(self):
-        return JobOffer.query.all()
+        jobOffers = JobOffer.query.all()
+        output = []
+        for jobOffer in jobOffers:
+            jobOffer_data = {}
+            jobOffer_data['id'] = jobOffer.id
+            jobOffer_data['title'] = jobOffer.title
+            jobOffer_data['address'] = jobOffer.address
+            jobOffer_data['description'] = jobOffer.description
+            jobOffer_data['dateEntryOffice'] = jobOffer.dateEntryOffice
+            jobOffer_data['deadlineApply'] = jobOffer.deadlineApply
+            jobOffer_data['email'] = jobOffer.email
+            jobOffer_data['hoursPerWeek'] = jobOffer.hoursPerWeek
+            jobOffer_data['compliantEmployer'] = jobOffer.compliantEmployer
+            jobOffer_data['internship'] = jobOffer.internship
+            jobOffer_data['offerStatus'] = jobOffer.offerStatus
+            jobOffer_data['offerLink'] = jobOffer.offerLink
+            jobOffer_data['urgent'] = jobOffer.urgent
+            jobOffer_data['active'] = jobOffer.active
+            jobOffer_data['EmployerId'] = jobOffer.EmployerId
+            jobOffer_data['ScheduleId'] = jobOffer.ScheduleId
+            output.append(jobOffer_data)
+        return jsonify({'jobOffers': output})
 
-    def getJobOffer(self, title):
-        return JobOffer.query.filter_by(title=title).first()
+    def getJobOffer(self, id):
+        return JobOffer.query.filter_by(id=id).first()
 
     def updateJobOffer(self, data):
         job_offer = JobOffer.query.get(data['id'])

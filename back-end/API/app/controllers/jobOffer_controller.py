@@ -19,9 +19,10 @@ def getAllJobOffers():
     return jobOffer_service.getAllJobOffers()
 
 @app_blueprint.route('/getJobOffer', methods=['GET'])
-def getJobOffer(title):
-    title = request.args.get('title')
-    return jobOffer_service.getJobOffer(title)
+def getJobOffer(id):
+    id = request.args.get('id')
+    return jobOffer_service.getJobOffer(id)
+
 
 @app_blueprint.route('/updateJobOffer', methods=['PUT'])
 def updateJobOffer(id):

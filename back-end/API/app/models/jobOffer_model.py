@@ -24,4 +24,4 @@ class JobOffer(db.Model):
     ScheduleId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"JobOffer('{self.task}', '{self.title}')"
+        return f"JobOffer('{self.task}', '{self.id}')"
