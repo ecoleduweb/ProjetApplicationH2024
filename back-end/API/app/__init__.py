@@ -5,6 +5,20 @@ import os
 from flask_cors import CORS
 from flask import Flask, jsonify
 
+from flask_swagger_ui import get_swaggerui_blueprint
+
+SWAGGER_URL="/swagger"
+API_URL="/static/swagger.json"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Gestion de demandes d'emplois"
+    }
+)
+
+
 db = SQLAlchemy()
 
 load_dotenv()
@@ -29,10 +43,14 @@ def create_app():
     
     db.init_app(app)  # Initialize SQLAlchemy with the Flask app
 
+
     from app.controllers.user_controller import user_blueprint
     from app.controllers.jobOffer_controller import job_offer_blueprint
     
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
+    
+    app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+
 
     return app

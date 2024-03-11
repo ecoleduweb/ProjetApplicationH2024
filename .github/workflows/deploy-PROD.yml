@@ -18,6 +18,7 @@ jobs:
 
           script: |
             sudo systemctl stop front-end
+            sudo systemctl stop back-end
             rm -r prod_project
             mkdir prod_project
             cd dev_project
@@ -34,6 +35,8 @@ jobs:
             echo DATABASE_DEV_URL=${{ secrets.DATABASE_DEV_URL }} >> .env
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
             echo 'Installing packages'
+            sudo systemctl enable back-end
+            sudo systemctl start back-end
             cd /${{ secrets.SSH_USERNAME}}/prod_project/ProjetApplicationH2024/front-end/projet_application
             npm i
             touch .env
