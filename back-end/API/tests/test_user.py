@@ -32,11 +32,11 @@ class BaseTestCase(TestCase):
         db.drop_all()
 
 
-# class TestUserRepo(BaseTestCase):
-#     def test_createUser(self):
-#         with self.app.app_context():
-#             user = user_repo.createUser({"name": "test", "email": "test@gmail.com", "password": "test"})
-#             self.assertEqual(user.name, "test")
+class TestUserRepo(BaseTestCase):
+    def test_createUser(self):
+        with self.app.app_context():
+            user = user_repo.createUser({"name": "test", "email": "test@gmail.com", "password": "test"})
+            self.assertEqual(user.name, "test")
 
 
 
