@@ -35,21 +35,39 @@ class JobOfferRepo:
             output.append(jobOffer_data)
         return jsonify({'jobOffers': output})
 
-    def getJobOffer():
-        id = request.args.get('id')
-        if id is not None:
-            id = int(id)  # Convertir l'id en entier, si nécessaire
-            return JobOffer_service.getJobOffer(id)
-        else:
-            return "ID is required", 400
+    def getJobOffer(self, id):
+        jobOffer = JobOffer.query.get(id)
+        if jobOffer:
+            jobOffer_data = {
+                'id': jobOffer.id,
+                'title': jobOffer.title,
+                'address': jobOffer.address,
+                'description': jobOffer.description,
+                'dateEntryOffice': jobOffer.dateEntryOffice.isoformat() if jobOffer.dateEntryOffice else None,
+                'deadlineApply': jobOffer.deadlineApply.isoformat() if jobOffer.deadlineApply else None,
+                'email': jobOffer.email,
+                'hoursPerWeek': jobOffer.hoursPerWeek,
+                'compliantEmployer': jobOffer.compliantEmployer,
+                'internship': jobOffer.internship,
+                'offerStatus': jobOffer.offerStatus,
+                'offerLink': jobOffer.offerLink,
+                'urgent': jobOffer.urgent,
+                'active': jobOffer.active,
+                'EmployerId': jobOffer.EmployerId,
+                'ScheduleId': jobOffer.ScheduleId,
+            }
+            return jobOffer_data
+        return None
 
-    def updateJobOffer(self, data):
-        job_offer = JobOffer.query.get(data['id'])
-        if job_offer:
-            for key, value in data.items():
-                setattr(job_offer, key, value)
+    def updateJobOffer(id, update_data):
+        jobOffer = JobOffer.query.get(id)
+        if jobOffer:
+            for key, value in update_data.items():
+                if hasattr(jobOffer, key):
+                    setattr(jobOffer, key, value)
             db.session.commit()
-        return jsonify({'message': 'job offer updated'})
+            return True
+        return False
 
     def deleteJobOffer(self, id):
         job_offer = JobOffer.query.get(id)

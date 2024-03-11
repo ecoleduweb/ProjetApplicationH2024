@@ -14,8 +14,8 @@ class JobOfferService:
     def getJobOffer(self, id):
         return jobOffer_repo.getJobOffer(id)
     
-    def updateJobOffer(self, data):
-        return jobOffer_repo.updateJobOffer(data)
+    def updateJobOffer(self, id, update_data):
+        return jobOffer_repo.updateJobOffer(id, update_data)
     
     def deleteJobOffer(self, id):
         return jobOffer_repo.deleteJobOffer(id)

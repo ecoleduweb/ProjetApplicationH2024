@@ -20,18 +20,28 @@ def getAllJobOffers():
 
 @app_blueprint.route('/getJobOffer', methods=['GET'])
 def getJobOffer():
-    id = request.args.get('id')
-    if id is not None:
-        return jobOffer_service.getJobOffer(id)
+    id = request.args.get('id', type=int)
+    if id is None:
+        return jsonify({'message': 'Missing job offer ID'}), 400
+
+    jobOffer_data = jobOffer_service.getJobOffer(id)
+    if jobOffer_data:
+        return jsonify(jobOffer_data), 200
     else:
-        return "ID is required", 400
-
-
+        return jsonify({'message': 'JobOffer not found'}), 404
+    
 @app_blueprint.route('/updateJobOffer', methods=['PUT'])
 def updateJobOffer(id):
-    data = request.get_json()
-    data['id'] = id
-    return jobOffer_service.updateJobOffer(data)
+    if not request.json:
+        return jsonify({'error': 'Bad request'}), 400
+    
+    update_data = request.get_json()
+    result = jobOffer_service.updateJobOffer(id, update_data)
+    
+    if result:
+        return jsonify({'success': 'Job offer updated successfully'}), 200
+    else:
+        return jsonify({'error': 'Job offer not found'}), 404
 
 @app_blueprint.route('/deleteJobOffer', methods=['DELETE'])
 def deleteJobOffer(id):
