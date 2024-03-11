@@ -103,7 +103,7 @@ flask run --host=0.0.0.0
 
 #### /jobOffer
 
-- /offreEmploi/<id>
+- /offreEmploi/:id
     - GET
     - Récupérer une offre d'emploi selon l'id
     - Paramètres:
