@@ -7,7 +7,7 @@ from functools import wraps
 from app.services.jobOffer_service import JobOfferService
 jobOffer_service = JobOfferService()
 
-app_blueprint = Blueprint('app', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
+job_offer_blueprint = Blueprint('job_offer', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
 def token_required(f):
         @wraps(f)
@@ -28,14 +28,16 @@ def token_required(f):
             return f(current_user)
         return decorated
 
-@token_required
-@app_blueprint.route('/offreEmploi', methods=['GET'])
+@job_offer_blueprint.route('/offreEmploi', methods=['GET'])
 def offreEmploi():
-    data = request.get_json()
-    return jobOffer_service.offreEmploi(data)
+    id = request.args.get('id')
+    jobOffer = jobOffer_service.offreEmploi(id)
+    if jobOffer:
+        return jsonify(jobOffer.to_json_string())
+    else:
+        return jsonify({'message': 'offre d\'emploi non trouvée'}), 404
 
-@token_required
-@app_blueprint.route('/offresEmploi', methods=['GET'])
+@job_offer_blueprint.route('/offresEmploi', methods=['GET'])
 def offresEmploi():
-    data = request.get_json()
-    return jobOffer_service.offresEmploi(data)
+    jobOffers = jobOffer_service.offresEmploi()
+    return jsonify([jobOffer.to_json_string() for jobOffer in jobOffers])

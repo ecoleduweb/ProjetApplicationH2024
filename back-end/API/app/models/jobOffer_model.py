@@ -1,14 +1,18 @@
 from app import db
+from flask_sqlalchemy import SQLAlchemy
 
 class JobOffer(db.Model):
+
+    __tablename__ = 'job_offer'
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    dateEntryOffice = db.Column(db.dynamic_loaderate, nullable=False)
-    deadlineApply = db.Column(db.Date, nullable=False)
+    dateEntryOffice = db.Column(db.DateTime, nullable=False)
+    deadlineApply = db.Column(db.DateTime, nullable=False)
     email = db.Column(db.String(255), nullable=False)
-    hoursPerWeek = db.Column(db.Double, nullable=False)
+    hoursPerWeek = db.Column(db.Float, nullable=False)
     compliantEmploymentStandards = db.Column(db.Boolean, nullable=False)
     internship = db.Column(db.Boolean, nullable=False)
     offerStatus = db.Column(db.Integer, nullable=False)
@@ -19,7 +23,24 @@ class JobOffer(db.Model):
     scheduleId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"JobOffer('{self.title}', '{self.address}', '{self.description}', '{self.dateEntryOffice}', '{self.deadlineApply}', '{self.email}', '{self.hoursPerWeek}', '{self.compliantEmploymentStandards}', '{self.internship}', '{self.offerStatus}', '{self.offerLink}', '{self.urgent}', '{self.active}', '{self.employerId}', '{self.scheduleId}')"
-    
+        return f"JobOffer(id={self.id}, title='{self.title}', address='{self.address}', description='{self.description}', dateEntryOffice='{self.dateEntryOffice}', deadlineApply='{self.deadlineApply}', email='{self.email}', hoursPerWeek={self.hoursPerWeek}, compliantEmploymentStandards={self.compliantEmploymentStandards}, internship={self.internship}, offerStatus={self.offerStatus}, offerLink='{self.offerLink}', urgent={self.urgent}, active={self.active}, employerId={self.employerId}, scheduleId={self.scheduleId})"
+
     def to_json_string(self):
-        return {'id': self.id, 'title': self.title, 'address': self.address, 'description': self.description, 'dateEntryOffice': self.dateEntryOffice, 'deadlineApply': self.deadlineApply, 'email': self.email, 'hoursPerWeek': self.hoursPerWeek, 'compliantEmploymentStandards': self.compliantEmploymentStandards, 'internship': self.internship, 'offerStatus': self.offerStatus, 'offerLink': self.offerLink, 'urgent': self.urgent, 'active': self.active, 'employerId': self.employerId, 'scheduleId': self.scheduleId}
+        return {
+            'id': self.id,
+            'title': self.title,
+            'address': self.address,
+            'description': self.description,
+            'dateEntryOffice': str(self.dateEntryOffice),  # Convert datetime to string
+            'deadlineApply': str(self.deadlineApply),  # Convert date to string
+            'email': self.email,
+            'hoursPerWeek': self.hoursPerWeek,
+            'compliantEmploymentStandards': self.compliantEmploymentStandards,
+            'internship': self.internship,
+            'offerStatus': self.offerStatus,
+            'offerLink': self.offerLink,
+            'urgent': self.urgent,
+            'active': self.active,
+            'employerId': self.employerId,
+            'scheduleId': self.scheduleId
+        }

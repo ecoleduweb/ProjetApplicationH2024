@@ -14,12 +14,29 @@ Créer la base de données avec ce script:
 CREATE DATABASE H2024;
 USE H2024;
 CREATE TABLE user (
-    id int not null auto_increment,
-    name varchar(255) ,
-    email varchar(255) ,
-    password varchar(255) ,
-    admin boolean ,
-    primary key (id)
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) DEFAULT FALSE,
+    active BOOLEAN DEFAULT FALSE,
+    isModerator BOOLEAN DEFAULT FALSE
+);
+CREATE TABLE IF NOT EXISTS job_offer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    dateEntryOffice DATETIME NOT NULL,
+    deadlineApply DATE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    hoursPerWeek FLOAT NOT NULL,
+    compliantEmploymentStandards BOOLEAN NOT NULL,
+    internship BOOLEAN NOT NULL,
+    offerStatus INT NOT NULL,
+    offerLink VARCHAR(255) NOT NULL,
+    urgent BOOLEAN NOT NULL,
+    active BOOLEAN NOT NULL,
+    employerId INT NOT NULL,
+    scheduleId INT NOT NULL
 );
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON H2024.* TO 'admin'@'localhost';
@@ -30,6 +47,8 @@ FLUSH PRIVILEGES;
 Créer un .env dans le répertoire /API avec les variables suivantes:
 ```env
 DATABASE_TEST_URL=mysql+pymysql://admin:admin@localhost/H2024test
+BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IeyJlbWFpbCI6InBoaWxzYXVjaWVyQGdtYWlsLmNvbSIsImV4cCI6MTcxMDnNk6hD83xlj9
+
 DATABASE_DEV_URL=mysql+pymysql://admin:admin@localhost/H2024
 
 SECRET_KEY=secret
@@ -52,17 +71,36 @@ Créer la base de données de test avec ce script:
 CREATE DATABASE H2024test;
 USE H2024test;
 CREATE TABLE user (
-    id int not null auto_increment,
-    name varchar(255) ,
-    email varchar(255) ,
-    password varchar(255) ,
-    admin boolean ,
-    primary key (id)
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) DEFAULT FALSE,
+    active BOOLEAN DEFAULT FALSE,
+    isModerator BOOLEAN DEFAULT FALSE
 );
+CREATE TABLE IF NOT EXISTS job_offer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    dateEntryOffice DATETIME NOT NULL,
+    deadlineApply DATE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    hoursPerWeek FLOAT NOT NULL,
+    compliantEmploymentStandards BOOLEAN NOT NULL,
+    internship BOOLEAN NOT NULL,
+    offerStatus INT NOT NULL,
+    offerLink VARCHAR(255) NOT NULL,
+    urgent BOOLEAN NOT NULL,
+    active BOOLEAN NOT NULL,
+    employerId INT NOT NULL,
+    scheduleId INT NOT NULL
+);
+
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON H2024test.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 ```
+Pour les tests, mettre un token valide dans le .env
 
 Lancer les tests avec la commande:
 ```bash
