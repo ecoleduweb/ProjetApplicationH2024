@@ -1,11 +1,21 @@
+body {
+  background-color: #1E2634;
+  margin: 0px;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-h1,
+h1 {
+  font-family: RobotoCondensed-Black;
+  text-align: left;
+  color: #333;
+}
+
 h2 {
-  font-family: Manrope-ExtraLight;
+  font-family: RobotoCondensed-Ligth;
 }
 
 p,
@@ -21,7 +31,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Manrope-Regular;
+  font-family: RobotoCondensed-Regular;
 }
 
 .errors-input {

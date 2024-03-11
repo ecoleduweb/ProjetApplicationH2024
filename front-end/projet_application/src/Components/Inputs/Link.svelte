@@ -5,7 +5,7 @@
 
 <a {href}>{text}</a>
 
-<style>
+<style scoped>
   a {
     color: black;
     padding: 12px 16px;
@@ -18,6 +18,6 @@
   }
 
   a:hover {
-    background-color: #ddd;
+    background-color: #b3b3b3;
   }
 </style>
