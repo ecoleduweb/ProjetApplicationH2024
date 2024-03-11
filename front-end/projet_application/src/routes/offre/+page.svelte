@@ -23,12 +23,12 @@
     courrielContact: yup.string().email("Le courriel de contact n'est pas valide").required("Le courriel de contact est requis"),
     typeEmplois: yup.string().required("Le type d'emplois est requis"),
     programme: yup.string().required("Le programme visé est requis"),
-    
   });
 
     let offre: Offre = {
     titre: "",
     lieu: "",
+    entreprise : "",
     dateEntreeFonction: "",
     dateLimitePostuler: "",
     salaire: 0,
@@ -46,6 +46,7 @@
     let errors: Offre = {
     titre: "",
     lieu: "",
+    entreprise : "",
     dateEntreeFonction: "",
     dateLimitePostuler: "",
     salaire: 0,
@@ -59,9 +60,16 @@
     courrielContact: "",
     active: true,
     };
-
-
-
+    let typeEntrepriseSelected: { label: string; value: number } = { label: "", value: 0 };
+    let entreprise = [ // value = id de l'entreprise
+    { label: "Entreprise 1", value: 1 },
+    { label: "Entreprise 2", value: 2 },
+    { label: "Entreprise 3", value: 3 },
+    { label: "Entreprise 4", value: 4 },
+    { label: "Entreprise 5", value: 5 },
+    { label: "Entreprise 6", value: 6 },
+    { label: "Entreprise 7", value: 7 }
+    ];
     let programmeSelected: { label: string; value: number }[] = [];
     let programmes = [
     { label: "Design d'intérieur", value: 1 },
@@ -94,6 +102,7 @@
       errors = {
         titre: "",
         lieu: "",
+        entreprise : "",
         dateEntreeFonction: "",
         dateLimitePostuler: "",
         salaire: 0,
@@ -117,10 +126,21 @@
   };
 
   </script>
-  
+
   <div class="container">
     <form on:submit|preventDefault={handleSubmit} class="form-offre">
       <h1>Créer une nouvelle offre d'emploi</h1>
+      <div class="form-group-vertical">
+        <label for="entreprise">Nom de l'entreprise*</label>
+        <MultiSelect
+          id="entreprise"
+          options={entreprise}
+          placeholder="Choisir l'entreprise..."
+          bind:value={typeEntrepriseSelected}
+          maxSelect={1}
+          closeDropdownOnSelect={true}
+        />
+      </div>
       <div class="form-group-vertical">
         <label for="titre">Titre du poste*</label>
         <input type="text" bind:value={offre.titre} class="form-control" id="titre" />
@@ -148,21 +168,21 @@
         {#if errors.lieu}{errors.lieu}{/if}
       </p>
       <div class="form-group-vertical">
-        <label for="dateEntree">Date d'entrée en fonction</label>
+        <label for="dateEntree">Date d'entrée en fonction*</label>
         <input type="date" bind:value={offre.dateEntreeFonction} class="form-control" id="dateEntree" />
       </div>
       <p class="errors-input">
         {#if errors.dateEntreeFonction}{errors.dateEntreeFonction}{/if}
       </p>
       <div class="form-group-vertical">
-        <label for="dateLimite">Date limite pour postuler</label>
+        <label for="dateLimite">Date limite pour postuler*</label>
         <input type="date" bind:value={offre.dateLimitePostuler} class="form-control" id="dateLimite" />
       </div>
       <p class="errors-input">
         {#if errors.dateLimitePostuler}{errors.dateLimitePostuler}{/if}
       </p>
       <div class="form-group-vertical">
-        <label for="duree">Programme visée</label>
+        <label for="duree">Programme visée*</label>
         <MultiSelect
           id="programme"
           options={programmes}
@@ -197,11 +217,11 @@
         <input type="checkbox" bind:checked={offre.urgente} class="form-control" id="urgente" />
       </div>
       <div class="form-group-vertical">
-        <label for="lien">Lien</label>
+        <label for="lien">Lien*</label>
         <input type="text" bind:value={offre.lien} class="form-control" id="lien" />
       </div>
       <div class="form-group-vertical">
-        <label for="courriel-contact">Courriel contact</label>
+        <label for="courriel-contact">Courriel contact*</label>
         <input type="text" bind:value={offre.courrielContact} class="form-control" id="courriel-contact" />
       </div>
       <div class="form-group-vertical">

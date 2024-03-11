@@ -3,6 +3,7 @@
 export interface Offre { 
     titre: string; // titre de l'offre
     lieu: string; // lieu de travail
+    entreprise: string; // nom de l'entreprise
     dateEntreeFonction: string // date d'entrée en fonction
     dateLimitePostuler: string // date limite pour postuler
     salaire: number; // salaire de lheure 
