@@ -10,12 +10,17 @@
   <section class="haut">
     <div class="haut-gauche">
       <h1 class="title">
-        <span>PORTAIL D'</span><span>OFFRES D'EMPLOI</span>
+        <span class="text">PORTAIL D'</span><span class="text"
+          >OFFRES D'EMPLOI</span
+        >
       </h1>
-      <h2>DU CÉGEP DE RIVIÈRE-DU-LOUP</h2>
+      <h2 class="text mb">DU CÉGEP DE RIVIÈRE-DU-LOUP</h2>
+      <span class="radiant"></span>
     </div>
     <div class="haut-droite">
-      <Button text="Consulter toutes les offres" />
+      <div class="buttonDiv">
+        <Button text="Consulter toutes les offres" />
+      </div>
     </div>
   </section>
 </main>
@@ -27,6 +32,8 @@
   }
   .title {
     left: 7.2%;
+    margin: 0;
+    margin-top: 30px;
   }
   .title span:first-child {
     color: white;
@@ -36,7 +43,13 @@
     color: #00ad9a;
     margin: 0;
   }
-
+  .text {
+    font-size: 2.5vw;
+    margin: 0;
+  }
+  .mb {
+    margin-bottom: 30px;
+  }
   main {
     display: flex;
     flex-direction: column;
@@ -50,9 +63,24 @@
     display: flex;
     flex-direction: column;
     width: 50%;
-    left: 7.2%;
+    margin-left: 5.2%;
   }
   .haut-droite {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .buttonDiv {
+    display: flex;
     width: 50%;
+    height: 40%;
+    justify-content: flex-end;
+    margin-right: 7.2%;
+  }
+  .radiant {
+    width: 210px;
+    height: 16px;
+    background: linear-gradient(270deg, #bb2534, #b2243d, #a72348, #a02250);
   }
 </style>

@@ -91,8 +91,9 @@ a {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
+    position: absolute;
     background-color: #1E2634;
-    width: 100%;
+    width: 16.5%;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
@@ -122,4 +123,38 @@ a {
 .dropdown:hover .dropdown-content {
     display: flex;
     flex-direction: column;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconeSearch {
+    display: flex;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+}
+
+.textSearch {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+}
+
+.textBusiness {
+    display: flex;
+    align-items: center;
+    width: 55%;
+    height: 100%;
+}
+
+.iconeBusiness {
+    display: flex;
+    align-items: center;
+    width: 15%;
+    height: 100%;
 }
