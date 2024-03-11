@@ -23,8 +23,8 @@
     courrielContact: yup.string().email("Le courriel de contact n'est pas valide").required("Le courriel de contact est requis"),
     typeEmplois: yup.string().required("Le type d'emplois est requis"),
     programme: yup.string().required("Le programme visé est requis"),
+    entreprise: yup.string().required("une entreprise est requis"),
   });
-
     let offre: Offre = {
     titre: "",
     lieu: "",
@@ -44,7 +44,7 @@
     };
 
     let errors: Offre = {
-    titre: "",
+    titre: "", 
     lieu: "",
     entreprise : "",
     dateEntreeFonction: "",
@@ -60,10 +60,10 @@
     courrielContact: "",
     active: true,
     };
-    let typeEntrepriseSelected: { label: string; value: number } = { label: "", value: 0 };
-    let entreprise = [ // value = id de l'entreprise
-    { label: "Entreprise 1", value: 1 },
-    { label: "Entreprise 2", value: 2 },
+    let employeurSelected: { label: string; value: number }[] = [];
+    let employeur = [ // value = id de l'entreprise
+    { label: "Deuxieme Tech", value: 1 },
+    { label: "C i 3 S", value: 2 },
     { label: "Entreprise 3", value: 3 },
     { label: "Entreprise 4", value: 4 },
     { label: "Entreprise 5", value: 5 },
@@ -88,14 +88,15 @@
       { label: "Stage", value: 4 },
   ];
 
-
-
   const handleSubmit = async () => {
+    offre.programme = programmeSelected.map((p) => p.label).join(", ");
+    offre.typeEmplois = typeEmploisSelected.map((p) => p.label).join(", "); 
+    if(employeurSelected.length > 0)
+    offre.entreprise = employeurSelected.map((p) => p.label).join(", ");
     console.log(offre);
     console.log(programmeSelected);
     console.log(typeEmploisSelected);
-    // take all content from programSelected and put it in offre.programme
-    offre.typeEmplois = typeEmploisSelected.map((typeEmploi) => typeEmploi.label).join(", ");
+    // console.log(entrepriseSelected); // lors de la verification de l'entreprise...
     try {
       // `abortEarly: false` to get all the errors
       await schema.validate(offre, { abortEarly: false });
@@ -114,7 +115,7 @@
         lien: "",
         description: "",
         courrielContact: "",
-        active: true,
+        active: false,
       };
 
       console.log(offre);
@@ -130,17 +131,23 @@
   <div class="container">
     <form on:submit|preventDefault={handleSubmit} class="form-offre">
       <h1>Créer une nouvelle offre d'emploi</h1>
+      <!-- {#if offre.active}
       <div class="form-group-vertical">
-        <label for="entreprise">Nom de l'entreprise*</label>
-        <MultiSelect
-          id="entreprise"
-          options={entreprise}
-          placeholder="Choisir l'entreprise..."
-          bind:value={typeEntrepriseSelected}
-          maxSelect={1}
-          closeDropdownOnSelect={true}
-        />
+        <label for="employeur">Nom de l'employeur*</label>
+          <MultiSelect
+            id="employeur"
+            options={employeur}
+            placeholder="Choisir l'employeur..."
+            bind:value={employeurSelected}
+            maxSelect={1}
+            closeDropdownOnSelect={true}
+          />
       </div>
+      <p class="errors-input">
+        {#if errors.employeur}{errors.employeur}{/if}
+      </p>
+      {:else}
+      {/if} -->
       <div class="form-group-vertical">
         <label for="titre">Titre du poste*</label>
         <input type="text" bind:value={offre.titre} class="form-control" id="titre" />

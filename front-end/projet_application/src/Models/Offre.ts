@@ -1,5 +1,3 @@
-
-
 export interface Offre { 
     titre: string; // titre de l'offre
     lieu: string; // lieu de travail
@@ -16,4 +14,4 @@ export interface Offre {
     description: string; // description de l'offre
     courrielContact: string; // courriel de la personne à contacter
     active: boolean; // si l'offre est active ou non
-}
+} 
