@@ -6,4 +6,4 @@ class City(db.Model):
     idRegion = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"User('{self.task}')"
+        return f"User('{self.id}', '{self.city}', '{self.idRegion}')"

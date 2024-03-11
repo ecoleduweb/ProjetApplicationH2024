@@ -4,9 +4,9 @@ from app.models.city_model import City
 from app.models.region_model import Region
 from app.controllers.user_controller import token_required
 
-@app.route('/getCity', methods=['GET'])
+@app.route('/city', methods=['GET'])
 @token_required
-def getCity(self):
+def city(self):
     city_id = request.args.get('id')
     if not city_id:
         return jsonify({'message': 'City parameter is missing'}), 400
@@ -16,17 +16,14 @@ def getCity(self):
     region = Region.query.filter_by(id=city.idRegion).first()
     return jsonify({'id': city.id, 'city': city.city, 'region': region.region})
 
-@app.route('/getAllCities', methods=['GET'])
+@app.route('/cities', methods=['GET'])
 @token_required
-def getAllCities(self):
+def cities(self):
     cities = City.query.all()
-    output = []
     if not cities:
         return jsonify({'message': 'no cities found'})
+    cities_list = []
     for city in cities:
-        city_data = {}
-        city_data['id'] = city.id
-        city_data['city'] = city.city
-        city_data['idRegion'] = city.idRegion
-        output.append(city_data)
-    return jsonify({'cities': output})
+        region = Region.query.filter_by(id=city.idRegion).first()
+        cities_list.append({'id': city.id, 'city': city.city, 'region': region.region})
+    return jsonify(cities_list)
