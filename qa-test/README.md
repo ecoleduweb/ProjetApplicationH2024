@@ -29,14 +29,7 @@ Install Playwright in your project using :
 ```Shell
 npm init playwright@latest
 ```
-or
-```Shell
-yarn create playwright
-```
-or
-```Shell
-pnpm create playwright
-```
+
 
 If the project is already made and you only need to install it, use :
 ```Shell
@@ -44,8 +37,35 @@ npm i
 ```
 
 Then, you can open and run the test to see the results on screen using Visual Studio's test section !
+## Usage
 
----
+Pour ajouter des tests, il suffit de créer un nouveau fichier dans le dossier tests et que ce fichier se termine 
+par .specs.ts.
+
+Exemple : 
+```
+test.exemple.specs.ts
+```
+Sinon Playwright ne reconnaitras pas le fichiers.
+
+Pour ajouter un test à votre fichier, celui-ci sera créer de cette manière :
+
+```
+test('Nom du test', async ({ page }) => {
+ await page.getByLabel('Nom d\'utilisateur').click();
+ await page.getByLabel('Nom d\'utilisateur').fill('test@test.ca');
+ // reste du test ici...
+}
+```
+
+Pour obtenir la liste des actions possibles (.getByLabel, getByRole...) 
+
+Consulter ce lien : [ICI](https://playwright.dev/docs/library)
+
+La section Docs contient la majorité  des actions nécessaires pour faire des tests.
+
+```
+```
 
 End of the ReadMe
 
