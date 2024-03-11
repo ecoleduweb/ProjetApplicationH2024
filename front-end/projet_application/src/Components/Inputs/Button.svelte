@@ -19,7 +19,6 @@
     border-radius: 14px;
     cursor: pointer;
     cursor: pointer;
-    transition: 0.5s;
     background: linear-gradient(
         90deg,
         var(--c1, #992050),
