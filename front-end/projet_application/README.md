@@ -6,7 +6,7 @@ Before starting the app, create a .env file and add the required fields. Alterna
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install`, start a development server:
+Once you've created a project and installed dependencies with `npm install` (make sure you're in the /projet_application directory), start a development server:
 
 ```bash
 npm run dev
