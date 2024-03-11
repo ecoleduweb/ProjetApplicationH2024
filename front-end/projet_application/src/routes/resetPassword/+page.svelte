@@ -1,7 +1,6 @@
 <script lang="ts">
-  import Button from "../../Components/Inputs/Button.svelte";
-  import "../../styles/resetPassword.css";
   import "../../styles/global.css";
+  import Button from "../../Components/Inputs/Button.svelte";
   import type { ResetPassword } from "../../Models/ResetPassword";
   import * as yup from "yup";
   import { extractErrors } from "../../ts/utils";
@@ -93,3 +92,7 @@
     </form>
   </div>
 </section>
+
+<style scoped>
+  @import "../../styles/resetPassword.css";
+</style>

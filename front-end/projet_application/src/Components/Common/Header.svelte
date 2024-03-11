@@ -1,16 +1,27 @@
-<script lang="ts">
-  import "../../styles/header.css";
-  import Link from "../Inputs/Link.svelte";
-</script>
-
 <header class="">
   <div class="logo-img">
-    <img src="./src/images/logo.png" class="image" alt="Logo" />
+    <a href="/" class="image"><img src="./src/images/logo.png" alt="Logo" /></a>
   </div>
   <div class="ul-group">
     <ul class="ul-menu">
-      <li class="li-items"><Link href={"/"} text="Accueil" /></li>
-      <li class="li-items"><Link href={"/login"} text="Se connecter" /></li>
+      <div class="option dropdown">
+        <button class="button dropbtn">
+          <p>Offrir un emploi</p>
+        </button>
+        <div class="dropdown-content">
+          <a href="/login">Connexion entreprise</a>
+          <a href="/register">Créer un compte entreprise</a>
+        </div>
+      </div>
+      <div class="option">
+        <button class="button">
+          <p>Trouver un emploi</p>
+        </button>
+      </div>
     </ul>
   </div>
 </header>
+
+<style scoped>
+  @import "../../styles/header.css";
+</style>
