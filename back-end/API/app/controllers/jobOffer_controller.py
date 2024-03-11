@@ -19,9 +19,12 @@ def getAllJobOffers():
     return jobOffer_service.getAllJobOffers()
 
 @app_blueprint.route('/getJobOffer', methods=['GET'])
-def getJobOffer(id):
+def getJobOffer():
     id = request.args.get('id')
-    return jobOffer_service.getJobOffer(id)
+    if id is not None:
+        return jobOffer_service.getJobOffer(id)
+    else:
+        return "ID is required", 400
 
 
 @app_blueprint.route('/updateJobOffer', methods=['PUT'])

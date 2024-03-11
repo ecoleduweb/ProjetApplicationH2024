@@ -35,8 +35,13 @@ class JobOfferRepo:
             output.append(jobOffer_data)
         return jsonify({'jobOffers': output})
 
-    def getJobOffer(self, id):
-        return JobOffer.query.filter_by(id=id).first()
+    def getJobOffer():
+        id = request.args.get('id')
+        if id is not None:
+            id = int(id)  # Convertir l'id en entier, si nécessaire
+            return JobOffer_service.getJobOffer(id)
+        else:
+            return "ID is required", 400
 
     def updateJobOffer(self, data):
         job_offer = JobOffer.query.get(data['id'])
