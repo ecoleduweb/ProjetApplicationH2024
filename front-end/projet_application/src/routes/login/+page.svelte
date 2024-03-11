@@ -1,12 +1,12 @@
 <script lang="ts">
+  import "../../styles/global.css";
   import Button from "../../Components/Inputs/Button.svelte";
   import Link from "../../Components/Inputs/Link.svelte";
-  import "../../styles/login.css";
-  import "../../styles/global.css";
   import type { Login } from "../../Models/Login";
   import { POST } from "../../ts/server";
   import * as yup from "yup";
   import { extractErrors } from "../../ts/utils";
+  import { goto } from "$app/navigation";
 
   const schema = yup.object().shape({
     email: yup
@@ -34,10 +34,17 @@
         email: "",
         password: "",
       };
-
-      console.log(form);
-      const response = POST("/auth/login", form);
-      console.log(response);
+      try {
+        const response = await POST<Login, any>("/login", form);
+        if (response.token != "") {
+          goto("/");
+        }
+      } catch (error) {
+        errors = {
+          email: "",
+          password: "Courriel ou mot de passe invalide",
+        };
+      }
     } catch (err) {
       errors = extractErrors(err);
     }
@@ -48,7 +55,7 @@
   <div class="login">
     <h1>Authentification</h1>
     <form on:submit|preventDefault={handleSubmit} class="login-form">
-      <label for="email">Nom d'utiliasteur</label>
+      <label for="email">Nom d'utilisateur</label>
       <input
         type="text"
         class="input-login"
@@ -78,3 +85,7 @@
     </form>
   </div>
 </section>
+
+<style scoped>
+  @import "../../styles/login.css";
+</style>
