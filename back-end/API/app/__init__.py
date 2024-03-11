@@ -33,6 +33,6 @@ def create_app():
     from app.controllers.jobOffer_controller import job_offer_blueprint
     
     app.register_blueprint(user_blueprint, url_prefix='/user')
-    app.register_blueprint(job_offer_blueprint, url_prefix='/job_offer')
+    app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
 
     return app

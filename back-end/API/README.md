@@ -64,6 +64,56 @@ flask run
 flask run --host=0.0.0.0
 ```
 
+### Routes
+#### /user
+- /createUser
+    - POST
+    - Créer un utilisateur
+    - Token requis
+    - Paramètres:
+        - email: string
+        - password: string
+
+- /login
+    - POST
+    - Se connecter
+    - Paramètres:
+        - email: string
+        - password: string
+
+- /updatePassword
+    - PUT
+    - Mettre à jour le mot de passe
+    - Token requis
+    - Paramètres:
+        - email: string
+        - password: string
+
+- /getUser
+    - GET
+    - Récupérer un utilisateur
+    - Token requis
+    - Paramètres:
+        - email: string
+
+- /getAllUsers
+    - GET
+    - Récupérer tous les utilisateurs
+    - Token requis
+
+#### /jobOffer
+
+- /offreEmploi/<id>
+    - GET
+    - Récupérer une offre d'emploi selon l'id
+    - Paramètres:
+        - id: int
+
+- /offresEmploi
+    - GET
+    - Récupérer toutes les offres d'emploi
+
+
 ### Running the tests
 
 Créer la base de données de test avec ce script:
