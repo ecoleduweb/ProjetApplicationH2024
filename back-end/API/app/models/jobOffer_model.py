@@ -1,8 +1,4 @@
 from app import db
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
 
 class JobOffer(db.Model):
     
@@ -24,4 +20,4 @@ class JobOffer(db.Model):
     ScheduleId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"JobOffer('{self.task}', '{self.id}')"
+        return f"JobOffer('{self.title}', '{self.id}')"
