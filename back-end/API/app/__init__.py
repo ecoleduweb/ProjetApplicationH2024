@@ -1,27 +1,51 @@
 import sys
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
-import pytest
 import pymysql
+from flask_cors import CORS
+from flask_swagger_ui import get_swaggerui_blueprint
+
+SWAGGER_URL="/swagger"
+API_URL="/static/swagger.json"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Gestion de demandes d'emplois"
+    }
+)
+
+db = SQLAlchemy()
 
 pymysql.install_as_MySQLdb()
 load_dotenv()
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
 
-if any("pytest" in arg for arg in sys.argv):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_TEST_URL')
-    print("Running in test mode.")
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_DEV_URL')
-    print("Running in development mode.")
+    CORS(app, origins='http://10.172.80.144, http://localhost')
 
-db = SQLAlchemy(app)
 
-from app.controllers.user_controller import *
-from app.controllers.city_controller import *
+    try:
+        if any("pytest" in arg for arg in sys.argv):
+            app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_TEST_URL')
+        else:
+            app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_DEV_URL')
+            print("Running in development mode.")
+    except Exception as e:
+        print(e)
+        print("Error loading environment variables.")
+        return jsonify({'message': 'Error loading environment variables'}), 500
+    
+    db.init_app(app)
 
-if any("pytest" in arg for arg in sys.argv):
-    pytest.main(['tests/'])
+    from app.controllers.city_controller import *
+    from app.controllers.user_controller import app_blueprint
+    app.register_blueprint(app_blueprint)
+    app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+
+    return app

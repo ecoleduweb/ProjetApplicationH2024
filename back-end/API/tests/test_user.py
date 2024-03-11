@@ -1,44 +1,44 @@
 import os
-import unittest
-from flask_testing import TestCase
-from pathlib import Path
-import sys
-from dotenv import load_dotenv
+import pytest
+from argon2 import PasswordHasher
+from app import create_app
+from app.models.user_model import db, User
 
-load_dotenv()
+hasher = PasswordHasher()
 
-current_file = Path(__file__).resolve()
-parent_directory = current_file.parent
-project_directory = parent_directory.parent
-
-sys.path.append(str(project_directory))
-
-from app import app, db
-from app.repositories.user_repo import UserRepo
-user_repo = UserRepo()
-from app.models.user_model import User
-
-class BaseTestCase(TestCase):
-    def create_app(self):
-        app.config['TEST'] = "true"
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_TEST_URL")
-        return app
-
-    def setUp(self):
+@pytest.fixture(scope='module')
+def app():
+    app = create_app()
+    with app.app_context():
         db.create_all()
-
-    def tearDown(self):
+        hashed_password = hasher.hash("phil123")
+        user = User(name="Phil", email="philsaucier@gmail.com", password=hashed_password, admin=False)
+        db.session.add(user)
+        db.session.commit()
+        yield app
+        ## Drop la db après les tests
         db.session.remove()
         db.drop_all()
 
+@pytest.fixture(scope='module')
+def client(app):
+    return app.test_client()
 
-# class TestUserRepo(BaseTestCase):
-#     def test_createUser(self):
-#         with self.app.app_context():
-#             user = user_repo.createUser({"name": "test", "email": "test@gmail.com", "password": "test"})
-#             self.assertEqual(user.name, "test")
+def test_createUser(client):
+    data = {
+        "name": "Phil",
+        "email": "phil@gmail.com",
+        "password": "phil123",
+        "admin": False 
+    }
+    response = client.post('/createUser', json=data)
+    assert response.status_code == 200
 
-
-
-if __name__ == '__main__':
-    unittest.main()
+def test_login(client):
+    data = {
+        "email": "philsaucier@gmail.com",
+        "password": "phil123"
+    }
+    response = client.post('/login', json=data)
+    assert response.status_code == 200
+    assert 'token' in response.json
