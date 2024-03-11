@@ -5,6 +5,18 @@ from dotenv import load_dotenv
 import os
 import pymysql
 from flask_cors import CORS
+from flask_swagger_ui import get_swaggerui_blueprint
+
+SWAGGER_URL="/swagger"
+API_URL="/static/swagger.json"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Gestion de demandes d'emplois"
+    }
+)
 
 db = SQLAlchemy()
 
@@ -33,5 +45,6 @@ def create_app():
 
     from app.controllers.user_controller import app_blueprint
     app.register_blueprint(app_blueprint)
+    app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
     return app
