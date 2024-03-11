@@ -3,6 +3,11 @@
   import Header from "../Components/Common/Header.svelte";
   import Footer from "../Components/Common/Footer.svelte";
   import Button from "../Components/Inputs/Button.svelte";
+  import { goto } from "$app/navigation";
+
+  const handleEmploi = () => {
+    goto("/emplois");
+  };
 </script>
 
 <Header />
@@ -19,7 +24,9 @@
     </div>
     <div class="haut-droite">
       <div class="buttonDiv">
-        <Button text="Consulter toutes les offres" />
+        <div class="divFlex" on:click={handleEmploi}>
+          <Button text="Consulter toutes les offres" />
+        </div>
       </div>
     </div>
   </section>
@@ -82,5 +89,8 @@
     width: 210px;
     height: 16px;
     background: linear-gradient(270deg, #bb2534, #b2243d, #a72348, #a02250);
+  }
+  .divFlex {
+    display: flex;
   }
 </style>

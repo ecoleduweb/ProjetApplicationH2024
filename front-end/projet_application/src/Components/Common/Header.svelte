@@ -1,3 +1,11 @@
+<script lang="ts">
+  import { goto } from "$app/navigation";
+
+  const handleEmploi = () => {
+    goto("/emplois");
+  };
+</script>
+
 <header class="">
   <div class="logo-img">
     <a href="/" class="image"><img src="logo.png" alt="Logo" /></a>
@@ -15,7 +23,7 @@
         </div>
       </div>
       <div class="option">
-        <button class="button">
+        <button class="button" on:click={handleEmploi}>
           <p class="textSearch">Trouver un emploi</p>
           <img class="iconeSearch" src="searchBar.svg" alt="test" />
         </button>

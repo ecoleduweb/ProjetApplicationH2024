@@ -7,7 +7,7 @@
     const data: Emploi[] = [
         {
             id: 1,
-            titre: "Titre du poste1",
+            titre: "Titre du poste 1",
             dateDebut: "2021-10-10",
             dateFin: "2021-10-11",
             description: "Description du poste 1",
@@ -17,7 +17,7 @@
         },
         {
             id: 2,
-            titre: "Titre du poste2",
+            titre: "Titre du poste 2",
             dateDebut: "2021-10-10",
             dateFin: "2021-10-11",
             description: "Description du poste 2",
@@ -27,7 +27,7 @@
         },
         {
             id: 3,
-            titre: "Titre du poste3",
+            titre: "Titre du poste 3",
             dateDebut: "2021-10-10",
             dateFin: "2021-10-11",
             description: "Description du poste 3",
