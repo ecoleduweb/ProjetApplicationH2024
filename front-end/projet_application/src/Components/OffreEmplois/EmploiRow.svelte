@@ -48,7 +48,7 @@
         padding: 5px 0px 5px 0px;
     }
     .emploi:hover {
-        background-color: #252f41;
+        background-color: #555b66;
     }
     .image {
         width: 30px;
