@@ -103,6 +103,11 @@ server {
 
 ```
 
+Puis redémarrez Nginx
+```
+sudo service nginx restart
+```
+
 ### Autre documentations
 [CertBot](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal&tab=standard)\
 [Issue StackOverflow](https://stackoverflow.com/questions/44425654/nginx-react-node-lets-encrypt-how-to-point-nginx-at-my-react-app)
