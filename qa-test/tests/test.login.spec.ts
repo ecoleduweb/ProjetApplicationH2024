@@ -98,9 +98,6 @@ test('Forgot Password', async ({ page }) => {
 test('Mauvais register', async ({ page }) => {
   const courrielTest = 'courrielInvalide';
 
-  function expectToContain<T>(array: T[], item: T) {
-    expect(array.includes(item)).toBeTruthy();
-}
    // Ouvre la page de connexion
   // Hover sur le bouton "Offrir un emploi" pour faire apparaitre le sous-menu
   await page.hover('text=Offrir un emploi');
