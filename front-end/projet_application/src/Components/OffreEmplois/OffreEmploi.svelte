@@ -14,7 +14,7 @@
         <div class="info">
             <h5 class="infoTitle">Type de poste</h5>
             <p class="text">{emploi.titre}</p>
-            <h5 class="infoTitle">Adresse du lieu de travaiL</h5>
+            <h5 class="infoTitle">Adresse du lieu de travail</h5>
             <p class="text">{emploi.ville}</p>
             <h5 class="infoTitle">Description du poste</h5>
             <p class="text">{emploi.description}</p>
