@@ -11,3 +11,6 @@ class JobOfferService:
 
     def offresEmploi(self):
         return jobOffer_repo.offresEmploi()
+    
+    def linkJobOfferEmployer(self, data):
+        return jobOffer_repo.linkJobOfferEmployer(data)

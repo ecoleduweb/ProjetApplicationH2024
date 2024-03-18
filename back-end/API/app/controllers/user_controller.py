@@ -6,6 +6,10 @@ from flask import jsonify, request
 from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()
+from app.services.employer_service import EmployerService
+employer_service = EmployerService()
+from app.services.enterprise_service import EnterpriseService
+enterprise_service = EnterpriseService()
 
 user_blueprint = Blueprint('user', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
@@ -43,11 +47,18 @@ def createUser():
     if not isinstance(data, dict):
         return jsonify({'message': 'Invalid JSON data format'}), 400
 
+    if user_service.getUser(data['email']):
+        return jsonify({'message': 'User already exists'}), 400
+
     return user_service.createUser(data)
+    # enterprise = enterprise_service.createEnterprise(data, isTemporary=True)
+    # employer = employer_service.createEmployer(user.id, enterprise.id, verified=False)
+    
+    # return jsonify({'message': 'User created successfully'})
 
 @user_blueprint.route('/updatePassword', methods=['PUT'])
 @token_required
-def updatePassword(current_user):
+def updatePassword():
     data = request.get_json()
     if not isinstance(data, dict):
         return jsonify({'message': 'Invalid JSON data format'}), 400
@@ -60,12 +71,12 @@ def updatePassword(current_user):
 
 @user_blueprint.route('/getAllUsers', methods=['GET'])
 @token_required
-def getAllUsers(current_user):
+def getAllUsers():
     return user_service.getAllUsers()
 
 @user_blueprint.route('/getUser', methods=['GET'])
 @token_required
-def getUser(current_user):
+def getUser():
     token = request.headers.get('Authorization')
     data = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
     email = data['email']

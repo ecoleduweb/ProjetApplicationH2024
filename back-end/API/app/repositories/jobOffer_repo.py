@@ -17,3 +17,9 @@ class JobOfferRepo:
     def offresEmploi(self):
         jobOffers = JobOffer.query.all()
         return jobOffers
+    
+    def linkJobOfferEmployer(self, data):
+        jobOffer = JobOffer.query.filter_by(id=data['jobOfferId']).first()
+        jobOffer.employer_id = data['employerId']
+        db.session.commit()
+        return jsonify({'message': 'job offer linked to employer'})

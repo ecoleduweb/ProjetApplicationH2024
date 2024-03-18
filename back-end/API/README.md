@@ -38,6 +38,21 @@ CREATE TABLE IF NOT EXISTS job_offer (
     employerId INT NOT NULL,
     scheduleId INT NOT NULL
 );
+CREATE TABLE Employers (
+    id SERIAL PRIMARY KEY,
+    verified BOOLEAN NOT NULL,
+    userId INTEGER,
+    entrepriseId INTEGER NOT NULL
+);
+CREATE TABLE Enterprise (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    cityId INTEGER NOT NULL,
+    isTemporary BOOLEAN NOT NULL
+);
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON H2024.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;

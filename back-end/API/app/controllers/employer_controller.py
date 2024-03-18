@@ -35,4 +35,8 @@ def createEmployer():
     data = request.get_json()
     return employer_service.createEmployer(data)
     
-
+@token_required
+@employer_blueprint.route('/linkEmployerEnterprise', methods=['PUT'])
+def linkEmployerEnterprise():
+    data = request.get_json()
+    return employer_service.linkEmployerEnterprise(data)

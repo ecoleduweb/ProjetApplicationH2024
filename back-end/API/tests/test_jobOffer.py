@@ -90,3 +90,63 @@ def test_offresEmploi(client):
     print(response)
     assert response.status_code == 200
     assert len(response.json) == 2
+
+def test_userCreateOffresEmploi(client):
+    data = {
+            "jobOffer": 
+            {
+                "id": 2,
+                "title": "Développeur",
+                "address": "123 rue de la rue",
+                "description": "Développeur front-end",
+                "dateEntryOffice": "2021-12-12",
+                "deadlineApply": "2021-12-12",
+                "email": "test@gmail.com",
+                "hoursPerWeek": 40,
+                "compliantEmployer": True,
+                "internship": False,
+                "offerStatus": 1,
+                "offerLink": "www.google.com",
+                "urgent": False,
+                "active": True,
+                "employerId": 1,
+                "scheduleId": 1
+            },
+            "employerId": 1,
+            "enterprise": 
+            {
+                "id": 1,
+                "name": "Google",
+                "email": "google@gmail.com",
+                "phone": "1234567890",
+                "address": "123 rue google",
+                "cityId": 1
+            }
+        }
+    # user = client.post('/user/createUser', json={"id": 5, "email": "test@gmail.com", "password": "test"})
+    # token = client.post('/user/login', json={"email": "test@gmail.com", "password": "test"})
+    # print(token)
+    response = client.post('/jobOffer/createJobOffer', json=data, headers={'Authorization': os.environ.get('BEARER_TOKEN')})
+    assert response.status_code == 200
+
+# def test_adminCreateOffresEmploi(client):
+#     data = {
+#         "id": 7,
+#         "title" : "Cuisinier mcdo 7",
+#         "address" : "mcdo",
+#         "description" : "Le seul mcdo de RDl",
+#         "dateEntryOffice" : "2024-02-02",
+#         "deadlineApply" : "2024-02-02",
+#         "email" : "mcdo@gmail.com",
+#         "hoursPerWeek" : 35,
+#         "compliantEmployer" : True,
+#         "internship" : True,
+#         "offerStatus" : 1,
+#         "offerLink" : "https://www.mcdonalds.com/ca/fr-ca.html",
+#         "urgent" : True,
+#         "active" : True,
+#         "employerId" : 1,
+#         "scheduleId" : 1
+#     }
+#     response = client.post('/jobOffer/createJobOffer', json=data)
+#     assert response.status_code == 200
