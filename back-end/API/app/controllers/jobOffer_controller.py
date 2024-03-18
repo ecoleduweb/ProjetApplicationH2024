@@ -30,7 +30,7 @@ def token_required(f):
             return f(current_user)
         return decorated
       
-@app_blueprint.route('/createJobOffer', methods=['POST'])
+@job_offer_blueprint.route('/createJobOffer', methods=['POST'])
 def createJobOffer():
     data = request.get_json()
     return jobOffer_service.createJobOffer(data)
