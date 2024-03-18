@@ -1,5 +1,6 @@
 import sys
 from flask_sqlalchemy import SQLAlchemy
+from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
 import os
 import pymysql
@@ -46,14 +47,16 @@ def create_app():
 
     db.init_app(app)
     migrate = Migrate(app, db)
-
+    
     from app.controllers.user_controller import user_blueprint
     from app.controllers.jobOffer_controller import job_offer_blueprint
+    from app.controllers.city_controller import city_blueprint
     
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
-
+    app.register_blueprint(city_blueprint, url_prefix='/city')
     app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+    
 
 
     return app
