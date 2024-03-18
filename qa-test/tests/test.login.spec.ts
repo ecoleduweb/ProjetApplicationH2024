@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
   // se connecte au site (ADDRESSE A CHANGER LORSQUE LE SITE SERA DÉPLOYÉ)
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://134.122.45.61:5173/');
   await 1000;
   await page.waitForLoadState('networkidle');
 });

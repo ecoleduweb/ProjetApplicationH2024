@@ -91,14 +91,10 @@
         province: "",
         validatePassword: "",
       };
-      console.log(register);
     } catch (err) {
       errors = extractErrors(err);
-      console.log("Validation errors:", errors);
-      console.log("Validation errors:", errors.user);
     }
     // Here you can handle form submission, for now, just logging the values
-    console.log(register);
   };
 </script>
 
