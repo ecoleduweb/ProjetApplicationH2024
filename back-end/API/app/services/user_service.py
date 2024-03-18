@@ -11,17 +11,16 @@ auth_repo = AuthRepo()
 hasher = PasswordHasher()
 
 class UserService:
-    def login(self, data):
-        email = data['email']
+    def login(self, email, password):
         user = auth_repo.getUser(email)
         if user is None:
             return jsonify({'message': 'user not found'}), 401
         try:
-            isvalid = hasher.verify(user.password, data['password'])
+            isvalid = hasher.verify(user.password, password)
             token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get('SECRET_KEY'))
             return jsonify({'token' : token})
-        except:
-            return jsonify({'message': 'could not verify'}), 401
+        except Exception as e:
+            return jsonify({'message': f"could not verify, {os.environ.get('SECRET_KEY')}"}), 401
 
     
     def createUser(self, data):
