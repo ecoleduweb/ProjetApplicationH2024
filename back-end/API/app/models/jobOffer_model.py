@@ -23,7 +23,7 @@ class JobOffer(db.Model):
     scheduleId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"JobOffer(id={self.id}, title='{self.title}', address='{self.address}', description='{self.description}', dateEntryOffice='{self.dateEntryOffice}', deadlineApply='{self.deadlineApply}', email='{self.email}', hoursPerWeek={self.hoursPerWeek}, compliantEmploymentStandards={self.compliantEmploymentStandards}, internship={self.internship}, offerStatus={self.offerStatus}, offerLink='{self.offerLink}', urgent={self.urgent}, active={self.active}, employerId={self.employerId}, scheduleId={self.scheduleId})"
+        return f"JobOffer(id={self.id}, title='{self.title}', address='{self.address}', description='{self.description}', dateEntryOffice='{self.dateEntryOffice}', deadlineApply='{self.deadlineApply}', email='{self.email}', hoursPerWeek={self.hoursPerWeek}, compliantEmployer={self.compliantEmployer}, internship={self.internship}, offerStatus={self.offerStatus}, offerLink='{self.offerLink}', urgent={self.urgent}, active={self.active}, employerId={self.employerId}, scheduleId={self.scheduleId})"
 
     def to_json_string(self):
         return {
@@ -35,7 +35,7 @@ class JobOffer(db.Model):
             'deadlineApply': str(self.deadlineApply),  # Convert date to string
             'email': self.email,
             'hoursPerWeek': self.hoursPerWeek,
-            'compliantEmploymentStandards': self.compliantEmploymentStandards,
+            'compliantEmployer': self.compliantEmployer,
             'internship': self.internship,
             'offerStatus': self.offerStatus,
             'offerLink': self.offerLink,
