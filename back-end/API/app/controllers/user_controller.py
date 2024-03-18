@@ -2,7 +2,7 @@ from flask import jsonify, request, Blueprint
 from app.models.user_model import User
 import os
 from jwt import decode
-from flask import Flask, jsonify, request, make_response
+from flask import jsonify, request
 from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()

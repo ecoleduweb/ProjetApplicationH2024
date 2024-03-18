@@ -1,5 +1,3 @@
-from app.models.jobOffer_model import JobOffer
-from app import db
 from app.repositories.jobOffer_repo import JobOfferRepo
 jobOffer_repo = JobOfferRepo()
 

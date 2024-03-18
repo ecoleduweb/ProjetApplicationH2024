@@ -1,15 +1,14 @@
 from flask import jsonify, request, Blueprint
-from app.models.jobOffer_model import JobOffer
 import os
 from app.models.user_model import User
 import os
 from jwt import decode
-from flask import Flask, jsonify, request, make_response
+from flask import jsonify, request
 from functools import wraps
 from app.services.jobOffer_service import JobOfferService
 jobOffer_service = JobOfferService()
 
-job_offer_blueprint = Blueprint('job_offer', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
+job_offer_blueprint = Blueprint('jobOffer', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
 def token_required(f):
         @wraps(f)
