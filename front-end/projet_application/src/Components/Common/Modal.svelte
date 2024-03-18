@@ -1,6 +1,4 @@
 <script lang="ts">
-    import type { Emploi } from "../Models/Emploi";
-    export let emploi: Emploi;
     export let handleModalClick: () => void;
 
     const handleButtonClick = (event: MouseEvent) => {
@@ -11,14 +9,7 @@
 
 <button class="slot" on:click={handleButtonClick}>
     <button class="modal" on:click|stopPropagation>
-        <div class="containre">
-            <div class="info">
-                <p class="text">{emploi.titre}</p>
-                <p class="text">{emploi.entreprise}</p>
-                <p class="text">{emploi.dateFin}</p>
-                <p class="text">{emploi.description}</p>
-            </div>
-        </div>
+        <slot />
     </button>
 </button>
 
@@ -45,22 +36,5 @@
         padding: 20px;
         box-sizing: border-box;
         z-index: 100;
-    }
-    .info {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-        color: black;
-    }
-    .text {
-        margin-right: 10px;
-    }
-    .containre {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: white;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
     }
 </style>

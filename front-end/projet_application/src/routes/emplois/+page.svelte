@@ -3,7 +3,7 @@
     import Header from "../../Components/Common/Header.svelte";
     import Footer from "../../Components/Common/Footer.svelte";
     import EmploiRow from "../../Components/OffreEmplois/EmploiRow.svelte";
-    import Modal from "../../Components/Modal.svelte";
+    import OffreEmploi from "../../Components/OffreEmplois/OffreEmploi.svelte";
     import { writable } from "svelte/store";
     import type { Emploi } from "../../Models/Emploi";
 
@@ -73,7 +73,7 @@
     {#if $modal}
         {#each data as emploi}
             {#if emploi.id === $selectedEmploiId}
-                <Modal {emploi} handleModalClick={closeModal} />
+                <OffreEmploi {emploi} handleEmploiClick={closeModal} />
             {/if}
         {/each}
     {/if}
