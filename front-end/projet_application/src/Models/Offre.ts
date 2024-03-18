@@ -1,17 +1,18 @@
-export interface Offre { 
-    titre: string; // titre de l'offre
-    lieu: string; // lieu de travail
-    entreprise: string; // nom de l'entreprise
-    dateEntreeFonction: string // date d'entrée en fonction
-    dateLimitePostuler: string // date limite pour postuler
-    salaire: number; // salaire de lheure 
-    typeEmplois: string; // si stage vrai sinon faux
-    heures: number; // nombre d'heures par semaine  
-    programme: string; // le programme visée par l'offre
-    conciliation: boolean; // employeur conciliant ou non
-    urgente: boolean; // si l'offre est urgente
-    lien: string; // lien vers l'offre ou site web de l'employeur
+export interface jobOffer { 
+    title: string; // titre de l'offre
+    address: string; // lieu de travail
     description: string; // description de l'offre
-    courrielContact: string; // courriel de la personne à contacter
+    dateEntryOffice: string // date d'entrée en fonction
+    deadlineApply: string // date limite pour postuler
+    email: string; // courriel de la personne à contacter
+    hoursPerWeek: string; // nombre d'heures par semaine  
+    compliantEmployer: boolean; // employeur conciliant ou non
+    internship: boolean; // si l'offre est un stage
+    offerLink: string; // lien vers l'offre ou site web de l'employeur
+    urgent: boolean; // si l'offre est urgente
     active: boolean; // si l'offre est active ou non
+    salary: string; // salaire de lheure                     ** A AJOUTER BD **
+    scheduleId: number; // id de l'horaire de travail
+    // employerId: number; // id de l'employeur (pas encore inclus)
+    idProgramme: number[]; // id du programme visée par l'offre 
 } 
