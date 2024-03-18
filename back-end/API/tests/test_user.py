@@ -36,7 +36,7 @@ def test_createUser(client):
 
 def test_login(client):
     data = {
-        "email": "phil@gmail.com",
+        "email": "philsaucier@gmail.com",
         "password": "phil123"
     }
     response = client.post('/user/login', json=data)

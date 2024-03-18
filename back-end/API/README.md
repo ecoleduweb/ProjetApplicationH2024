@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS job_offer (
 );
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL PRIVILEGES ON H2024test.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON H2024test.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 ```
 Pour les tests, mettre un token valide dans le .env
