@@ -3,7 +3,22 @@
     import Header from "../../Components/Common/Header.svelte";
     import Footer from "../../Components/Common/Footer.svelte";
     import EmploiRow from "../../Components/OffreEmplois/EmploiRow.svelte";
+    import Modal from "../../Components/Modal.svelte";
+    import { writable } from "svelte/store";
     import type { Emploi } from "../../Models/Emploi";
+
+    const modal = writable(false);
+    const selectedEmploiId = writable(0);
+    const openModal = (id: number) => {
+        modal.set(true);
+        selectedEmploiId.set(id);
+    };
+    const closeModal = () => {
+        modal.set(false);
+    };
+    const handleEmploiClick = (offreId: number) => {
+        openModal(offreId);
+    };
     const data: Emploi[] = [
         {
             id: 1,
@@ -51,9 +66,17 @@
     </section>
     <section class="offres">
         {#each data as offre}
-            <EmploiRow emploi={offre}></EmploiRow>
+            <EmploiRow emploi={offre} handleModalClick={handleEmploiClick}
+            ></EmploiRow>
         {/each}
     </section>
+    {#if $modal}
+        {#each data as emploi}
+            {#if emploi.id === $selectedEmploiId}
+                <Modal {emploi} handleModalClick={closeModal} />
+            {/if}
+        {/each}
+    {/if}
 </main>
 <Footer />
 
@@ -90,5 +113,11 @@
         flex-direction: column;
         width: 50%;
         margin-left: 5.2%;
+    }
+    .offres {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 </style>
