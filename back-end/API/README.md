@@ -22,15 +22,15 @@ CREATE TABLE user (
     primary key (id)
 );
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL PRIVILEGES ON H2024.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON H2024.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
 ### Setting up the environment variables
 Créer un .env dans le répertoire /API avec les variables suivantes:
 ```env
-DATABASE_TEST_URL=mysql+pymysql://admin:admin@localhost/H2024
-DATABASE_DEV_URL=mysql+pymysql://admin:admin@localhost/H2024test
+DATABASE_TEST_URL=mysql+pymysql://admin:admin@localhost/H2024test
+DATABASE_DEV_URL=mysql+pymysql://admin:admin@localhost/H2024
 
 SECRET_KEY=secret
 ```
@@ -46,6 +46,11 @@ flask db history (voir toutes les migration)
 ```bash
 flask db branches (Afficher les points de branchement actuels)
 flask run
+```
+
+#### Starting the server on all the network
+```bash
+flask run --host=0.0.0.0
 ```
 
 ### Running the tests

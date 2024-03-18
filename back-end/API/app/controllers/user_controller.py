@@ -19,7 +19,7 @@ def token_required(f):
                 return jsonify({'message': 'a valid token is missing'})
 
             try:
-                data = decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+                data = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
                 current_user = User.query.filter_by(email = data['email']).first()
 
             except Exception as e:
@@ -65,7 +65,10 @@ def getAllUsers(current_user):
 @app_blueprint.route('/getUser', methods=['GET'])
 @token_required
 def getUser(current_user):
-    email = request.args.get('email')
-    if not email:
+    token = request.headers.get('Authorization')
+    data = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
+    email = data['email']
+    if not token:
         return jsonify({'message': 'Missing required fields'}), 400
-    return user_service.getUser(email)
+    user = user_service.getUser(email)
+    return jsonify(user.to_json_string())
