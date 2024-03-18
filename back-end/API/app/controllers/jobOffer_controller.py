@@ -12,37 +12,3 @@ app_blueprint = Blueprint('app', __name__) ## Représente l'app, https://flask.p
 def createJobOffer():
     data = request.get_json()
     return jobOffer_service.createJobOffer(data)
-
-
-@app_blueprint.route('/getAllJobOffers', methods=['GET'])
-def getAllJobOffers():
-    return jobOffer_service.getAllJobOffers()
-
-@app_blueprint.route('/getJobOffer', methods=['GET'])
-def getJobOffer():
-    id = request.args.get('id', type=int)
-    if id is None:
-        return jsonify({'message': 'Missing job offer ID'}), 400
-
-    jobOffer_data = jobOffer_service.getJobOffer(id)
-    if jobOffer_data:
-        return jsonify(jobOffer_data), 200
-    else:
-        return jsonify({'message': 'JobOffer not found'}), 404
-    
-@app_blueprint.route('/updateJobOffer', methods=['PUT'])
-def updateJobOffer(id):
-    if not request.json:
-        return jsonify({'error': 'Bad request'}), 400
-    
-    update_data = request.get_json()
-    result = jobOffer_service.updateJobOffer(id, update_data)
-    
-    if result:
-        return jsonify({'success': 'Job offer updated successfully'}), 200
-    else:
-        return jsonify({'error': 'Job offer not found'}), 404
-
-@app_blueprint.route('/deleteJobOffer', methods=['DELETE'])
-def deleteJobOffer(id):
-    return jobOffer_service.deleteJobOffer(id)
