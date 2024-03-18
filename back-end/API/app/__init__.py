@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
 import os
+import pymysql
+from flask_migrate import Migrate
 from flask_cors import CORS
 from flask import Flask, jsonify
 
@@ -26,6 +28,7 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
+
     CORS(app)
 
     # Set CORS origins
@@ -41,12 +44,13 @@ def create_app():
         print(e)
         print("Error loading environment variables.")
         return jsonify({'message': 'Error loading environment variables'}), 500
-    
-    db.init_app(app)  # Initialize SQLAlchemy with the Flask app
 
-    from app.controllers.city_controller import city_blueprint
+    db.init_app(app)
+    migrate = Migrate(app, db)
+    
     from app.controllers.user_controller import user_blueprint
     from app.controllers.jobOffer_controller import job_offer_blueprint
+    from app.controllers.city_controller import city_blueprint
     
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
