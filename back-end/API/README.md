@@ -46,12 +46,12 @@ FLUSH PRIVILEGES;
 ### Setting up the environment variables
 Créer un .env dans le répertoire /API avec les variables suivantes:
 ```env
-DATABASE_TEST_URL=mysql+pymysql://admin:admin@localhost/H2024test
+DATABASE_TEST_URL= url de la base de données de test
 BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IeyJlbWFpbCI6InBoaWxzYXVjaWVyQGdtYWlsLmNvbSIsImV4cCI6MTcxMDnNk6hD83xlj9
 
-DATABASE_DEV_URL=mysql+pymysql://admin:admin@localhost/H2024
+DATABASE_DEV_URL= url de la base de données de développement
 
-SECRET_KEY=secret
+SECRET_KEY=clé secrète
 ```
 ### Setting migration
 ```bash
