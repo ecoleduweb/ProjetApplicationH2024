@@ -1,7 +1,9 @@
 from flask import jsonify, request, Blueprint
+from app.models.jobOffer_model import JobOffer
+import os
 from app.models.user_model import User
 import os
-from jwt import encode, decode
+from jwt import decode
 from flask import Flask, jsonify, request, make_response
 from functools import wraps
 from app.services.jobOffer_service import JobOfferService
@@ -27,6 +29,11 @@ def token_required(f):
                 return jsonify({'message': 'token is invalid'})
             return f(current_user)
         return decorated
+      
+@job_offer_blueprint.route('/createJobOffer', methods=['POST'])
+def createJobOffer():
+    data = request.get_json()
+    return jobOffer_service.createJobOffer(data)
 
 @job_offer_blueprint.route('/offreEmploi', methods=['GET'])
 def offreEmploi():
