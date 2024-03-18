@@ -46,7 +46,6 @@ def create_app():
 
     db.init_app(app)
     migrate = Migrate(app, db)
-    app.register_blueprint(app_blueprint)
 
     from app.controllers.user_controller import user_blueprint
     from app.controllers.jobOffer_controller import job_offer_blueprint
