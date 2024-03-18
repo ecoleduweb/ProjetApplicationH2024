@@ -37,6 +37,7 @@ class AuthRepo:
         return jsonify({'message': 'password updated'})
 
     def getUser(self, email):
+
         try:
             user = User.query.filter_by(email=email).first()
             if user:
