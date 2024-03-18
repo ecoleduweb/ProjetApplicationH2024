@@ -67,3 +67,22 @@ TimeoutSec=600
 EOF
 
 sudo systemctl enable back-end
+
+
+#BASE DE DONNÉE
+
+#Création de l'utilisateur dans la base de données
+# Database credentials
+db_user="admin"
+db_password="fo3qE!yfc8%0c53EDDq"
+
+# SQL commands
+sql_commands=$(cat <<EOF
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON H2024.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+EOF
+)
+
+# Execute SQL commands
+echo "$sql_commands" | mysql -u"$db_user" -p"$db_password"
