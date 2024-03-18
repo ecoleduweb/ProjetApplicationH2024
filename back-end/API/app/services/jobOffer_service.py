@@ -8,3 +8,9 @@ class JobOfferService:
     def createJobOffer(self, data):
         return jobOffer_repo.createJobOffer(data)
 
+class JobOfferService:
+    def offreEmploi(self, data):
+        return jobOffer_repo.offreEmploi(data)
+
+    def offresEmploi(self):
+        return jobOffer_repo.offresEmploi()
