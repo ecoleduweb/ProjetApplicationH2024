@@ -6,8 +6,7 @@ class Entreprise(db.Model):
     email = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=False)
-    city = db.Column(db.String(255), nullable=False)
-    provinceId = db.Column(db.String(255), nullable=False)
+    cityId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f"User('{self.task}')"

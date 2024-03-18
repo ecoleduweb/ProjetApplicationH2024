@@ -37,6 +37,7 @@
       try {
         const response = await POST<Login, any>("/login", form);
         if (response.token != "") {
+          localStorage.setItem("token", response.token);
           goto("/");
         }
       } catch (error) {

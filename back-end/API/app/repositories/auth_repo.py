@@ -23,7 +23,7 @@ class AuthRepo:
 
     def createUser(self, data):
         hashed_password = hasher.hash(data['password'])
-        new_user = User(name=data['name'], email=data['email'], password=hashed_password, admin=False)
+        new_user = User(id=data['id'], email=data['email'], password=hashed_password, active=True, isModerator=False)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'message': 'new user created'})
