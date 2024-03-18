@@ -3,7 +3,7 @@ from app.models.jobOffer_model import JobOffer
 import os
 from app.models.user_model import User
 import os
-from jwt import encode, decode
+from jwt import decode
 from flask import Flask, jsonify, request, make_response
 from functools import wraps
 from app.services.jobOffer_service import JobOfferService
