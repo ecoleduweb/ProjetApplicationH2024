@@ -20,7 +20,7 @@ class UserService:
             token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get('SECRET_KEY'))
             return jsonify({'token' : token})
         except Exception as e:
-            return jsonify({'message': f"could not verify, {os.environ.get('SECRET_KEY')}"}), 401
+            return jsonify({'message': "could not verify"}), 401
 
     
     def createUser(self, data):
