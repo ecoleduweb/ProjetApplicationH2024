@@ -1,27 +1,29 @@
-from flask import jsonify, request
-from app import db, app
-from app.models.city_model import City
+from flask import jsonify, request, Blueprint
 from app.models.region_model import Region
 from app.controllers.user_controller import token_required
+from app.services.city_service import CityService
 
-@app.route('/city', methods=['GET'])
+city_blueprint = Blueprint('city', __name__)
+city_service = CityService()
+
+@city_blueprint.route('/oneCity', methods=['GET'])
 @token_required
-def city(self):
+def oneCity(self):
     city_id = request.args.get('id')
     if not city_id:
-        return jsonify({'message': 'City parameter is missing'}), 400
-    city = City.query.filter_by(id=city_id).first()
+        return jsonify({'message': 'no id provided'}), 400
+    city = city_service.oneCity(city_id)
     if not city:
-        return jsonify({'message': 'No city found'}), 404
+        return jsonify({'message': 'no city found'}), 404
     region = Region.query.filter_by(id=city.idRegion).first()
     return jsonify({'id': city.id, 'city': city.city, 'region': region.region})
 
-@app.route('/cities', methods=['GET'])
+@city_blueprint.route('/allCities', methods=['GET'])
 @token_required
-def cities(self):
-    cities = City.query.all()
+def allCities(self):
+    cities = city_service.allCities()
     if not cities:
-        return jsonify({'message': 'no cities found'})
+        return jsonify({'message': 'no cities found'}), 404
     cities_list = []
     for city in cities:
         region = Region.query.filter_by(id=city.idRegion).first()

@@ -1,6 +1,7 @@
 import sys
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
 import os
 import pymysql
@@ -43,9 +44,10 @@ def create_app():
     
     db.init_app(app)
 
-    from app.controllers.city_controller import *
+    from app.controllers.city_controller import city_blueprint
     from app.controllers.user_controller import app_blueprint
     app.register_blueprint(app_blueprint)
     app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+    app.register_blueprint(city_blueprint, url_prefix='/city')
 
     return app
