@@ -22,9 +22,6 @@
     hoursPerWeek: yup.string().required("Le nombre d'heure par semaine est requis").test('is-number', "Veuillez entrer un nombre d'heure valide !", value => {
       return !isNaN(Number(value)) && Number(value) > 0;
     }),
-    salary : yup.string().required("Le salaire est requis").test('is-salary', "Veuillez entrer un salaire valide ! format suivant : 1.23 ", value => {
-      return !isNaN(Number(value)) && Number(value) > 0;
-    }),
     scheduleId: yup.number().required("Le type d'emploi est requis").min(0, "Le type d'emploi est requis"),
     idProgramme: yup.array().min(1, "Le programme visé est requis"),
     offerLink: yup.string().matches(/^(http|https):\/\/[^ "]+$/, "Le lien doit être de format valide : https://www.exemple.ca").url("Le lien doit être de format valide : https://www.exemple.ca").required("Le lien de l'offre est requis"),
@@ -181,7 +178,7 @@
         {#if errors.idProgramme}{errors.idProgramme}{/if}
       </p>
       <div class="form-group-vertical">
-        <label for="salaire">Salaire/H (0.00)*</label>
+        <label for="salaire">Salaire/H (0.00)</label>
         <input type="text" bind:value={offre.salary} class="form-control" id="salaire" />
       </div>
       <p class="errors-input">

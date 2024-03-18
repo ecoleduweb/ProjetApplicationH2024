@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
     // se connecte au site (ADDRESSE A CHANGER LORSQUE LE SITE SERA DÉPLOYÉ)
-    await page.goto('http://134.122.45.61:5173/offre');
+    await page.goto('http://localhost:5173/offre');
     await 1000;
     await page.waitForLoadState('networkidle');
   });
@@ -26,8 +26,8 @@ test.beforeEach(async ({ page }) => {
     await page.getByRole('option', { name: 'Inhalothérapie' }).click();
     await page.getByLabel('Heure/Semaine*').click();
     await page.getByLabel('Heure/Semaine*').fill('25');
-    await page.getByLabel('Salaire/H (0.00)*').click();
-    await page.getByLabel('Salaire/H (0.00)*').fill('21');
+    await page.getByLabel('Salaire/H (0.00)').click();
+    await page.getByLabel('Salaire/H (0.00)').fill('21');
     await page.getByLabel('Stage ?').check();
     await page.locator('#compliantEmployer').check();
     await page.getByLabel('Urgente').check();
