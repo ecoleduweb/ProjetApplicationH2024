@@ -9,11 +9,11 @@ class JobOffer(db.Model):
     title = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    dateEntryOffice = db.Column(db.DateTime, nullable=False)
-    deadlineApply = db.Column(db.DateTime, nullable=False)
+    dateEntryOffice = db.Column(db.Date, nullable=False)
+    deadlineApply = db.Column(db.Date, nullable=False)
     email = db.Column(db.String(255), nullable=False)
     hoursPerWeek = db.Column(db.Float, nullable=False)
-    compliantEmploymentStandards = db.Column(db.Boolean, nullable=False)
+    compliantEmployer = db.Column(db.Boolean, nullable=False)
     internship = db.Column(db.Boolean, nullable=False)
     offerStatus = db.Column(db.Integer, nullable=False)
     offerLink = db.Column(db.String(255), nullable=False)
@@ -23,7 +23,7 @@ class JobOffer(db.Model):
     scheduleId = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"JobOffer(id={self.id}, title='{self.title}', address='{self.address}', description='{self.description}', dateEntryOffice='{self.dateEntryOffice}', deadlineApply='{self.deadlineApply}', email='{self.email}', hoursPerWeek={self.hoursPerWeek}, compliantEmploymentStandards={self.compliantEmploymentStandards}, internship={self.internship}, offerStatus={self.offerStatus}, offerLink='{self.offerLink}', urgent={self.urgent}, active={self.active}, employerId={self.employerId}, scheduleId={self.scheduleId})"
+        return f"JobOffer(id={self.id}, title='{self.title}', address='{self.address}', description='{self.description}', dateEntryOffice='{self.dateEntryOffice}', deadlineApply='{self.deadlineApply}', email='{self.email}', hoursPerWeek={self.hoursPerWeek}, compliantEmployer={self.compliantEmployer}, internship={self.internship}, offerStatus={self.offerStatus}, offerLink='{self.offerLink}', urgent={self.urgent}, active={self.active}, employerId={self.employerId}, scheduleId={self.scheduleId})"
 
     def to_json_string(self):
         return {
@@ -35,7 +35,7 @@ class JobOffer(db.Model):
             'deadlineApply': str(self.deadlineApply),  # Convert date to string
             'email': self.email,
             'hoursPerWeek': self.hoursPerWeek,
-            'compliantEmploymentStandards': self.compliantEmploymentStandards,
+            'compliantEmployer': self.compliantEmployer,
             'internship': self.internship,
             'offerStatus': self.offerStatus,
             'offerLink': self.offerLink,

@@ -13,6 +13,7 @@ hasher = PasswordHasher()
 class UserService:
     def login(self, email, password):
         user = auth_repo.getUser(email)
+
         if user is None:
             return jsonify({'message': 'user not found'}), 401
         try:

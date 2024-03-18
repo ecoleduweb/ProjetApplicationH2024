@@ -25,7 +25,7 @@ def app():
             "deadlineApply": "2021-12-12",
             "email": "test@gmail.com",
             "hoursPerWeek": 40,
-            "compliantEmploymentStandards": True,
+            "compliantEmployer": True,
             "internship": False,
             "offerStatus": 1,
             "offerLink": "www.google.com",
@@ -45,7 +45,7 @@ def app():
             "deadlineApply": "2021-12-12",
             "email": "test@gmail.com",
             "hoursPerWeek": 40,
-            "compliantEmploymentStandards": True,
+            "compliantEmployer": True,
             "internship": False,
             "offerStatus": 1,
             "offerLink": "www.google.com",
@@ -64,17 +64,18 @@ def app():
 
 def test_offreEmploi(client):
     response = client.get('/jobOffer/offreEmploi?id=1')
+    print(response)
     assert response.status_code == 200
     assert response.json == {
         "id": 1,
         "title": "Développeur",
         "address": "123 rue de la rue",
         "description": "Développeur fullstack",
-        "dateEntryOffice": "2021-12-12 00:00:00",
-        "deadlineApply": "2021-12-12 00:00:00",
+        "dateEntryOffice": "2021-12-12",
+        "deadlineApply": "2021-12-12",
         "email": "test@gmail.com",
         "hoursPerWeek": 40,
-        "compliantEmploymentStandards": True,
+        "compliantEmployer": True,
         "internship": False,
         "offerStatus": 1,
         "offerLink": "www.google.com",
