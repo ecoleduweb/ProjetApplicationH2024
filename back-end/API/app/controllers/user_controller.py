@@ -1,11 +1,14 @@
 from flask import jsonify, request, Blueprint
 from app.models.user_model import User
 import os
+from logging import getLogger
 from jwt import encode, decode
 from flask import Flask, jsonify, request, make_response
 from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()
+
+logger = getLogger(__name__)
 
 app_blueprint = Blueprint('app', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
@@ -40,6 +43,7 @@ def createUser():
         return jsonify({'message': 'Missing required fields'}), 400
     
     if not isinstance(data, dict):
+        logger.warn('Invalid JSON data format')
         return jsonify({'message': 'Invalid JSON data format'}), 400
 
     return user_service.createUser(data)
@@ -49,22 +53,27 @@ def createUser():
 def updatePassword(current_user):
     data = request.get_json()
     if not isinstance(data, dict):
+        logger.warn('Invalid JSON data format')
         return jsonify({'message': 'Invalid JSON data format'}), 400
     email = data.get('email')
     password = data.get('password')
     
     if not all([email, password]):
         return jsonify({'message': 'Missing required fields'}), 400
+    
+    logger.warn('Password updated for user: ' + email)
     return user_service.updatePassword(data)
 
 @app_blueprint.route('/getAllUsers', methods=['GET'])
 @token_required
 def getAllUsers(current_user):
+    logger.warn('All users retrieved')
     return user_service.getAllUsers()
 
 @app_blueprint.route('/getUser', methods=['GET'])
 @token_required
 def getUser(current_user):
+    logger.warn('Attempt to retrive user information of: ' + current_user.email)
     token = request.headers.get('Authorization')
     data = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
     email = data['email']
