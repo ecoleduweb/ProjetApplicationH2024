@@ -8,9 +8,9 @@
 <button class="offreEmploi" on:click={() => handleModalClick(emploi.id)}>
     <div class="emploi">
         <div class="info">
-            <p class="text">{emploi.titre}</p>
-            <p class="text">{emploi.entreprise}</p>
-            <p class="text">{emploi.dateFin}</p>
+            <p class="text">{emploi.title}</p>
+            <p class="text">{emploi.employerId}</p>
+            <p class="text">{emploi.deadlineApply}</p>
             <p class="text">{emploi.description}</p>
         </div>
         <img class="image" src="add.svg" alt="ajouter" />

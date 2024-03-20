@@ -35,7 +35,7 @@
         password: "",
       };
       try {
-        const response = await POST<Login, any>("/login", form);
+        const response = await POST<Login, any>("/user/login", form);
         if (response.token != "") {
           localStorage.setItem("token", response.token);
           goto("/");
