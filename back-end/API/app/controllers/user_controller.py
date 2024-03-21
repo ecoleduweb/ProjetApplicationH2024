@@ -19,6 +19,7 @@ def token_required(f):
             if 'Authorization' in request.headers:
                 token = request.headers['Authorization']
             if not token:
+                logger.warn('A valid token is missing')
                 return jsonify({'message': 'a valid token is missing'})
 
             try:
@@ -27,6 +28,7 @@ def token_required(f):
 
             except Exception as e:
                 print(e)
+                logger.warn('Token is invalid')
                 return jsonify({'message': 'token is invalid'})
             return f(current_user)
         return decorated
@@ -43,7 +45,7 @@ def createUser():
         return jsonify({'message': 'Missing required fields'}), 400
     
     if not isinstance(data, dict):
-        logger.warn('Invalid JSON data format')
+        logger.warn('Invalid JSON data format in /createUser')
         return jsonify({'message': 'Invalid JSON data format'}), 400
 
     return user_service.createUser(data)
@@ -53,7 +55,7 @@ def createUser():
 def updatePassword(current_user):
     data = request.get_json()
     if not isinstance(data, dict):
-        logger.warn('Invalid JSON data format')
+        logger.warn('Invalid JSON data format in /updatePassword')
         return jsonify({'message': 'Invalid JSON data format'}), 400
     email = data.get('email')
     password = data.get('password')
