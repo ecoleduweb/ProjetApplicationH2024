@@ -1,18 +1,13 @@
-from app.models.user_model import User
+from app.models.jobOffer_model import JobOffer
+from app import db
 from app.repositories.jobOffer_repo import JobOfferRepo
 jobOffer_repo = JobOfferRepo()
-from app import db
-from flask import jsonify
-from argon2 import PasswordHasher
-import datetime
-from jwt import encode
-import os
-
-
-
-hasher = PasswordHasher()
 
 class JobOfferService:
+
+    def createJobOffer(self, data):
+        return jobOffer_repo.createJobOffer(data)
+
     def offreEmploi(self, data):
         return jobOffer_repo.offreEmploi(data)
 
