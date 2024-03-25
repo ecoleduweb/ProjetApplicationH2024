@@ -88,4 +88,4 @@ FLUSH PRIVILEGES;
 (La valeur CHANGEZ_CE_MOT_DE_PASSE doit être elle utilisée par l'application)
 
 ---
-### Suite à ces étapes, assurez vous de configurer le PROXY NGINX. Une documentation sur celui-ci est disponible dans la branche proxy-server.
+### Suite à ces étapes, assurez vous de configurer le PROXY NGINX. Une documentation sur celui-ci est disponible dans la branche [proxy-server](https://github.com/ecoleduweb/ProjetApplicationH2024/blob/proxy-server/README.md).
