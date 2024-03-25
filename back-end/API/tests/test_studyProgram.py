@@ -27,7 +27,7 @@ def app():
 @pytest.fixture(scope='module')
 def client(app):
     return app.test_client()
-
+  
 def test_studyPrograms(client):
     response = client.get('/studyProgram/studyPrograms')
     assert response.status_code == 200
