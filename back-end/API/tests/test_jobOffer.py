@@ -1,11 +1,8 @@
-import os
 import pytest
 from app import create_app, db
 from app.models.jobOffer_model import JobOffer
 from app.models.user_model import User
-from app.models.employers_model import Employers
-from app.models.enterprise_model import Enterprise
-from sqlalchemy import text
+from app.models.study_program_model import StudyProgram
 from argon2 import PasswordHasher
 
 hasher = PasswordHasher()
@@ -62,6 +59,18 @@ def app():
         hashed_password = hasher.hash("test123")
         user = User(id=1, email="test@gmail.com", password=hashed_password, active=True, isModerator=False)
         db.session.add(user)
+        studyProgram1_data = {
+            "id": 1,
+            "name": "Informatique"
+        }
+        studyProgram1_data = StudyProgram(**studyProgram1_data)
+        db.session.add(studyProgram1_data)
+        studyProgram2_data = {
+            "id": 2,
+            "name": "Génie logiciel"
+        }
+        studyProgram2_data = StudyProgram(**studyProgram2_data)
+        db.session.add(studyProgram2_data)
         db.session.commit()
         yield app
         db.session.remove()
@@ -126,7 +135,11 @@ def test_userCreateOffresEmploi(client):
                 "phone": "1234567890",
                 "address": "123 rue google",
                 "cityId": 1
-            }
+            },
+            "studyPrograms": [
+                "Informatique",
+                "Génie logiciel"
+            ]
         }
     data1 = {
         "email": "test@gmail.com",
