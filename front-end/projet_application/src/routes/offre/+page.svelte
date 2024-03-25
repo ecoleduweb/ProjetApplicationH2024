@@ -1,6 +1,5 @@
 <script lang="ts">
     import "../../styles/global.css";
-    import "../../styles/offre.css";
     import Button from "../../Components/Inputs/Button.svelte";
     import MultiSelect from 'svelte-multiselect';
     import type { jobOffer } from "../../Models/Offre";
@@ -227,6 +226,57 @@
       <p class="errors-input">
         {#if errors.description}{errors.description}{/if}
       </p>
-      <Button submit={true} text="Enregistrer" on:click={() => handleSubmit()} />
+      <Button class="button-enregistrer" submit={true} text="Enregistrer" on:click={() => handleSubmit()} />
     </form>
   </div>
+
+  <style>
+    
+  .container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f5f5f5;
+
+  }
+  label {
+      display: block;
+      margin-bottom: 0.26vw;
+  }
+
+  .form-offre {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 0.3vw solid #ccc;
+      background-color: #ffff;
+      box-shadow: 0 0.104vw 0.208vw rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+      border-radius: 0.781vw;
+      width: 70%;
+      padding: 0 0.78vw 2vh 0;
+  }
+
+  .form-group-horizontal {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 50%;
+      margin: 1vh 0;
+  }
+
+  .form-group-vertical {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 50%;
+      margin: 0.8vw;
+  }
+
+  .errors-input {
+      color: red;
+      font-size: 0.8em;
+  }
+
+  .button-enregistrer {
+  }
+  </style>
