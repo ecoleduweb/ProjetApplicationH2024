@@ -53,7 +53,7 @@ def create_app():
     from app.controllers.employer_controller import employer_blueprint
     from app.controllers.study_program_controller import study_program_blueprint
     from app.controllers.offer_program_controller import offer_program_blueprint
-    
+
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
     app.register_blueprint(enterprise_blueprint, url_prefix='/enterprise')
