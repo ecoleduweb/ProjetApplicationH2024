@@ -32,9 +32,8 @@ def create_app():
     CORS(app)
 
     # Set CORS origins
-    CORS(app, origins=[os.environ.get('CORSLocal')])
-    print(os.environ.get('CORSLocal'))
-    
+    CORS(app, origins=['http://10.172.80.144', 'http://localhost'])
+
     try:
         if any("pytest" in arg for arg in sys.argv):
             app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_TEST_URL')
@@ -48,7 +47,6 @@ def create_app():
 
     db.init_app(app)
     migrate = Migrate(app, db)
-    migrate.upgrade()
     
     from app.controllers.user_controller import user_blueprint
     from app.controllers.jobOffer_controller import job_offer_blueprint
