@@ -90,3 +90,25 @@ def test_offresEmploi(client):
     print(response)
     assert response.status_code == 200
     assert len(response.json) == 2
+    
+def test_createOffresEmploi(client):
+    data = {
+        "id": 7,
+        "title" : "Cuisinier mcdo 7",
+        "address" : "mcdo",
+        "description" : "Le seul mcdo de RDl",
+        "dateEntryOffice" : "2024-02-02",
+        "deadlineApply" : "2024-02-02",
+        "email" : "mcdo@gmail.com",
+        "hoursPerWeek" : 35,
+        "compliantEmployer" : True,
+        "internship" : True,
+        "offerStatus" : 1,
+        "offerLink" : "https://www.mcdonalds.com/ca/fr-ca.html",
+        "urgent" : True,
+        "active" : True,
+        "employerId" : 1,
+        "scheduleId" : 1
+    }
+    response = client.post('/jobOffer/createJobOffer', json=data)
+    assert response.status_code == 200
