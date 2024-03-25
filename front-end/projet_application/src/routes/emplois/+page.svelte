@@ -5,8 +5,6 @@
     import EmploiRow from "../../Components/OffreEmplois/EmploiRow.svelte";
     import OffreEmploi from "../../Components/OffreEmplois/OffreEmploi.svelte";
     import { writable } from "svelte/store";
-    import OffreEmploi from "../../Components/OffreEmplois/OffreEmploi.svelte";
-    import { writable } from "svelte/store";
     import type { Emploi } from "../../Models/Emploi";
     import { GET } from "../../ts/server";
     import { onMount } from "svelte";
