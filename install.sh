@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update package list and upgrade existing packages
-sudo apt-get update
+sudo apt-get updade
 sudo apt-get upgrade -y
 
 #configure unattended updates
