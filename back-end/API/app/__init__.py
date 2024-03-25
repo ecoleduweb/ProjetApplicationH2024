@@ -32,7 +32,7 @@ def create_app():
     CORS(app)
 
     # Set CORS origins
-    CORS(app, origins=[os.environ.get('CORSLocal')])
+    CORS(app, origins=[os.environ.get('CORSServeur')])
     
     try:
         if any("pytest" in arg for arg in sys.argv):
