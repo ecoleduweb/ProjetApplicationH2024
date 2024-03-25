@@ -52,20 +52,18 @@ ssl_certificate_key /etc/letsencrypt/live/VOTRE_DOMAINE/privkey.pem;
 ```
 
 ```                                                                                     
+  GNU nano 6.2                                                                                        default                                                                                                 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name VOTRE_DOMAINE;
-    ##Concervez les deux prochaines ligne du fichier original
+    server_name prod.domain.ca;
 
-    ssl_certificate /etc/letsencrypt/live/VOTRE_DOMAINE/fullchain.pem; 
-    ssl_certificate_key /etc/letsencrypt/live/VOTRE_DOMAINE/privkey.pem;
-
+    ssl_certificate /etc/letsencrypt/live/prod.domain.ca/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/prod.domain.ca/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-    
-    #Location pour le serveur svelte
+
     location / {
         proxy_pass http://localhost:5173;
         proxy_set_header Host $host;
@@ -73,7 +71,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
-    #Location pour l'api
+
     location /api {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -83,21 +81,19 @@ server {
         proxy_set_header Host $http_host;
         proxy_cache_bypass $http_upgrade;
         proxy_redirect off;
-    }
+        }
 
-    
+    # Other SSL and HTTPS configurations
 }
 
-# Redirection HTTP vers HTTPS
-
 server {
-    if ($host = dev-test.samserver.ca) {
+    if ($host = prod.domain.ca) {
         return 301 https://$host$request_uri;
     }
 
     listen 80;
     listen [::]:80;
-    server_name dev-test.samserver.ca;
+    server_name prod.domain.ca;
     return 404;
 }
 
