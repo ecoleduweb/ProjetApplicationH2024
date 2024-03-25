@@ -49,7 +49,7 @@ EOF
 sudo systemctl enable front-end
 
 #Back-end
-sudo systemctl --force --full edit front-end.service <<EOF
+sudo systemctl --force --full edit back-end.service <<EOF
 [Unit]
 Description=My Flask API service
 After=network.target
