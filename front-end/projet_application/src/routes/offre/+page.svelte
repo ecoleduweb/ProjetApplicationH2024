@@ -227,7 +227,7 @@
       <p class="errors-input">
         {#if errors.description}{errors.description}{/if}
       </p>
-      <Button class="button-enregistrer" submit={true} text="Enregistrer" on:click={() => handleSubmit()} />
+      <Button submit={true} text="Enregistrer" on:click={() => handleSubmit()} />
     </form>
   </div>
 
@@ -276,8 +276,5 @@
   .errors-input {
       color: red;
       font-size: 0.8em;
-  }
-
-  .button-enregistrer {
   }
   </style>
