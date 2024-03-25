@@ -1,9 +1,11 @@
 <script lang="ts">
     import type { Emploi } from "../../Models/Emploi";
     export let emploi: Emploi;
+
+    export let handleModalClick: (id: number) => void;
 </script>
 
-<div class="offreEmploi">
+<button class="offreEmploi" on:click={() => handleModalClick(emploi.id)}>
     <div class="emploi">
         <div class="info">
             <p class="text">{emploi.titre}</p>
@@ -13,7 +15,7 @@
         </div>
         <img class="image" src="add.svg" alt="ajouter" />
     </div>
-</div>
+</button>
 
 <style scoped>
     .offreEmploi {
@@ -21,8 +23,10 @@
         flex-direction: row;
         justify-content: space-between;
         width: 90%;
+        border-width: 0px;
         border-bottom: 1px solid #00ad9a;
         margin-left: 5.2%;
+        background-color: transparent;
     }
     .info {
         display: flex;
