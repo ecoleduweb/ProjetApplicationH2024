@@ -1,4 +1,4 @@
-# Déamrrage à neuf
+# Déamarrage à neuf
 
 Ce readme explique comment configurer le serveur, suite à un démarrage à neuf.
 
