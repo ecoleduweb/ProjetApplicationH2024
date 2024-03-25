@@ -1,5 +1,3 @@
-from app.models.user_model import User
-from app import db
 from flask import jsonify
 from argon2 import PasswordHasher
 import datetime
