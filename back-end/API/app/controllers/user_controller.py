@@ -2,15 +2,14 @@ from flask import jsonify, request, Blueprint
 from app.models.user_model import User
 import os
 from logging import getLogger
-from jwt import encode, decode
+from jwt import decode
 from flask import Flask, jsonify, request, make_response
 from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()
 
 logger = getLogger(__name__)
-
-app_blueprint = Blueprint('app', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
+user_blueprint = Blueprint('user', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
 def token_required(f):
         @wraps(f)
@@ -33,15 +32,16 @@ def token_required(f):
             return f(current_user)
         return decorated
 
-@app_blueprint.route('/login', methods=['POST'])
+@user_blueprint.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    return user_service.login(data)
+    return user_service.login(data["email"], data["password"])
 
-@app_blueprint.route('/createUser', methods=['POST'])
+@user_blueprint.route('/createUser', methods=['POST'])
+@token_required
 def createUser():
     data = request.get_json()
-    if not all([data.get('name'), data.get('email'), data.get('password')]):
+    if not all([data.get('id'), data.get('email'), data.get('password')]):
         return jsonify({'message': 'Missing required fields'}), 400
     
     if not isinstance(data, dict):
@@ -50,7 +50,7 @@ def createUser():
 
     return user_service.createUser(data)
 
-@app_blueprint.route('/updatePassword', methods=['PUT'])
+@user_blueprint.route('/updatePassword', methods=['PUT'])
 @token_required
 def updatePassword(current_user):
     data = request.get_json()
@@ -66,13 +66,13 @@ def updatePassword(current_user):
     logger.warn('Password updated for user: ' + email)
     return user_service.updatePassword(data)
 
-@app_blueprint.route('/getAllUsers', methods=['GET'])
+@user_blueprint.route('/getAllUsers', methods=['GET'])
 @token_required
 def getAllUsers(current_user):
     logger.warn('All users retrieved')
     return user_service.getAllUsers()
 
-@app_blueprint.route('/getUser', methods=['GET'])
+@user_blueprint.route('/getUser', methods=['GET'])
 @token_required
 def getUser(current_user):
     logger.warn('Attempt to retrive user information of: ' + current_user.email)

@@ -162,6 +162,51 @@
           }
         }
       }
+    },
+    "/city/oneCity": {
+      "get": {
+        "description": "Get a city's information based on city id",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "City information",
+            "in": "body",
+            "description": "JSON data containing city information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "City successfully fetched"
+          },
+          "400": {
+            "description": "Missing city id"
+          },
+          "404": {
+            "description": "City not found"
+          }
+        }
+      }
+    },
+    "/city/allCities": {
+      "get": {
+        "description": "Get a list of all cities",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Cities successfully fetched"
+          }
+        }
+      }
     }
   }
 }

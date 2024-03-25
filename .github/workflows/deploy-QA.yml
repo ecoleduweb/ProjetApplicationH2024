@@ -18,6 +18,7 @@ jobs:
 
           script: |
             sudo systemctl stop front-end
+            sudo systemctl stop back-end
             rm -r qa_project
             mkdir qa_project
             cd qa_project
@@ -27,13 +28,16 @@ jobs:
             sudo apt-get update -y
             sudo apt-get install -y libmariadb-dev
             python -m pip install --upgrade pip
-            cd /${{ secrets.SSH_USERNAME}}/qa_project/ProjetApplicationH2024/back-end/API
+            cd /${{ secrets.SSH_USERNAME}}/qa_project/ProjetApplicationH2024/back-end/
             pip install -r requirements.txt
+            cd /${{ secrets.SSH_USERNAME}}/qa_project/ProjetApplicationH2024/back-end/API
             touch .env
             echo DATABASE_TEST_URL=${{ secrets.DATABASE_TEST_URL }} >> .env
             echo DATABASE_DEV_URL=${{ secrets.DATABASE_DEV_URL }} >> .env
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
             echo 'Installing packages'
+            sudo systemctl enable back-end
+            sudo systemctl start back-end
             cd /${{ secrets.SSH_USERNAME}}/qa_project/ProjetApplicationH2024/front-end/projet_application
             npm i
             touch .env
