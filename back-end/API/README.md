@@ -50,8 +50,7 @@ DATABASE_TEST_URL= url de la base de données de test
 BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IeyJlbWFpbCI6InBoaWxzYXVjaWVyQGdtYWlsLmNvbSIsImV4cCI6MTcxMDnNk6hD83xlj9
 
 DATABASE_DEV_URL= url de la base de données de développement
-CORSLocal=http://localhost
-CORSServeur=http://10.172.80.144
+CORS=http://localhost
 
 SECRET_KEY=clé secrète
 ```
