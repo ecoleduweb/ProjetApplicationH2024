@@ -2,7 +2,7 @@
 
 Ce readme explique comment configurer le serveur, suite à un démarrage à neuf.
 
-## 1. Exécuter le script isntall.sh
+## 1. Exécuter le script install.sh
 
 Ce script installe et configure les éléments suivants:
 
