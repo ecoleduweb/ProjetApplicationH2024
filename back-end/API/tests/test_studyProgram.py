@@ -40,7 +40,7 @@ def test_studyProgramId(client):
 
 def test_addStudyProgram(client):
     data = {
-        "name": "Génie logiciel"
+        "name": "Genie logiciel"
     }
     response = client.post('/studyProgram/addStudyProgram', json=data)
     assert response.status_code == 200
