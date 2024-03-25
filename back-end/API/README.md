@@ -61,6 +61,27 @@ flask db upgrade (pour update les changements)
 flask db downgrade (pour revenir en arriere)
 flask db history (voir toutes les migration)
 ```
+
+### Logging
+Import logger:
+```
+from logging import getLogger
+logger = getLogger(__name__)
+```
+
+Error levels:
+- Info
+- Warning
+- Error
+- Critical
+
+```
+logger.info("message")
+logger.warning("message")
+logger.error("message")
+logger.critical("message")
+```
+
 ### Starting the server
 ```bash
 flask db branches (Afficher les points de branchement actuels)
