@@ -18,7 +18,6 @@ export async function GET<T>(url: string): Promise<T> {
 export async function POST<T, T1>(url: string, body: T): Promise<T1> {
   try {
     var token = localStorage.getItem("token");
-    console.log(token);
     const response = await fetch(`${env.PUBLIC_BASE_URL}${url}`, {
       method: 'POST',
       headers: {
