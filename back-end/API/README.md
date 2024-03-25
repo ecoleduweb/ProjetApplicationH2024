@@ -32,6 +32,11 @@ flask db branches (Afficher les points de branchement actuels)
 flask run
 ```
 
+#### Starting the server if "flask run" is broken
+```bash
+python -m flask run
+```
+
 #### Starting the server on all the network
 ```bash
 flask run --host=0.0.0.0

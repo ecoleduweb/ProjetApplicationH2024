@@ -60,3 +60,12 @@ def createEnterprise():
     data = request.get_json()
     return enterprise_service.createEnterprise(data, True)
 
+@token_admin_required
+@enterprise_blueprint.route('/updateEntreprise/<idEnterprise>', methods=['PUT'])
+def updateEntreprise(idEnterprise):
+    enterprise = enterprise_service.getEnterprise(idEnterprise)
+    if enterprise:
+        data = request.get_json()
+        return enterprise_service.updateEnterprise(data)
+    else:
+        return jsonify({'message': 'enterprise not found'})
