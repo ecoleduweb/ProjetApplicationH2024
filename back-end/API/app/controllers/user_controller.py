@@ -39,7 +39,7 @@ def login():
 
 @user_blueprint.route('/createUser', methods=['POST'])
 @token_required
-def createUser():
+def createUser(current_user):
     data = request.get_json()
     if not all([data.get('id'), data.get('email'), data.get('password')]):
         return jsonify({'message': 'Missing required fields'}), 400
@@ -47,7 +47,7 @@ def createUser():
     if not isinstance(data, dict):
         return jsonify({'message': 'Invalid JSON data format'}), 400
 
-    if user_service.getUser(data['email']):
+    if user_service.getUser(data['email']) is not None:
         return jsonify({'message': 'User already exists'}), 400
 
     return user_service.createUser(data)

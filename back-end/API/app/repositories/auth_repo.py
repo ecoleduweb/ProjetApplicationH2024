@@ -23,13 +23,12 @@ class AuthRepo:
         return jsonify({'message': 'password updated'})
 
     def getUser(self, email):
-
         try:
             user = User.query.filter_by(email=email).first()
             if user:
                 return user
             else:
-                return jsonify({'message': 'user not found'})
+                return None
         except:
             return jsonify({'message': 'error occurred'})
 

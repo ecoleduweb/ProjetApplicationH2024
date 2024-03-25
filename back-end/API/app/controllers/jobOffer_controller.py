@@ -13,8 +13,12 @@ from app.services.employer_service import EmployerService
 employer_service = EmployerService()
 from app.services.enterprise_service import EnterpriseService
 enterprise_service = EnterpriseService()
+from app.services.user_service import UserService
+user_service = UserService()
 
 job_offer_blueprint = Blueprint('jobOffer', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
+
+token = os.environ.get('BEARER_TOKEN')
 
 def token_required(f):
         @wraps(f)
@@ -34,24 +38,24 @@ def token_required(f):
                 return jsonify({'message': 'token is invalid'})
             return f(current_user)
         return decorated
-      
+
+@token_required
 @job_offer_blueprint.route('/createJobOffer', methods=['POST'])
 def createJobOffer():
     data = request.get_json()
     token = request.headers.get('Authorization')
     decoded_token = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
     user = User.query.filter_by(email = decoded_token['email']).first()
-    print (user)
     if user.isModerator:
-        return jobOffer_service.createJobOffer(data)
+        return jobOffer_service.createJobOffer(data["jobOffer"])
     else:
         employer = Employers.query.filter_by(userId=user.id).first()
         if employer is None:
             entreprise = enterprise_service.createEnterprise(data["enterprise"], True)
-            newEmployer = employer_service.createEmployer(data["employer"])
-            return jobOffer_service.createJobOffer(data, newEmployer.id)
+            newEmployer = employer_service.createEmployer(entreprise.id, user.id)
+            return jobOffer_service.createJobOffer(data["jobOffer"], newEmployer.id)
         else:
-            return jobOffer_service.createJobOffer(data, employer.id)
+            return jobOffer_service.createJobOffer(data["jobOffer"], employer.id)
 
 @job_offer_blueprint.route('/offreEmploi', methods=['GET'])
 def offreEmploi():
@@ -67,6 +71,7 @@ def offresEmploi():
     jobOffers = jobOffer_service.offresEmploi()
     return jsonify([jobOffer.to_json_string() for jobOffer in jobOffers])
 
+@token_required
 @job_offer_blueprint.route('/linkJobOfferEmployer', methods=['PUT'])
 def linkJobOfferEmployer():
     data = request.get_json()

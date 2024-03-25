@@ -2,6 +2,9 @@ import os
 import pytest
 from app import create_app, db
 from app.models.jobOffer_model import JobOffer
+from app.models.user_model import User
+from app.models.employers_model import Employers
+from app.models.enterprise_model import Enterprise
 from sqlalchemy import text
 
 # Token for authentication
@@ -31,8 +34,8 @@ def app():
             "offerLink": "www.google.com",
             "urgent": False,
             "active": True,
-            "employerId": 1,
-            "scheduleId": 1
+            "employerId": None,
+            "scheduleId": None
         }
         job_offer = JobOffer(**job_offer1_data)
         db.session.add(job_offer)
@@ -51,11 +54,19 @@ def app():
             "offerLink": "www.google.com",
             "urgent": False,
             "active": True,
-            "employerId": 1,
-            "scheduleId": 1
+            "employerId": None,
+            "scheduleId": None
         }
         job_offer2 = JobOffer(**job_offer2_data)
         db.session.add(job_offer2)
+        user1 = {
+            "id": 1,
+            "email": "philsaucier@gmail.com",
+            "password": "phil123",
+            "isModerator": False
+        }
+        admin = User(**user1)
+        db.session.add(admin)
         db.session.commit()
         yield app
         db.session.remove()
@@ -81,8 +92,8 @@ def test_offreEmploi(client):
         "offerLink": "www.google.com",
         "urgent": False,
         "active": True,
-        "employerId": 1,
-        "scheduleId": 1
+        "employerId": None,
+        "scheduleId": None
     }
 
 def test_offresEmploi(client):
@@ -112,7 +123,6 @@ def test_userCreateOffresEmploi(client):
                 "employerId": 1,
                 "scheduleId": 1
             },
-            "employerId": 1,
             "enterprise": 
             {
                 "id": 1,
@@ -123,30 +133,5 @@ def test_userCreateOffresEmploi(client):
                 "cityId": 1
             }
         }
-    # user = client.post('/user/createUser', json={"id": 5, "email": "test@gmail.com", "password": "test"})
-    # token = client.post('/user/login', json={"email": "test@gmail.com", "password": "test"})
-    # print(token)
     response = client.post('/jobOffer/createJobOffer', json=data, headers={'Authorization': os.environ.get('BEARER_TOKEN')})
     assert response.status_code == 200
-
-# def test_adminCreateOffresEmploi(client):
-#     data = {
-#         "id": 7,
-#         "title" : "Cuisinier mcdo 7",
-#         "address" : "mcdo",
-#         "description" : "Le seul mcdo de RDl",
-#         "dateEntryOffice" : "2024-02-02",
-#         "deadlineApply" : "2024-02-02",
-#         "email" : "mcdo@gmail.com",
-#         "hoursPerWeek" : 35,
-#         "compliantEmployer" : True,
-#         "internship" : True,
-#         "offerStatus" : 1,
-#         "offerLink" : "https://www.mcdonalds.com/ca/fr-ca.html",
-#         "urgent" : True,
-#         "active" : True,
-#         "employerId" : 1,
-#         "scheduleId" : 1
-#     }
-#     response = client.post('/jobOffer/createJobOffer', json=data)
-#     assert response.status_code == 200

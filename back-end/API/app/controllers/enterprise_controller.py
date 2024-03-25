@@ -32,9 +32,31 @@ def token_required(f):
             return f(current_user)
         return decorated
 
-@token_required
+def token_admin_required(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            token = request.headers.get('Authorization')
+            if 'Authorization' in request.headers:
+                token = request.headers['Authorization']
+            if not token:
+                return jsonify({'message': 'a valid token is missing'})
+
+            try:
+                data = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
+                current_user = User.query.filter_by(email = data['email']).first()
+
+            except Exception as e:
+                print(e)
+                return jsonify({'message': 'token is invalid'})
+            if current_user.isModerator:
+                return f(current_user)
+            else:
+                return jsonify({'message': 'user is not admin'})
+        return decorated
+
+@token_admin_required
 @enterprise_blueprint.route('/createEnterprise', methods=['POST'])
 def createEnterprise():
     data = request.get_json()
-    return enterprise_service.createEnterprise(data)
+    return enterprise_service.createEnterprise(data, True)
 
