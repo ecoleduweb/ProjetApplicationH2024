@@ -19,8 +19,8 @@ class JobOffer(db.Model):
     offerLink = db.Column(db.String(255), nullable=False)
     urgent = db.Column(db.Boolean, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    employerId = db.Column(db.Integer, nullable=False)
-    scheduleId = db.Column(db.Integer, nullable=False)
+    employerId = db.Column(db.Integer, nullable=True)
+    scheduleId = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
         return f"JobOffer(id={self.id}, title='{self.title}', address='{self.address}', description='{self.description}', dateEntryOffice='{self.dateEntryOffice}', deadlineApply='{self.deadlineApply}', email='{self.email}', hoursPerWeek={self.hoursPerWeek}, compliantEmployer={self.compliantEmployer}, internship={self.internship}, offerStatus={self.offerStatus}, offerLink='{self.offerLink}', urgent={self.urgent}, active={self.active}, employerId={self.employerId}, scheduleId={self.scheduleId})"
