@@ -51,10 +51,15 @@ def create_app():
     from app.controllers.user_controller import user_blueprint
     from app.controllers.jobOffer_controller import job_offer_blueprint
     from app.controllers.city_controller import city_blueprint
+    from app.controllers.enterprise_controller import enterprise_blueprint
+    from app.controllers.employer_controller import employer_blueprint
     
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
+    app.register_blueprint(enterprise_blueprint, url_prefix='/enterprise')
+    app.register_blueprint(employer_blueprint, url_prefix='/employer')
     app.register_blueprint(city_blueprint, url_prefix='/city')
+
     app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
     
 

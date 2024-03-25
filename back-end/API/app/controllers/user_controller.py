@@ -2,10 +2,14 @@ from flask import jsonify, request, Blueprint
 from app.models.user_model import User
 import os
 from jwt import decode
-from flask import Flask, jsonify, request, make_response
+from flask import jsonify, request
 from functools import wraps
 from app.services.user_service import UserService
 user_service = UserService()
+from app.services.employer_service import EmployerService
+employer_service = EmployerService()
+from app.services.enterprise_service import EnterpriseService
+enterprise_service = EnterpriseService()
 
 user_blueprint = Blueprint('user', __name__) ## Représente l'app, https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
@@ -35,7 +39,7 @@ def login():
 
 @user_blueprint.route('/createUser', methods=['POST'])
 @token_required
-def createUser():
+def createUser(current_user):
     data = request.get_json()
     if not all([data.get('id'), data.get('email'), data.get('password')]):
         return jsonify({'message': 'Missing required fields'}), 400
@@ -43,11 +47,18 @@ def createUser():
     if not isinstance(data, dict):
         return jsonify({'message': 'Invalid JSON data format'}), 400
 
+    if user_service.getUser(data['email']) is not None:
+        return jsonify({'message': 'User already exists'}), 400
+
     return user_service.createUser(data)
+    # enterprise = enterprise_service.createEnterprise(data, isTemporary=True)
+    # employer = employer_service.createEmployer(user.id, enterprise.id, verified=False)
+    
+    # return jsonify({'message': 'User created successfully'})
 
 @user_blueprint.route('/updatePassword', methods=['PUT'])
 @token_required
-def updatePassword(current_user):
+def updatePassword():
     data = request.get_json()
     if not isinstance(data, dict):
         return jsonify({'message': 'Invalid JSON data format'}), 400
@@ -60,12 +71,12 @@ def updatePassword(current_user):
 
 @user_blueprint.route('/getAllUsers', methods=['GET'])
 @token_required
-def getAllUsers(current_user):
+def getAllUsers():
     return user_service.getAllUsers()
 
 @user_blueprint.route('/getUser', methods=['GET'])
 @token_required
-def getUser(current_user):
+def getUser():
     token = request.headers.get('Authorization')
     data = decode(token, os.environ.get('SECRET_KEY'), algorithms=["HS256"])
     email = data['email']

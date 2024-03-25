@@ -2,10 +2,13 @@ import os
 import pytest
 from app import create_app, db
 from app.models.jobOffer_model import JobOffer
+from app.models.user_model import User
+from app.models.employers_model import Employers
+from app.models.enterprise_model import Enterprise
 from sqlalchemy import text
+from argon2 import PasswordHasher
 
-# Token for authentication
-TOKEN = os.environ.get('BEARER_TOKEN')
+hasher = PasswordHasher()
 
 @pytest.fixture(scope='module')
 def client(app):
@@ -31,8 +34,8 @@ def app():
             "offerLink": "www.google.com",
             "urgent": False,
             "active": True,
-            "employerId": 1,
-            "scheduleId": 1
+            "employerId": None,
+            "scheduleId": None
         }
         job_offer = JobOffer(**job_offer1_data)
         db.session.add(job_offer)
@@ -51,11 +54,14 @@ def app():
             "offerLink": "www.google.com",
             "urgent": False,
             "active": True,
-            "employerId": 1,
-            "scheduleId": 1
+            "employerId": None,
+            "scheduleId": None
         }
         job_offer2 = JobOffer(**job_offer2_data)
         db.session.add(job_offer2)
+        hashed_password = hasher.hash("test123")
+        user = User(id=1, email="test@gmail.com", password=hashed_password, active=True, isModerator=False)
+        db.session.add(user)
         db.session.commit()
         yield app
         db.session.remove()
@@ -81,8 +87,8 @@ def test_offreEmploi(client):
         "offerLink": "www.google.com",
         "urgent": False,
         "active": True,
-        "employerId": 1,
-        "scheduleId": 1
+        "employerId": None,
+        "scheduleId": None
     }
 
 def test_offresEmploi(client):
@@ -90,25 +96,43 @@ def test_offresEmploi(client):
     print(response)
     assert response.status_code == 200
     assert len(response.json) == 2
-    
-def test_createOffresEmploi(client):
+
+def test_userCreateOffresEmploi(client):
     data = {
-        "id": 7,
-        "title" : "Cuisinier mcdo 7",
-        "address" : "mcdo",
-        "description" : "Le seul mcdo de RDl",
-        "dateEntryOffice" : "2024-02-02",
-        "deadlineApply" : "2024-02-02",
-        "email" : "mcdo@gmail.com",
-        "hoursPerWeek" : 35,
-        "compliantEmployer" : True,
-        "internship" : True,
-        "offerStatus" : 1,
-        "offerLink" : "https://www.mcdonalds.com/ca/fr-ca.html",
-        "urgent" : True,
-        "active" : True,
-        "employerId" : 1,
-        "scheduleId" : 1
+            "jobOffer": 
+            {
+                "id": 2,
+                "title": "Développeur",
+                "address": "123 rue de la rue",
+                "description": "Développeur front-end",
+                "dateEntryOffice": "2021-12-12",
+                "deadlineApply": "2021-12-12",
+                "email": "test@gmail.com",
+                "hoursPerWeek": 40,
+                "compliantEmployer": True,
+                "internship": False,
+                "offerStatus": 1,
+                "offerLink": "www.google.com",
+                "urgent": False,
+                "active": True,
+                "employerId": 1,
+                "scheduleId": 1
+            },
+            "enterprise": 
+            {
+                "id": 1,
+                "name": "Google",
+                "email": "google@gmail.com",
+                "phone": "1234567890",
+                "address": "123 rue google",
+                "cityId": 1
+            }
+        }
+    data1 = {
+        "email": "test@gmail.com",
+        "password": "test123"
     }
-    response = client.post('/jobOffer/createJobOffer', json=data)
+    responseLogin = client.post('/user/login', json=data1)
+    token = responseLogin.json['token']
+    response = client.post('/jobOffer/createJobOffer', json=data, headers={'Authorization': token})
     assert response.status_code == 200
