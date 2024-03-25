@@ -74,11 +74,11 @@ def create_app():
     from app.controllers.city_controller import city_blueprint
     from app.controllers.ping_controller import ping_blueprint
     
+    app.register_blueprint(ping_blueprint)
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(job_offer_blueprint, url_prefix='/jobOffer')
     app.register_blueprint(city_blueprint, url_prefix='/city')
-    app.register_blueprint(ping_blueprint, url_prefix='/log')
-    app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+    app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL_PREFIX)
     
 
     return app
