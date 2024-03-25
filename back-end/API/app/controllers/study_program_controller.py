@@ -48,5 +48,5 @@ def studyProgramId():
 @study_program_blueprint.route('/addStudyProgram', methods=['POST'])
 def addStudyProgram():
     data = request.get_json()
-    studyProgram = study_program_service.addStudyProgram(data)
+    studyProgram = study_program_service.addStudyProgram(data["name"])
     return jsonify({'message': 'Study program added successfully'})
