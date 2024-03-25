@@ -32,8 +32,8 @@ def create_app():
     CORS(app)
 
     # Set CORS origins
-    CORS(app, origins=['http://10.172.80.144', 'http://localhost'])
-
+    CORS(app, origins=[os.environ.get('CORSLocal')])
+    
     try:
         if any("pytest" in arg for arg in sys.argv):
             app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_TEST_URL')
