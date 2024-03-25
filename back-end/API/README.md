@@ -8,56 +8,6 @@ Se mettre dans le répertoire /API
 pip install -r requirements.txt
 ```
 
-### Setting up the database (not required)
-Créer la base de données avec ce script:
-```sql
-CREATE DATABASE H2024;
-USE H2024;
-CREATE TABLE user (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) DEFAULT FALSE,
-    active BOOLEAN DEFAULT FALSE,
-    isModerator BOOLEAN DEFAULT FALSE
-);
-CREATE TABLE IF NOT EXISTS job_offer (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    dateEntryOffice DATETIME NOT NULL,
-    deadlineApply DATE NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    hoursPerWeek FLOAT NOT NULL,
-    compliantEmploymentStandards BOOLEAN NOT NULL,
-    internship BOOLEAN NOT NULL,
-    offerStatus INT NOT NULL,
-    offerLink VARCHAR(255) NOT NULL,
-    urgent BOOLEAN NOT NULL,
-    active BOOLEAN NOT NULL,
-    employerId INT NOT NULL,
-    scheduleId INT NOT NULL
-);
-CREATE TABLE Employers (
-    id SERIAL PRIMARY KEY,
-    verified BOOLEAN NOT NULL,
-    userId INTEGER,
-    entrepriseId INTEGER NOT NULL
-);
-CREATE TABLE Enterprise (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    cityId INTEGER NOT NULL,
-    isTemporary BOOLEAN NOT NULL
-);
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL PRIVILEGES ON H2024.* TO 'admin'@'localhost';
-FLUSH PRIVILEGES;
-```
-
 ### Setting up the environment variables
 Créer un .env dans le répertoire /API avec les variables suivantes:
 ```env
