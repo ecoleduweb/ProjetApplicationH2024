@@ -56,6 +56,7 @@ def createJobOffer():
             studyProgramId = study_program_service.studyProgramId(studyProgram)
             offerProgram = offer_program_service.linkOfferProgram(studyProgramId, jobOffer.id)
         return jsonify({'message': 'Job offer created successfully'}) 
+
     else:
         employer = Employers.query.filter_by(userId=user.id).first()
         if employer is None:

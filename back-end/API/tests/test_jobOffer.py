@@ -3,6 +3,7 @@ from app import create_app, db
 from app.models.jobOffer_model import JobOffer
 from app.models.user_model import User
 from app.models.study_program_model import StudyProgram
+
 from argon2 import PasswordHasher
 
 hasher = PasswordHasher()
