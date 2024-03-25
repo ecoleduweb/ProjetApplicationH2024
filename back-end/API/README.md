@@ -60,10 +60,11 @@ flask db migrate -m "Nom_de_la_migration"(cree une nouvelle migration)
 flask db upgrade (pour update les changements)
 flask db downgrade (pour revenir en arriere)
 flask db history (voir toutes les migration)
+flask db branches (Afficher les points de branchement actuels)
 ```
 ### Starting the server
 ```bash
-flask db branches (Afficher les points de branchement actuels)
+flask db upgrade (pour update les changements)
 flask run
 ```
 
