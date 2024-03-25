@@ -16,9 +16,10 @@ class UserService:
             return jsonify({'message': 'user not found'}), 401
         try:
             isvalid = hasher.verify(user.password, password)
-            token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get('SECRET_KEY'))
+            token = encode({'email': user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get('SECRET_KEY'), algorithm="HS256")
             return jsonify({'token' : token})
         except Exception as e:
+            print(e)
             return jsonify({'message': "could not verify"}), 401
 
     

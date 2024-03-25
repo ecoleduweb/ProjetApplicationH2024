@@ -61,6 +61,7 @@
     scheduleId: 0,
     idProgramme : [],
     };
+
     let programmeSelected: { label: string; value: number }[] = [];
     let programmeFromSelectedOffer: [] = []; // valeur de l'offre actuel (lorsque l'on editera une offre existante)
     let programmesOption = [
@@ -106,7 +107,7 @@
         idProgramme : [],
       };
       console.log(offre);
-      const response = POST("/jobOffer/createJobOffer", offre); // verifier le path...
+      const response = await POST<jobOffer, any>("jobOffer/createJobOffer", offre);
       console.log(response);
     } catch (err) {
       console.log(err);
