@@ -6,9 +6,9 @@ from app.models.user_model import User
 from app.models.employers_model import Employers
 from app.models.enterprise_model import Enterprise
 from sqlalchemy import text
+from argon2 import PasswordHasher
 
-# Token for authentication
-TOKEN = os.environ.get('BEARER_TOKEN')
+hasher = PasswordHasher()
 
 @pytest.fixture(scope='module')
 def client(app):
@@ -59,14 +59,9 @@ def app():
         }
         job_offer2 = JobOffer(**job_offer2_data)
         db.session.add(job_offer2)
-        user1 = {
-            "id": 1,
-            "email": "philsaucier@gmail.com",
-            "password": "phil123",
-            "isModerator": False
-        }
-        admin = User(**user1)
-        db.session.add(admin)
+        hashed_password = hasher.hash("test123")
+        user = User(id=1, email="test@gmail.com", password=hashed_password, active=True, isModerator=False)
+        db.session.add(user)
         db.session.commit()
         yield app
         db.session.remove()
@@ -133,5 +128,11 @@ def test_userCreateOffresEmploi(client):
                 "cityId": 1
             }
         }
-    response = client.post('/jobOffer/createJobOffer', json=data, headers={'Authorization': os.environ.get('BEARER_TOKEN')})
+    data1 = {
+        "email": "test@gmail.com",
+        "password": "test123"
+    }
+    responseLogin = client.post('/user/login', json=data1)
+    token = responseLogin.json['token']
+    response = client.post('/jobOffer/createJobOffer', json=data, headers={'Authorization': token})
     assert response.status_code == 200
